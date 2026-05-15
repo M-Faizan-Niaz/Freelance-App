@@ -1,0 +1,291 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e6]:
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "Admin Panel" [ref=e10] [cursor=pointer]:
+            - /url: /
+            - img [ref=e11]
+            - generic [ref=e13]: Admin Panel
+      - generic [ref=e14]:
+        - list [ref=e17]:
+          - listitem [ref=e18]:
+            - button "Quick Create" [ref=e19]:
+              - img [ref=e20]
+              - generic [ref=e22]: Quick Create
+            - button "Inbox" [ref=e23]:
+              - img
+              - generic [ref=e24]: Inbox
+        - generic [ref=e25]:
+          - generic [ref=e26]: Main
+          - list [ref=e28]:
+            - listitem [ref=e29]:
+              - link "Dashboard" [ref=e30] [cursor=pointer]:
+                - /url: /
+                - img [ref=e31]
+                - generic [ref=e36]: Dashboard
+            - listitem [ref=e37]:
+              - link "Todos" [ref=e38] [cursor=pointer]:
+                - /url: /todos
+                - img [ref=e39]
+                - generic [ref=e42]: Todos
+            - listitem [ref=e43]:
+              - link "Data Table" [ref=e44] [cursor=pointer]:
+                - /url: /data-table
+                - img [ref=e45]
+                - generic [ref=e47]: Data Table
+            - listitem [ref=e48]:
+              - button "Colors" [expanded] [ref=e49]:
+                - img [ref=e50]
+                - generic [ref=e56]: Colors
+                - img [ref=e57]
+              - list [ref=e60]:
+                - listitem [ref=e61]:
+                  - link "Create Color" [ref=e62] [cursor=pointer]:
+                    - /url: /colors/create
+                    - img [ref=e63]
+                    - generic [ref=e64]: Create Color
+                - listitem [ref=e65]:
+                  - link "Edit Color" [ref=e66] [cursor=pointer]:
+                    - /url: /data-table
+                    - img [ref=e67]
+                    - generic [ref=e70]: Edit Color
+        - generic [ref=e71]:
+          - generic [ref=e72]: Account
+          - list [ref=e74]:
+            - listitem [ref=e75]:
+              - link "Change Password" [ref=e76] [cursor=pointer]:
+                - /url: /change-password
+                - img [ref=e77]
+                - generic [ref=e80]: Change Password
+            - listitem [ref=e81]:
+              - link "Change Email" [ref=e82] [cursor=pointer]:
+                - /url: /change-email
+                - img [ref=e83]
+                - generic [ref=e86]: Change Email
+      - list [ref=e88]:
+        - listitem [ref=e89]:
+          - button "AU Admin User admin@example.com" [ref=e90]:
+            - generic [ref=e92]: AU
+            - generic [ref=e93]:
+              - generic [ref=e94]: Admin User
+              - generic [ref=e95]: admin@example.com
+            - img [ref=e96]
+    - main [ref=e100]:
+      - generic [ref=e102]:
+        - generic [ref=e103]:
+          - button "Toggle Sidebar" [ref=e104]:
+            - img
+            - generic [ref=e105]: Toggle Sidebar
+          - button "Open search" [ref=e106]:
+            - img
+            - text: Search
+            - generic [ref=e107]:
+              - generic [ref=e108]: ⌘
+              - text: J
+          - generic [ref=e109]:
+            - heading "Command Palette" [level=2] [ref=e110]
+            - paragraph [ref=e111]: Search for a command to run...
+        - generic [ref=e112]:
+          - button [ref=e113]:
+            - img
+          - 'button "Current theme: light. Click to cycle themes" [ref=e114]':
+            - img
+          - link "GitHub" [ref=e115] [cursor=pointer]:
+            - /url: https://github.com
+            - img "GitHub"
+          - generic [ref=e117]: AU
+      - generic [ref=e205]:
+        - generic [ref=e206]:
+          - paragraph [ref=e207]: Components
+          - heading "Data Table" [level=1] [ref=e208]
+          - paragraph [ref=e209]: TanStack Table v8 — server-side pagination, sorting & filtering via the Colors API.
+        - generic [ref=e210]:
+          - generic [ref=e211]:
+            - img
+            - textbox "Search name or description…" [ref=e212]
+          - generic [ref=e213]:
+            - button "Columns" [ref=e214]:
+              - img
+              - text: Columns
+            - button "Export CSV" [ref=e215]:
+              - img
+              - text: Export CSV
+        - table [ref=e219]:
+          - rowgroup [ref=e220]:
+            - row "Select all Name ID Description Created Actions" [ref=e221]:
+              - columnheader "Select all" [ref=e222]:
+                - checkbox "Select all" [ref=e223]
+              - columnheader "Name" [ref=e224]:
+                - button "Name" [ref=e225]:
+                  - text: Name
+                  - img [ref=e226]
+              - columnheader "ID" [ref=e230]: ID
+              - columnheader "Description" [ref=e232]:
+                - button "Description" [ref=e233]:
+                  - text: Description
+                  - img [ref=e234]
+              - columnheader "Created" [ref=e238]:
+                - button "Created" [ref=e239]:
+                  - text: Created
+                  - img [ref=e240]
+              - columnheader "Actions" [ref=e244]
+            - row [ref=e245]:
+              - columnheader [ref=e246]
+              - columnheader [ref=e247]:
+                - textbox "Filter…" [ref=e248]
+              - columnheader [ref=e249]
+              - columnheader [ref=e250]:
+                - textbox "Filter…" [ref=e251]
+              - columnheader [ref=e252]
+              - columnheader [ref=e253]
+          - rowgroup [ref=e254]:
+            - row "Select row TestColor1778768783596 18 Description 1778768783596 May 14, 2026" [ref=e255]:
+              - cell "Select row" [ref=e256]:
+                - checkbox "Select row" [ref=e257]
+              - cell "TestColor1778768783596" [ref=e258]
+              - cell "18" [ref=e259]
+              - cell "Description 1778768783596" [ref=e260]
+              - cell "May 14, 2026" [ref=e261]
+              - cell [ref=e262]:
+                - generic [ref=e263]:
+                  - button "View details" [ref=e264]:
+                    - img
+                  - button "Edit" [ref=e265]:
+                    - img
+                  - button "Delete" [ref=e266]:
+                    - img
+            - row "Select row tomato 13 tamatar bade mazedar May 12, 2026" [ref=e267]:
+              - cell "Select row" [ref=e268]:
+                - checkbox "Select row" [ref=e269]
+              - cell "tomato" [ref=e270]
+              - cell "13" [ref=e271]
+              - cell "tamatar bade mazedar" [ref=e272]
+              - cell "May 12, 2026" [ref=e273]
+              - cell [ref=e274]:
+                - generic [ref=e275]:
+                  - button "View details" [ref=e276]:
+                    - img
+                  - button "Edit" [ref=e277]:
+                    - img
+                  - button "Delete" [ref=e278]:
+                    - img
+            - row "Select row GOLD 12 the quick browm fox May 12, 2026" [ref=e279]:
+              - cell "Select row" [ref=e280]:
+                - checkbox "Select row" [ref=e281]
+              - cell "GOLD" [ref=e282]
+              - cell "12" [ref=e283]
+              - cell "the quick browm fox" [ref=e284]
+              - cell "May 12, 2026" [ref=e285]
+              - cell [ref=e286]:
+                - generic [ref=e287]:
+                  - button "View details" [ref=e288]:
+                    - img
+                  - button "Edit" [ref=e289]:
+                    - img
+                  - button "Delete" [ref=e290]:
+                    - img
+            - row "Select row roopa 11 ufis Apr 17, 2026" [ref=e291]:
+              - cell "Select row" [ref=e292]:
+                - checkbox "Select row" [ref=e293]
+              - cell "roopa" [ref=e294]
+              - cell "11" [ref=e295]
+              - cell "ufis" [ref=e296]
+              - cell "Apr 17, 2026" [ref=e297]
+              - cell [ref=e298]:
+                - generic [ref=e299]:
+                  - button "View details" [ref=e300]:
+                    - img
+                  - button "Edit" [ref=e301]:
+                    - img
+                  - button "Delete" [ref=e302]:
+                    - img
+            - row "Select row black 5 Ut vel urna viverra diam gravida condimentum non at enim. Apr 6, 2026" [ref=e303]:
+              - cell "Select row" [ref=e304]:
+                - checkbox "Select row" [ref=e305]
+              - cell "black" [ref=e306]
+              - cell "5" [ref=e307]
+              - cell "Ut vel urna viverra diam gravida condimentum non at enim." [ref=e308]
+              - cell "Apr 6, 2026" [ref=e309]
+              - cell [ref=e310]:
+                - generic [ref=e311]:
+                  - button "View details" [ref=e312]:
+                    - img
+                  - button "Edit" [ref=e313]:
+                    - img
+                  - button "Delete" [ref=e314]:
+                    - img
+            - row "Select row blue 3 Donec eu ligula mauris. Dec 13, 2024" [ref=e315]:
+              - cell "Select row" [ref=e316]:
+                - checkbox "Select row" [ref=e317]
+              - cell "blue" [ref=e318]
+              - cell "3" [ref=e319]
+              - cell "Donec eu ligula mauris." [ref=e320]
+              - cell "Dec 13, 2024" [ref=e321]
+              - cell [ref=e322]:
+                - generic [ref=e323]:
+                  - button "View details" [ref=e324]:
+                    - img
+                  - button "Edit" [ref=e325]:
+                    - img
+                  - button "Delete" [ref=e326]:
+                    - img
+            - row "Select row brown 2 Donec in interdum diam. May 4, 2024" [ref=e327]:
+              - cell "Select row" [ref=e328]:
+                - checkbox "Select row" [ref=e329]
+              - cell "brown" [ref=e330]
+              - cell "2" [ref=e331]
+              - cell "Donec in interdum diam." [ref=e332]
+              - cell "May 4, 2024" [ref=e333]
+              - cell [ref=e334]:
+                - generic [ref=e335]:
+                  - button "View details" [ref=e336]:
+                    - img
+                  - button "Edit" [ref=e337]:
+                    - img
+                  - button "Delete" [ref=e338]:
+                    - img
+            - row "Select row orange 8 Ut placerat consectetur sapien ut rhoncus. Mar 10, 2023" [ref=e339]:
+              - cell "Select row" [ref=e340]:
+                - checkbox "Select row" [ref=e341]
+              - cell "orange" [ref=e342]
+              - cell "8" [ref=e343]
+              - cell "Ut placerat consectetur sapien ut rhoncus." [ref=e344]
+              - cell "Mar 10, 2023" [ref=e345]
+              - cell [ref=e346]:
+                - generic [ref=e347]:
+                  - button "View details" [ref=e348]:
+                    - img
+                  - button "Edit" [ref=e349]:
+                    - img
+                  - button "Delete" [ref=e350]:
+                    - img
+        - generic [ref=e351]:
+          - paragraph [ref=e352]: 1–8 of 8 rows
+          - generic [ref=e353]:
+            - generic [ref=e354]:
+              - generic [ref=e355]: Rows per page
+              - spinbutton [ref=e356]: "10"
+            - generic [ref=e357]:
+              - button "First page" [disabled]:
+                - img
+              - button "Previous page" [disabled]:
+                - img
+              - generic [ref=e358]: 1 / 1
+              - button "Next page" [disabled]:
+                - img
+              - button "Last page" [disabled]:
+                - img
+  - generic:
+    - contentinfo:
+      - button "Open TanStack Router Devtools" [ref=e131] [cursor=pointer]:
+        - generic [ref=e132]:
+          - img [ref=e134]
+          - img [ref=e169]
+        - generic [ref=e203]: "-"
+        - generic [ref=e204]: TanStack Router
+  - region "Notifications alt+T":
+    - list:
+      - listitem [ref=e359]:
+        - img [ref=e361]
+        - generic [ref=e364]: Color created successfully

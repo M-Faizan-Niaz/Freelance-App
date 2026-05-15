@@ -1,0 +1,601 @@
+Project service_marketplace {
+  database_type: 'PostgreSQL'
+  Note: '''
+  # SERVICE MARKETPLACE APP — Database Schema
+  Pakistan-based on-demand services platform (Careem/Uber-for-services model).
+  Auth tables (users, sessions, accounts, verifications, twoFactors) are owned and
+  managed by Better Auth — do NOT redefine them in Drizzle. All other tables are
+  managed via Drizzle ORM migrations.
+  '''
+}
+
+// ============================================================
+// BETTER AUTH OWNED TABLES
+// Documented here for reference only. Do NOT manage in Drizzle.
+// ============================================================
+
+Table users {
+  id text [primary key, note: 'UUID managed by Better Auth']
+  name varchar(255) [not null]
+  email varchar(255) [unique, not null]
+  email_verified boolean [not null, default: false]
+  image varchar(255)
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [not null, default: 'NOW()']
+
+  note: 'Owned by Better Auth. Do not redefine in Drizzle schema.'
+}
+
+Table sessions {
+  id text [primary key]
+  expires_at timestamp [not null]
+  token varchar(255) [unique, not null]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [not null, default: 'NOW()']
+  ip_address varchar(255)
+  user_agent text
+  user_id text [ref: > users.id, not null]
+
+  note: 'Owned by Better Auth.'
+}
+
+Table accounts {
+  id text [primary key]
+  account_id text [not null]
+  provider_id text [not null]
+  user_id text [ref: > users.id, not null]
+  access_token text
+  refresh_token text
+  id_token text
+  expires_at timestamp
+  password text
+
+  note: 'Owned by Better Auth.'
+}
+
+Table verifications {
+  id text [primary key]
+  identifier text [not null]
+  value text [not null]
+  expires_at timestamp [not null]
+  created_at timestamp [default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+
+  note: 'Owned by Better Auth.'
+}
+
+Table two_factors {
+  id text [primary key]
+  secret text [not null]
+  backup_codes text [not null]
+  user_id text [ref: > users.id, not null]
+
+  note: 'Owned by Better Auth.'
+}
+
+// ============================================================
+// LOOKUP / REFERENCE TABLES
+// Serial int PK. Seeded at startup. Admin-managed via settings API.
+// ============================================================
+
+Table tiers {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: Basic, Standard, Premium']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table roles {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: customer, service_provider, admin']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table service_categories {
+  id serial [primary key]
+  name varchar(100) [unique, not null]
+  description text
+  is_active boolean [not null, default: true]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table booking_statuses {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: pending, accepted, travelling, arrived, in_progress, completed, cancelled, disputed']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table customer_statuses {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: active, blocked, pending_verification']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table payment_methods {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: jazzcash, easypaisa, card, cash']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table payment_statuses {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: pending, held, completed, refunded, failed']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table action_types {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: suspend, ban, unsuspend, approve_provider, reject_provider, flag_fraud']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table dispute_statuses {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: open, under_review, resolved, closed']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table payout_statuses {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: requested, approved, processing, completed, failed']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table notification_types {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: booking_confirmed, provider_on_way, payment_received, review_reminder, promo, system']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+Table message_types {
+  id serial [primary key]
+  name varchar(50) [unique, not null, note: 'Values: text, image, quick_reply']
+  description text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+}
+
+// ============================================================
+// CORE ENTITY TABLES
+// ============================================================
+
+Table user_profiles {
+  id serial [primary key]
+  user_id text [ref: > users.id, unique, not null]
+  role_id int [ref: > roles.id, not null]
+  full_name varchar(100) [not null]
+  phone_number varchar(20)
+  phone_verified boolean [not null, default: false]
+  profile_photo_url varchar(255)
+  is_active boolean [not null, default: true]
+  created_by text [ref: > users.id]
+  updated_by text [ref: > users.id]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+
+  indexes {
+    user_id [unique]
+    role_id
+    is_active
+  }
+}
+
+Table service_providers {
+  id serial [primary key]
+  user_id text [ref: > users.id, unique, not null]
+  cnic_number varchar(20) [unique, not null]
+  is_cnic_verified boolean [not null, default: false]
+  hourly_rate decimal(10, 2) [not null]
+  tier_id int [ref: > tiers.id, not null]
+  is_online boolean [not null, default: false]
+  total_jobs_completed int [not null, default: 0]
+  average_rating decimal(3, 2) [default: 0.00]
+  bio text
+  coverage_radius_km decimal(6, 2)
+  city varchar(100)
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+
+  indexes {
+    user_id [unique]
+    tier_id
+    is_online
+    average_rating
+    total_jobs_completed
+    city
+  }
+}
+
+Table customers {
+  id serial [primary key]
+  user_id text [ref: > users.id, unique, not null]
+  customer_status_id int [ref: > customer_statuses.id, not null]
+  total_bookings int [not null, default: 0]
+  total_spent decimal(12, 2) [not null, default: 0.00]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+
+  indexes {
+    user_id [unique]
+    customer_status_id
+  }
+}
+
+Table provider_documents {
+  id serial [primary key]
+  provider_id int [ref: > service_providers.id, not null]
+  document_type varchar(50) [not null, note: 'Enum: cnic_front, cnic_back, police_cert, trade_license']
+  document_url varchar(255) [not null]
+  is_verified boolean [not null, default: false]
+  verified_by text [ref: > users.id]
+  verified_at timestamp
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+
+  indexes {
+    provider_id
+    document_type
+    is_verified
+  }
+}
+
+Table provider_services {
+  id serial [primary key]
+  provider_id int [ref: > service_providers.id, not null]
+  category_id int [ref: > service_categories.id, not null]
+  description text
+  experience_years int [not null, default: 0]
+  price_type varchar(20) [not null, note: 'Enum: hourly, fixed']
+  price decimal(10, 2) [not null]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+
+  indexes {
+    provider_id
+    category_id
+    (provider_id, category_id)
+  }
+}
+
+Table availability_slots {
+  id serial [primary key]
+  provider_id int [ref: > service_providers.id, not null]
+  day_of_week int [not null, note: 'Check: 0 (Sunday) – 6 (Saturday)']
+  start_time time [not null]
+  end_time time [not null]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+
+  indexes {
+    provider_id
+    day_of_week
+    (provider_id, day_of_week)
+  }
+}
+
+Table portfolio_images {
+  id serial [primary key]
+  provider_id int [ref: > service_providers.id, not null]
+  image_url varchar(255) [not null]
+  caption text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+
+  indexes {
+    provider_id
+  }
+}
+
+Table saved_addresses {
+  id serial [primary key]
+  customer_id int [ref: > customers.id, not null]
+  label varchar(100) [not null, note: 'e.g. Home, Office, Parents']
+  address_text text [not null]
+  latitude decimal(10, 7) [not null]
+  longitude decimal(10, 7) [not null]
+  is_default boolean [not null, default: false]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+
+  indexes {
+    customer_id
+    is_default
+  }
+}
+
+Table bookings {
+  id serial [primary key]
+  customer_id int [ref: > customers.id, not null]
+  provider_id int [ref: > service_providers.id, not null]
+  category_id int [ref: > service_categories.id, not null]
+  scheduled_at timestamp [not null]
+  completed_at timestamp
+  customer_latitude decimal(10, 7) [not null]
+  customer_longitude decimal(10, 7) [not null]
+  customer_address text [not null]
+  description text
+  estimated_price decimal(10, 2) [not null]
+  final_price decimal(10, 2)
+  commission_rate decimal(5, 2) [not null]
+  commission_amount decimal(10, 2) [not null]
+  status_id int [ref: > booking_statuses.id, not null]
+  cancelled_by text [ref: > users.id]
+  cancellation_reason text
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  is_deleted boolean [not null, default: false]
+  deleted_at timestamp
+
+  note: 'total_price is derived: final_price (or estimated_price) + commission_amount — do not store.'
+
+  indexes {
+    customer_id
+    provider_id
+    category_id
+    status_id
+    scheduled_at
+    completed_at
+  }
+}
+
+Table payments {
+  id serial [primary key]
+  booking_id int [ref: > bookings.id, not null]
+  amount decimal(10, 2) [not null]
+  commission_amount decimal(10, 2) [not null]
+  provider_payout decimal(10, 2) [not null]
+  payment_method_id int [ref: > payment_methods.id, not null]
+  payment_status_id int [ref: > payment_statuses.id, not null]
+  transaction_id varchar(255) [unique, not null]
+  gateway_reference varchar(255)
+  paid_at timestamp
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+
+  indexes {
+    booking_id
+    payment_status_id
+    transaction_id [unique]
+  }
+}
+
+Table payout_requests {
+  id serial [primary key]
+  provider_id int [ref: > service_providers.id, not null]
+  amount decimal(10, 2) [not null]
+  payout_status_id int [ref: > payout_statuses.id, not null]
+  requested_at timestamp [not null, default: 'NOW()']
+  processed_at timestamp
+  processed_by text [ref: > users.id]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+
+  indexes {
+    provider_id
+    payout_status_id
+  }
+}
+
+Table reviews {
+  id serial [primary key]
+  booking_id int [ref: > bookings.id, unique, not null, note: 'One review per booking']
+  reviewer_id text [ref: > users.id, not null]
+  reviewee_id text [ref: > users.id, not null]
+  rating int [not null, note: 'Check: rating >= 1 AND rating <= 5']
+  comment text
+  is_deleted boolean [not null, default: false]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  deleted_at timestamp
+
+  indexes {
+    booking_id [unique]
+    reviewer_id
+    reviewee_id
+    rating
+  }
+}
+
+Table commission_settings {
+  id serial [primary key]
+  tier_id int [ref: > tiers.id, unique, not null]
+  commission_rate decimal(5, 2) [not null, note: 'Percentage e.g. 15.00 = 15%']
+  effective_from timestamp [not null]
+  created_by text [ref: > users.id]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+
+  indexes {
+    tier_id [unique]
+  }
+}
+
+Table conversations {
+  id serial [primary key]
+  customer_id int [ref: > customers.id, not null]
+  provider_id int [ref: > service_providers.id, not null]
+  booking_id int [ref: > bookings.id]
+  last_message_at timestamp
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+
+  indexes {
+    customer_id
+    provider_id
+    booking_id
+    last_message_at
+  }
+}
+
+Table messages {
+  id serial [primary key]
+  conversation_id int [ref: > conversations.id, not null]
+  sender_id text [ref: > users.id, not null]
+  content text [not null]
+  message_type_id int [ref: > message_types.id, not null]
+  is_read boolean [not null, default: false]
+  read_at timestamp
+  is_deleted boolean [not null, default: false]
+  created_at timestamp [not null, default: 'NOW()']
+  updated_at timestamp [default: 'NOW()']
+  deleted_at timestamp
+
+  indexes {
+    conversation_id
+    sender_id
+    is_read
+  }
+}
+
+Table notifications {
+  id serial [primary key]
+  user_id text [ref: > users.id, not null]
+  notification_type_id int [ref: > notification_types.id, not null]
+  title varchar(255) [not null]
+  body text [not null]
+  data json
+  is_read boolean [not null, default: false]
+  read_at timestamp
+  created_at timestamp [not null, default: 'NOW()']
+
+  indexes {
+    user_id
+    is_read
+    notification_type_id
+    created_at
+  }
+}
+
+Table disputes {
+  id serial [primary key]
+  booking_id int [ref: > bookings.id, not null]
+  raised_by text [ref: > users.id, not null]
+  reason text [not null]
+  dispute_status_id int [ref: > dispute_statuses.id, not null]
+  resolved_by text [ref: > users.id]
+  resolution_note text
+  created_at timestamp [not null, default: 'NOW()']
+  resolved_at timestamp
+
+  indexes {
+    booking_id
+    raised_by
+    dispute_status_id
+  }
+}
+
+Table fraud_flags {
+  id serial [primary key]
+  user_id text [ref: > users.id, not null]
+  reason text [not null]
+  risk_score int [note: 'Check: 0–100']
+  flagged_by_system boolean [not null, default: false]
+  flagged_by_admin text [ref: > users.id]
+  is_resolved boolean [not null, default: false]
+  resolved_at timestamp
+  created_at timestamp [not null, default: 'NOW()']
+
+  indexes {
+    user_id
+    is_resolved
+    risk_score
+  }
+}
+
+Table admin_actions {
+  id serial [primary key]
+  admin_id text [ref: > users.id, not null]
+  action_type_id int [ref: > action_types.id, not null]
+  target_user_id text [ref: > users.id, not null]
+  reason text
+  metadata json
+  created_at timestamp [not null, default: 'NOW()']
+
+  indexes {
+    admin_id
+    target_user_id
+    action_type_id
+    created_at
+  }
+}
+
+// ============================================================
+// GEO REFERENCE TABLES
+// ============================================================
+
+Table countries {
+  id serial [primary key]
+  name varchar(100) [unique, not null]
+  code varchar(10) [unique, not null, note: 'ISO 3166-1 alpha-2/3']
+}
+
+Table cities {
+  id serial [primary key]
+  country_id int [ref: > countries.id, not null]
+  name varchar(100) [not null]
+  latitude decimal(10, 7)
+  longitude decimal(10, 7)
+
+  indexes {
+    country_id
+    (country_id, name)
+  }
+}

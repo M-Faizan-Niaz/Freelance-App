@@ -1,0 +1,25 @@
+{
+  "cookies": [
+    {
+      "name": "__Secure-better-auth.session_token",
+      "value": "VZWkR6uF8Oi1Scmn2oPMGFwaMTKnLEfG.1Qhc%2FRULETUqzGnGxIMjD8uIUnc%2F9g9b4WjGIP2vdIE%3D",
+      "domain": "api.viteplusmono.test",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__Secure-better-auth.dont_remember",
+      "value": "true.KCoSIP66xCCLuRmfWPBOn37nrnaL%2FX0LX1UVuWn%2Fjcg%3D",
+      "domain": "api.viteplusmono.test",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@repo/auth-client",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "peerDependencies": {
+    "better-auth": ">=1.6.0"
+  }
+}

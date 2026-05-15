@@ -1,0 +1,6 @@
+{
+  "permissions": {
+    "allow": ["Bash(npx *)", "Bash(vp *)", "Bash(pnpm exec *)", "Bash(findstr *)", "Bash(curl *)"]
+  },
+  "$version": 3
+}

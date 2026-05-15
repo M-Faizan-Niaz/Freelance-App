@@ -1,0 +1,125 @@
+- generic [ref=e2]:
+  - generic [ref=e116]:
+    - generic [ref=e119]:
+      - list [ref=e121]:
+        - listitem [ref=e122]:
+          - link "Admin Panel" [ref=e123] [cursor=pointer]:
+            - /url: /
+            - img [ref=e124]
+            - generic [ref=e126]: Admin Panel
+      - generic [ref=e127]:
+        - list [ref=e130]:
+          - listitem [ref=e131]:
+            - button "Quick Create" [ref=e132]:
+              - img [ref=e133]
+              - generic [ref=e135]: Quick Create
+            - button "Inbox" [ref=e136]:
+              - img
+              - generic [ref=e137]: Inbox
+        - generic [ref=e138]:
+          - generic [ref=e139]: Main
+          - list [ref=e141]:
+            - listitem [ref=e142]:
+              - link "Dashboard" [ref=e143] [cursor=pointer]:
+                - /url: /
+                - img [ref=e144]
+                - generic [ref=e149]: Dashboard
+            - listitem [ref=e150]:
+              - link "Todos" [ref=e151] [cursor=pointer]:
+                - /url: /todos
+                - img [ref=e152]
+                - generic [ref=e155]: Todos
+            - listitem [ref=e156]:
+              - link "Data Table" [ref=e157] [cursor=pointer]:
+                - /url: /data-table
+                - img [ref=e158]
+                - generic [ref=e160]: Data Table
+            - listitem [ref=e161]:
+              - button "Colors" [expanded] [ref=e162]:
+                - img [ref=e163]
+                - generic [ref=e169]: Colors
+                - img [ref=e170]
+              - list [ref=e173]:
+                - listitem [ref=e174]:
+                  - link "Create Color" [ref=e175] [cursor=pointer]:
+                    - /url: /colors/create
+                    - img [ref=e176]
+                    - generic [ref=e177]: Create Color
+                - listitem [ref=e178]:
+                  - link "Edit Color" [ref=e179] [cursor=pointer]:
+                    - /url: /data-table
+                    - img [ref=e180]
+                    - generic [ref=e183]: Edit Color
+        - generic [ref=e184]:
+          - generic [ref=e185]: Account
+          - list [ref=e187]:
+            - listitem [ref=e188]:
+              - link "Change Password" [ref=e189] [cursor=pointer]:
+                - /url: /change-password
+                - img [ref=e190]
+                - generic [ref=e193]: Change Password
+            - listitem [ref=e194]:
+              - link "Change Email" [ref=e195] [cursor=pointer]:
+                - /url: /change-email
+                - img [ref=e196]
+                - generic [ref=e199]: Change Email
+      - list [ref=e201]:
+        - listitem [ref=e202]:
+          - button "AU Admin User admin@example.com" [ref=e203]:
+            - generic [ref=e205]: AU
+            - generic [ref=e206]:
+              - generic [ref=e207]: Admin User
+              - generic [ref=e208]: admin@example.com
+            - img [ref=e209]
+    - main [ref=e213]:
+      - generic [ref=e215]:
+        - generic [ref=e216]:
+          - button "Toggle Sidebar" [ref=e217]:
+            - img
+            - generic [ref=e218]: Toggle Sidebar
+          - button "Open search" [ref=e219]:
+            - img
+            - text: Search
+            - generic [ref=e220]:
+              - generic [ref=e221]: ⌘
+              - text: J
+          - generic [ref=e222]:
+            - heading "Command Palette" [level=2] [ref=e223]
+            - paragraph [ref=e224]: Search for a command to run...
+        - generic [ref=e225]:
+          - button [ref=e226]:
+            - img
+          - 'button "Current theme: light. Click to cycle themes" [ref=e227]':
+            - img
+          - link "GitHub" [ref=e228] [cursor=pointer]:
+            - /url: https://github.com
+            - img "GitHub"
+          - generic [ref=e230]: AU
+      - generic [ref=e232]:
+        - button "← Back" [ref=e233]
+        - heading "Create Color" [level=1] [ref=e234]
+        - generic [ref=e236]:
+          - generic [ref=e237]:
+            - generic [ref=e238]: Name
+            - textbox "Name" [ref=e239]:
+              - /placeholder: Enter color name
+              - text: TestColor-1778768783596
+          - generic [ref=e240]:
+            - generic [ref=e241]: Description
+            - textbox "Description" [ref=e242]:
+              - /placeholder: Enter color description
+              - text: Description 1778768783596
+          - button "Create Color" [ref=e243]
+  - generic:
+    - contentinfo:
+      - button "Open TanStack Router Devtools" [ref=e42] [cursor=pointer]:
+        - generic [ref=e43]:
+          - img [ref=e45]
+          - img [ref=e80]
+        - generic [ref=e114]: "-"
+        - generic [ref=e115]: TanStack Router
+  - region "Notifications alt+T":
+    - list:
+      - listitem [ref=e244]:
+        - img [ref=e246]
+        - generic [ref=e249]: "API 422:"

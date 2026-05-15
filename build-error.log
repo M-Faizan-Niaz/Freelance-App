@@ -1,0 +1,25 @@
+
+> vite-plus-monorepo@ build /home/faizan/Documents/vite-plus-monorepo
+> pnpm run build:api && pnpm run build:web && pnpm run build:admin
+
+
+> vite-plus-monorepo@ build:api /home/faizan/Documents/vite-plus-monorepo
+> pnpm --filter api build
+
+
+> api@0.1.0 build /home/faizan/Documents/vite-plus-monorepo/packages/api
+> tsup src/index.ts --format esm --dts
+
+CLI Building entry: src/index.ts
+CLI Using tsconfig: tsconfig.json
+CLI tsup v8.5.1
+CLI Target: esnext
+ESM Build start
+ESM dist/index.js 61.26 KB
+ESM ⚡️ Build success in 27ms
+DTS Build start
+/home/faizan/Documents/vite-plus-monorepo/packages/api:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  api@0.1.0 build: `tsup src/index.ts --format esm --dts`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.
+ ELIFECYCLE  Command failed with exit code 1.

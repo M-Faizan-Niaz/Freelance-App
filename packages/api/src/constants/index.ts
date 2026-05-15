@@ -1,0 +1,90 @@
+// Validation Constants
+export { constraintAndMessages } from './validations.constants';
+
+export const EMAIL_VERIFICATION_TOKEN_EXPIRATION_HOURS = 24;
+
+// Response Constants
+export const STANDARD_MESSAGES = {
+  SUCCESS: {
+    CREATED: 'Resource created successfully',
+    UPDATED: 'Resource updated successfully',
+    DELETED: 'Resource deleted successfully',
+    FETCHED: 'Resource fetched successfully',
+    LISTED: 'Resources listed successfully',
+  },
+  ERROR: {
+    NOT_FOUND: 'Resource not found',
+    UNAUTHORIZED: 'Unauthorized access',
+    FORBIDDEN: 'Forbidden access',
+    BAD_REQUEST: 'Bad request',
+    UNPROCESSABLE_ENTITY: 'Unprocessable entity',
+    INTERNAL_SERVER_ERROR: 'Internal server error',
+    VALIDATION_ERROR: 'Validation error',
+    CONFLICT: 'Resource already exists',
+    TOO_MANY_REQUESTS: 'Too many requests',
+  },
+  AUTH: {
+    LOGIN_SUCCESS: 'Login successful',
+    LOGIN_FAILED: 'Login failed',
+    LOGOUT_SUCCESS: 'Logout successful',
+    TOKEN_REFRESHED: 'Token refreshed successfully',
+    PASSWORD_RESET_REQUEST: 'Password reset token sent successfully',
+    PASSWORD_RESET_LINK_SENT: 'Password reset link sent to your email',
+    OTP_VERIFIED: 'OTP verified successfully',
+    PASSWORD_RESET_SUCCESS: 'Password has been reset successfully',
+    PASSWORD_UPDATE_SUCCESS: 'Password updated successfully',
+    CUSTOMER_CREATED: 'Customer created successfully',
+    USER_REGISTERED_SUCCESSFULLY: 'User registered successfully',
+    PROFILE_COMPLETION_SUCCESS: 'Profile completed successfully',
+    FETCHED: 'User retrieved successfully',
+    EMAIL_UPDATE_SUCCESS: 'Email updated successfully',
+  },
+  USER: {
+    CREATED: 'User created successfully',
+    UPDATED: 'User updated successfully',
+    DELETED: 'User deleted successfully',
+    FETCHED: 'User retrieved successfully',
+    LISTED: 'Users listed successfully',
+    NOT_FOUND: 'User not found',
+  },
+  EMPLOYEE: {
+    CREATED: 'Employee created successfully',
+    UPDATED: 'Employee updated successfully',
+    DELETED: 'Employee deleted successfully',
+    FETCHED: 'Employee retrieved successfully',
+    LISTED: 'Employees listed successfully',
+    NOT_FOUND: 'Employee not found',
+  },
+  SUPPLIER: {
+    CREATED: 'Supplier created successfully',
+    UPDATED: 'Supplier updated successfully',
+    DELETED: 'Supplier deleted successfully',
+    FETCHED: 'Supplier retrieved successfully',
+    LISTED: 'Suppliers listed successfully',
+    NOT_FOUND: 'Supplier not found',
+  },
+  ROLE: {
+    CREATED: 'Role created successfully',
+    UPDATED: 'Role updated successfully',
+    DELETED: 'Role deleted successfully',
+    FETCHED: 'Role retrieved successfully',
+    LISTED: 'Roles listed successfully',
+    NOT_FOUND: 'Role not found',
+  },
+  OPERATION: {
+    CREATED: 'Operation created successfully',
+    UPDATED: 'Operation updated successfully',
+    DELETED: 'Operation deleted successfully',
+    FETCHED: 'Operation retrieved successfully',
+    LISTED: 'Operations listed successfully',
+    NOT_FOUND: 'Operation not found',
+  },
+  ENTITY: {
+    CREATED: 'Entity created successfully',
+    UPDATED: 'Entity updated successfully',
+    DELETED: 'Entity deleted successfully',
+    FETCHED: 'Entity retrieved successfully',
+    LISTED: 'Entities listed successfully',
+    NOT_FOUND: 'Entity not found',
+  },
+};

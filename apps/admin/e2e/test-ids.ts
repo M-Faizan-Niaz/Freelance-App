@@ -1,0 +1,18 @@
+export const TEST_IDS = {
+  SIGN_IN_EMAIL: 'sign-in-email',
+  SIGN_IN_PASSWORD: 'sign-in-password',
+  SIGN_IN_SUBMIT: 'sign-in-submit',
+  DATA_TABLE_SEARCH: 'data-table-search',
+  ACTION_VIEW: 'action-view',
+  ACTION_EDIT: 'action-edit',
+  ACTION_DELETE: 'action-delete',
+  COLOR_NAME_INPUT: 'color-name-input',
+  COLOR_DESC_INPUT: 'color-description-input',
+  COLOR_FORM_SUBMIT: 'color-form-submit',
+  COLOR_VIEW_MODAL: 'color-view-modal',
+  VIEW_NAME_VALUE: 'view-modal-name-value',
+  VIEW_DESC_VALUE: 'view-modal-description-value',
+  COLOR_DELETE_MODAL: 'color-delete-modal',
+  DELETE_CONFIRM_BTN: 'delete-confirm-btn',
+  DELETE_CANCEL_BTN: 'delete-cancel-btn',
+} as const;

@@ -1,0 +1,39 @@
+{
+  "name": "vite-plus-monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env scripts/dev.mjs",
+    "api:export": "pnpm --filter api openapi:export",
+    "api:generate": "pnpm --filter @repo/api-client generate",
+    "orval": "pnpm run api:export && pnpm run api:generate",
+    "dev:web": "node --env-file-if-exists=.env scripts/portless-run.mjs web web",
+    "dev:admin": "node --env-file-if-exists=.env scripts/portless-run.mjs admin admin",
+    "dev:api": "node --env-file-if-exists=.env scripts/portless-run.mjs api api",
+    "build": "pnpm run build:api && pnpm run build:web && pnpm run build:admin",
+    "build:web": "pnpm --filter web build",
+    "build:admin": "pnpm --filter admin build",
+    "build:api": "pnpm --filter api build",
+    "lint": "vp lint",
+    "fmt": "vp fmt",
+    "check": "vp check",
+    "test": "vp test",
+    "staged": "vp staged",
+    "db:generate": "pnpm --filter api db:generate",
+    "db:migrate": "pnpm --filter api db:migrate",
+    "db:push": "pnpm --filter api db:push",
+    "db:studio": "pnpm --filter api db:studio",
+    "db:setup": "pnpm --filter api db:setup",
+    "db:seed": "pnpm --filter api db:seed",
+    "db:up": "pnpm --filter api db:up"
+  },
+  "devDependencies": {
+    "@voidzero-dev/vite-plus-core": "^0.1.16",
+    "@voidzero-dev/vite-plus-test": "^0.1.16",
+    "concurrently": "^9.2.1",
+    "portless": "^0.10.3",
+    "typescript": "^6.0.2",
+    "vite-plus": "^0.1.16"
+  },
+  "packageManager": "pnpm@10.33.2"
+}

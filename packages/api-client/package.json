@@ -1,0 +1,21 @@
+{
+  "name": "@repo/api-client",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/generated/index.ts"
+  },
+  "scripts": {
+    "dev": "orval --config orval.config.ts --watch",
+    "generate": "orval --config orval.config.ts"
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "^5.76.1",
+    "orval": "^7.9.0",
+    "typescript": "^6.0.2"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  }
+}

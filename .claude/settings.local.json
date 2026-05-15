@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__context7__resolve-library-id",
+      "Bash(pnpm lint *)",
+      "Bash(Get-ChildItem *)",
+      "Bash(pnpm install *)",
+      "Bash(Select-Object FullName)",
+      "Bash(pnpm run *)",
+      "Bash(pnpm --filter admin tsc --noEmit)",
+      "Bash(npx tsc *)",
+      "Bash(Select-Object Name)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "playwright"
+  ],
+  "enableAllProjectMcpServers": true
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Afghanistan",
+    "isoCode": "AF",
+    "flag": "🇦🇫",
+    "phonecode": "93",
+    "currency": "AFN",
+    "latitude": "33.00000000",
+    "longitude": "65.00000000",
+    "timezones": [
+      {
+        "zoneName": "Asia/Kabul",
+        "gmtOffset": 16200,
+        "gmtOffsetName": "UTC+04:30",
+        "abbreviation": "AFT",
+        "tzName": "Afghanistan Time"
+      }
+    ]
+  },
+  {
+    "name": "Pakistan",
+    "isoCode": "PK",
+    "flag": "🇵🇰",
+    "phonecode": "92",
+    "currency": "PKR",
+    "latitude": "33.00000000",
+    "longitude": "65.00000000",
+    "timezones": [
+      {
+        "zoneName": "Asia/Islamabad",
+        "gmtOffset": 16200,
+        "gmtOffsetName": "UTC+05:00",
+        "abbreviation": "PKT",
+        "tzName": "Pakistan Time"
+      }
+    ]
+  }
+]
