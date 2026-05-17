@@ -9,11 +9,12 @@
       "Bash(pnpm run *)",
       "Bash(pnpm --filter admin tsc --noEmit)",
       "Bash(npx tsc *)",
-      "Bash(Select-Object Name)"
+      "Bash(Select-Object Name)",
+      "Bash(cd *)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "playwright"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

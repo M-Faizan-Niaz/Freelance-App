@@ -13,7 +13,10 @@ import { tiers } from './lookups.model';
 
 export const commissionSettings = pgTable('commission_settings', {
   id: serial().primaryKey(),
-  tierId: integer().notNull().references(() => tiers.id).unique(),
+  tierId: integer()
+    .notNull()
+    .references(() => tiers.id)
+    .unique(),
   commissionRate: numeric({ precision: 5, scale: 2 }).notNull(),
   effectiveFrom: timestamp({ mode: 'string' }).notNull(),
   createdBy: text(),

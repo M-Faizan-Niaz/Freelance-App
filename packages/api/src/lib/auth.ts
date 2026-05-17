@@ -1,5 +1,5 @@
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { APIError, betterAuth, generateId, type User, type HookEndpointContext } from 'better-auth';
+import { APIError, betterAuth, type User, type HookEndpointContext } from 'better-auth';
 import type { BetterAuthPlugin } from 'better-auth';
 import { db } from '@/db';
 import { sessions, users, accounts, verifications, twoFactors } from '$models';
@@ -17,69 +17,12 @@ import { getLogger } from './logger';
 import { appConfig } from '@/config/app.config';
 import env from '@/config/env.config';
 import { tokenStore } from '@/test/token-store';
-import { eq } from 'drizzle-orm';
-import {
-  customers,
-  customerStatuses,
-  roles,
-  serviceProviders,
-  tiers,
-  userProfiles,
-} from '@/db/models';
 
+// Lazy reference — assigned after betterAuth() below. Safe because handlers
+// only execute at request time, never during module initialization.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function createAuthUser(
-  ctx: any,
-  { name, email, password }: { name: string; email: string; password: string },
-) {
-  const existing = await ctx.context.internalAdapter.findUserByEmail(email, {
-    includeAccounts: false,
-  });
-  if (existing) throw new APIError('CONFLICT', { message: 'Email already in use' });
-
-  const newUser = await ctx.context.internalAdapter.createUser({
-    name,
-    email,
-    emailVerified: false,
-    image: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-
-  const hashedPassword = await ctx.context.password.hash(password);
-  await ctx.context.internalAdapter.createAccount({
-    userId: newUser.id,
-    accountId: newUser.id,
-    providerId: 'credential',
-    password: hashedPassword,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-
-  return newUser;
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function sendVerificationIfEnabled(
-  ctx: any,
-  user: { id: string; name: string; email: string },
-) {
-  if (!ctx.context.options.emailVerification?.sendOnSignUp) return;
-
-  const token = generateId();
-  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
-  await ctx.context.internalAdapter.createVerificationValue({
-    identifier: token,
-    value: user.email,
-    expiresAt,
-  });
-  const verifyUrl = `${ctx.context.options.baseURL}/v1/api/auth/verify-email?token=${token}`;
-  await ctx.context.options.emailVerification.sendVerificationEmail?.({
-    user,
-    url: verifyUrl,
-    token,
-  });
-}
+let _auth: any;
 
 export const myCustomPlugin = (): BetterAuthPlugin => ({
   id: 'marketplace-registration',
@@ -102,37 +45,13 @@ export const myCustomPlugin = (): BetterAuthPlugin => ({
         },
       },
       async (ctx) => {
-        const { name, email, password, phoneNumber } = ctx.body as RegisterCustomerInput;
-
-        const newUser = await createAuthUser(ctx, { name, email, password });
-
-        await db.transaction(async (tx) => {
-          const [customerRole] = await tx.select().from(roles).where(eq(roles.name, 'customer'));
-          const [activeStatus] = await tx
-            .select()
-            .from(customerStatuses)
-            .where(eq(customerStatuses.name, 'active'));
-
-          await tx.insert(userProfiles).values({
-            userId: newUser.id,
-            roleId: customerRole.id,
-            fullName: name,
-            phoneNumber,
-          });
-          await tx.insert(customers).values({
-            userId: newUser.id,
-            customerStatusId: activeStatus.id,
-          });
+        const { name, email, password } = ctx.body as RegisterCustomerInput;
+        const result = await _auth.api.signUpEmail({
+          body: { name, email, password },
+          asResponse: false,
         });
-
-        await sendVerificationIfEnabled(ctx, newUser);
-
-        return ctx.json(
-          successResponse(
-            { id: newUser.id, name: newUser.name, email: newUser.email },
-            'Customer registered successfully. Please check your email to verify your account.',
-          ),
-        );
+        const user = result.data.user;
+        return ctx.json({ id: user.id, name: user.name, email: user.email });
       },
     ),
 
@@ -153,50 +72,17 @@ export const myCustomPlugin = (): BetterAuthPlugin => ({
         },
       },
       async (ctx) => {
-        const { name, email, password, phoneNumber, cnicNumber, city } =
-          ctx.body as RegisterProviderInput;
-
-        const newUser = await createAuthUser(ctx, { name, email, password });
-
-        await db.transaction(async (tx) => {
-          const [providerRole] = await tx
-            .select()
-            .from(roles)
-            .where(eq(roles.name, 'service_provider'));
-          const [basicTier] = await tx.select().from(tiers).where(eq(tiers.name, 'Basic'));
-
-          await tx.insert(userProfiles).values({
-            userId: newUser.id,
-            roleId: providerRole.id,
-            fullName: name,
-            phoneNumber,
-          });
-          await tx.insert(serviceProviders).values({
-            userId: newUser.id,
-            cnicNumber,
-            tierId: basicTier.id,
-            isCnicVerified: false,
-            isOnline: false,
-            city,
-          });
+        const { name, email, password } = ctx.body as RegisterProviderInput;
+        const result = await _auth.api.signUpEmail({
+          body: { name, email, password },
+          asResponse: false,
         });
-
-        await sendVerificationIfEnabled(ctx, newUser);
-
-        return ctx.json(
-          successResponse(
-            { id: newUser.id, name: newUser.name, email: newUser.email },
-            'Provider registered successfully. Please verify your email and complete your profile.',
-          ),
-        );
+        const user = result.data.user;
+        return ctx.json({ id: user.id, name: user.name, email: user.email });
       },
     ),
   },
 });
-
-
-
-
 
 const logger = getLogger();
 
@@ -302,6 +188,36 @@ const customHooks = {
     path: routes.verifyEmail,
     successMessage: 'Email verified successfully',
   }),
+  registerCustomer: makeHook({
+    path: '/register/customer',
+    successMessage:
+      'Customer registered successfully. Please check your email to verify your account.',
+    beforeExtra: async (ctx) => {
+      await AuthService.throwIfEmailExists(ctx.body.email);
+    },
+    afterSuccess: async (ctx, returned) => {
+      await AuthService.createCustomerProfile((returned as { id: string }).id, {
+        name: ctx.body.name,
+        phoneNumber: ctx.body.phoneNumber,
+      });
+    },
+  }),
+  registerProvider: makeHook({
+    path: '/register/provider',
+    successMessage:
+      'Provider registered successfully. Please verify your email and complete your profile.',
+    beforeExtra: async (ctx) => {
+      await AuthService.throwIfEmailExists(ctx.body.email);
+    },
+    afterSuccess: async (ctx, returned) => {
+      await AuthService.createProviderProfile((returned as { id: string }).id, {
+        name: ctx.body.name,
+        phoneNumber: ctx.body.phoneNumber,
+        cnicNumber: ctx.body.cnicNumber,
+        city: ctx.body.city,
+      });
+    },
+  }),
 };
 
 const customPlugin = () => {
@@ -347,6 +263,13 @@ export const auth = betterAuth({
   user: {
     changeEmail: {
       enabled: true,
+    },
+    additionalFields: {
+      isAdmin: {
+        type: 'boolean',
+        default: false,
+        required: false,
+      },
     },
   },
 
@@ -402,6 +325,7 @@ export const auth = betterAuth({
     myCustomPlugin(),
   ],
 });
+_auth = auth;
 
 logger.info('Auth initialized');
 logger.info(`Auth Reference: ${env.BETTER_AUTH_URL}${basePath}/reference`);

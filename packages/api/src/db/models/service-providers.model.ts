@@ -1,6 +1,15 @@
 import type { z } from 'zod';
 
-import { boolean, integer, numeric, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  integer,
+  numeric,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 import users from '@/modules/users/users.model';
@@ -14,15 +23,22 @@ import { tiers } from './lookups.model';
 
 export const serviceProviders = pgTable('service_providers', {
   id: serial().primaryKey(),
-  userId: text().notNull().unique().references(() => users.id),
+  userId: text()
+    .notNull()
+    .unique()
+    .references(() => users.id),
   cnicNumber: varchar({ length: 20 }).notNull().unique(),
   isCnicVerified: boolean().notNull().default(false),
   hourlyRate: numeric({ precision: 10, scale: 2 }).notNull().default('0.00'),
-  tierId: integer().notNull().references(() => tiers.id),
+  tierId: integer()
+    .notNull()
+    .references(() => tiers.id),
   isOnline: boolean().notNull().default(false),
   totalJobsCompleted: integer().notNull().default(0),
   averageRating: numeric({ precision: 3, scale: 2 }).default('0.00'),
   bio: text(),
+  cnicFrontUrl: varchar({ length: 1024 }),
+  cnicBackUrl: varchar({ length: 1024 }),
   coverageRadiusKm: numeric({ precision: 6, scale: 2 }),
   city: varchar({ length: 100 }),
   createdAt: timestamp({ mode: 'string' }).notNull().defaultNow(),

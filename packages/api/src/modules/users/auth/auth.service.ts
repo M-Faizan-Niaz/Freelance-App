@@ -72,6 +72,20 @@ export class AuthService {
     }
   }
 
+  static async createCustomerProfile(
+    userId: string,
+    data: { name: string; phoneNumber: string },
+  ): Promise<void> {
+    await AuthRepository.createCustomerProfile(userId, data);
+  }
+
+  static async createProviderProfile(
+    userId: string,
+    data: { name: string; phoneNumber: string; cnicNumber: string; city: string },
+  ): Promise<void> {
+    await AuthRepository.createProviderProfile(userId, data);
+  }
+
   static async throwIfEmailExists(email: string): Promise<void> {
     const existing = await AuthRepository.findByEmail(email);
     if (existing) throwApiError('CONFLICT', 'User with this email already exists');

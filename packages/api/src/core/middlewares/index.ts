@@ -6,3 +6,4 @@ export { pinoLogger } from './pino-logger';
 export { rateLimiter } from './rate-limiter';
 export { serveEmojiFavicon } from './serve-emoji-favicon';
 export { betterAuthSessionMiddleware } from './authentication-middleware';
+export { isAdminMiddleware } from './is-admin-middleware';

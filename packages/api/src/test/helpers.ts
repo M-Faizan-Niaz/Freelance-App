@@ -64,4 +64,3 @@ export function extractSessionCookie(response: Response): string {
   if (!header) throw new Error('sign-in response is missing a Set-Cookie header');
   return header.split(';')[0];
 }
-

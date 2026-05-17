@@ -8,8 +8,13 @@ import { roles } from './lookups.model';
 
 export const userProfiles = pgTable('user_profiles', {
   id: serial().primaryKey(),
-  userId: text().notNull().unique().references(() => users.id),
-  roleId: integer().notNull().references(() => roles.id),
+  userId: text()
+    .notNull()
+    .unique()
+    .references(() => users.id),
+  roleId: integer()
+    .notNull()
+    .references(() => roles.id),
   fullName: varchar({ length: 100 }).notNull(),
   phoneNumber: varchar({ length: 20 }),
   phoneVerified: boolean().notNull().default(false),

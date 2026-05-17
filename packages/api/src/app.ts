@@ -5,6 +5,10 @@ import configureOpenAPI from '@/lib/configure-open-api';
 import createApp from '@/lib/create-app';
 import { auth } from './lib/auth';
 import colors from '@/modules/colors/colors.index';
+import usersRouter from '@/modules/users/users.index';
+import serviceCategoriesRouter from '@/modules/service-categories/service-categories.index';
+import serviceProvidersRouter from '@/modules/service-providers/service-providers.index';
+import customersRouter from '@/modules/customers/customers.index';
 import index from '@/modules/index.route';
 
 const app = createApp();
@@ -53,6 +57,12 @@ app.route('/', index);
 for (const route of routes) {
   app.route('/v1', route);
 }
+
+// Register /v1/api routes
+app.route('/v1/api', usersRouter);
+app.route('/v1/api', serviceCategoriesRouter);
+app.route('/v1/api', serviceProvidersRouter);
+app.route('/v1/api', customersRouter);
 
 export type AppType = (typeof routes)[number];
 

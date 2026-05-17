@@ -8,8 +8,13 @@ import { customerStatuses } from './lookups.model';
 
 export const customers = pgTable('customers', {
   id: serial().primaryKey(),
-  userId: text().notNull().unique().references(() => users.id),
-  customerStatusId: integer().notNull().references(() => customerStatuses.id),
+  userId: text()
+    .notNull()
+    .unique()
+    .references(() => users.id),
+  customerStatusId: integer()
+    .notNull()
+    .references(() => customerStatuses.id),
   totalBookings: integer().notNull().default(0),
   totalSpent: numeric({ precision: 12, scale: 2 }).notNull().default('0.00'),
   createdAt: timestamp({ mode: 'string' }).notNull().defaultNow(),

@@ -198,7 +198,7 @@
  Module 2 — Auth Extension (modules/users/auth/)
 
  Existing: Better Auth already handles /v1/api/auth/* routes.
-
+-
  Extend with custom registration flow:
  POST  /v1/api/auth/register/customer      validates role, creates user_profiles + customers row
  POST  /v1/api/auth/register/provider      validates role, creates user_profiles + service_providers row (step 1)

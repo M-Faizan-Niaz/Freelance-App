@@ -49,6 +49,7 @@ export const serviceCategories = pgTable('service_categories', {
   id: serial().primaryKey(),
   name: varchar({ length: 100 }).unique().notNull(),
   description: text(),
+  imageUrl: varchar({ length: 1024 }),
   isActive: boolean().notNull().default(true),
   createdAt: timestamp({ mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp({ mode: 'string' }).notNull().defaultNow(),

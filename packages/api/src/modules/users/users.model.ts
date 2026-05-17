@@ -20,6 +20,7 @@ export const users = pgTable('users', {
   institution: text('institution'),
   department: text('department'),
   isCompleted: boolean('is_completed').notNull().default(false),
+  isAdmin: boolean('is_admin').notNull().default(false),
   createdAt: timestamp('createdAt', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
   updatedAt: timestamp('updatedAt', { withTimezone: true, mode: 'date' }).notNull().defaultNow(),
 });

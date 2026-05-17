@@ -11,7 +11,7 @@ const DEFAULT_RATES: Record<string, string> = {
 export default async function seedCommissionSettings(db: Database) {
   const allTiers = await db.select().from(tiers);
 
-  const data = allTiers.map(tier => ({
+  const data = allTiers.map((tier) => ({
     tierId: tier.id,
     commissionRate: DEFAULT_RATES[tier.name] ?? '15.00',
     effectiveFrom: new Date().toISOString(),
