@@ -50,7 +50,10 @@ export const uploadDocuments: AppRouteHandler<UploadDocumentsRoute> = async (c) 
 export const listPortfolio: AppRouteHandler<ListPortfolioRoute> = async (c) => {
   const { id } = c.req.valid('param');
   const images = await service.listPortfolioImages(id);
-  return c.json(successResponse(images, 'Portfolio images retrieved successfully'), HttpStatusCodes.OK);
+  return c.json(
+    successResponse(images, 'Portfolio images retrieved successfully'),
+    HttpStatusCodes.OK,
+  );
 };
 
 export const uploadPortfolio: AppRouteHandler<UploadPortfolioRoute> = async (c) => {

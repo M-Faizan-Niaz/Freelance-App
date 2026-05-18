@@ -65,5 +65,8 @@ export const uploadProfilePhoto: AppRouteHandler<UploadProfilePhotoRoute> = asyn
   const url = await storageService.uploadFile(file, fileName);
 
   const profile = await usersService.updateMyProfile(userId, { profilePhotoUrl: url });
-  return c.json(successResponse(profile, 'Profile photo uploaded successfully'), HttpStatusCodes.OK);
+  return c.json(
+    successResponse(profile, 'Profile photo uploaded successfully'),
+    HttpStatusCodes.OK,
+  );
 };

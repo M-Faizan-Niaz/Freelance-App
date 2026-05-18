@@ -340,6 +340,111 @@ CREATE TABLE "sp_portfolio_images" (
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE "booking_completion_photos" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"booking_id" integer NOT NULL,
+	"image_url" varchar(1024) NOT NULL,
+	"file_name" varchar(512) NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "bookings" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"customer_id" integer NOT NULL,
+	"provider_id" integer NOT NULL,
+	"category_id" integer NOT NULL,
+	"scheduled_at" timestamp NOT NULL,
+	"completed_at" timestamp,
+	"customer_latitude" numeric(10, 7),
+	"customer_longitude" numeric(10, 7),
+	"customer_address" text NOT NULL,
+	"description" text,
+	"estimated_price" numeric(10, 2),
+	"final_price" numeric(10, 2),
+	"commission_rate" numeric(5, 2),
+	"commission_amount" numeric(10, 2),
+	"status_id" integer NOT NULL,
+	"cancelled_by" text,
+	"cancellation_reason" text,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"is_deleted" boolean DEFAULT false NOT NULL,
+	"deleted_at" timestamp
+);
+--> statement-breakpoint
+CREATE TABLE "reviews" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"booking_id" integer NOT NULL,
+	"customer_id" integer NOT NULL,
+	"provider_id" integer NOT NULL,
+	"rating" integer NOT NULL,
+	"comment" text,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"is_deleted" boolean DEFAULT false NOT NULL,
+	"deleted_at" timestamp,
+	CONSTRAINT "reviews_bookingId_unique" UNIQUE("booking_id")
+);
+--> statement-breakpoint
+CREATE TABLE "payments" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"booking_id" integer NOT NULL,
+	"customer_id" integer NOT NULL,
+	"amount" numeric(10, 2) NOT NULL,
+	"payment_method_id" integer NOT NULL,
+	"payment_status_id" integer NOT NULL,
+	"proof_image_url" varchar(1024),
+	"proof_image_key" varchar(512),
+	"transaction_reference" varchar(255),
+	"notes" text,
+	"reviewed_by" text,
+	"reviewed_at" timestamp,
+	"rejection_reason" text,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"is_deleted" boolean DEFAULT false NOT NULL,
+	"deleted_at" timestamp,
+	CONSTRAINT "payments_bookingId_unique" UNIQUE("booking_id")
+);
+--> statement-breakpoint
+CREATE TABLE "notifications" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"user_id" text NOT NULL,
+	"notification_type_id" integer NOT NULL,
+	"title" varchar(255) NOT NULL,
+	"body" text NOT NULL,
+	"data" json,
+	"is_read" boolean DEFAULT false NOT NULL,
+	"read_at" timestamp,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "conversations" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"customer_id" integer NOT NULL,
+	"provider_id" integer NOT NULL,
+	"booking_id" integer,
+	"last_message_at" timestamp,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"is_deleted" boolean DEFAULT false NOT NULL,
+	"deleted_at" timestamp
+);
+--> statement-breakpoint
+CREATE TABLE "messages" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"conversation_id" integer NOT NULL,
+	"sender_id" text NOT NULL,
+	"content" text NOT NULL,
+	"message_type_id" integer NOT NULL,
+	"is_read" boolean DEFAULT false NOT NULL,
+	"read_at" timestamp,
+	"is_deleted" boolean DEFAULT false NOT NULL,
+	"deleted_at" timestamp,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
 ALTER TABLE "accounts" ADD CONSTRAINT "accounts_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "cities" ADD CONSTRAINT "cities_country_id_countries_id_fk" FOREIGN KEY ("country_id") REFERENCES "public"."countries"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "sessions" ADD CONSTRAINT "sessions_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -353,4 +458,26 @@ ALTER TABLE "customers" ADD CONSTRAINT "customers_customer_status_id_customer_st
 ALTER TABLE "saved_addresses" ADD CONSTRAINT "saved_addresses_customer_id_customers_id_fk" FOREIGN KEY ("customer_id") REFERENCES "public"."customers"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "service_providers" ADD CONSTRAINT "service_providers_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "service_providers" ADD CONSTRAINT "service_providers_tier_id_tiers_id_fk" FOREIGN KEY ("tier_id") REFERENCES "public"."tiers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "sp_portfolio_images" ADD CONSTRAINT "sp_portfolio_images_service_provider_id_service_providers_id_fk" FOREIGN KEY ("service_provider_id") REFERENCES "public"."service_providers"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "sp_portfolio_images" ADD CONSTRAINT "sp_portfolio_images_service_provider_id_service_providers_id_fk" FOREIGN KEY ("service_provider_id") REFERENCES "public"."service_providers"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "booking_completion_photos" ADD CONSTRAINT "booking_completion_photos_booking_id_bookings_id_fk" FOREIGN KEY ("booking_id") REFERENCES "public"."bookings"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "bookings" ADD CONSTRAINT "bookings_customer_id_customers_id_fk" FOREIGN KEY ("customer_id") REFERENCES "public"."customers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "bookings" ADD CONSTRAINT "bookings_provider_id_service_providers_id_fk" FOREIGN KEY ("provider_id") REFERENCES "public"."service_providers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "bookings" ADD CONSTRAINT "bookings_category_id_service_categories_id_fk" FOREIGN KEY ("category_id") REFERENCES "public"."service_categories"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "bookings" ADD CONSTRAINT "bookings_status_id_booking_statuses_id_fk" FOREIGN KEY ("status_id") REFERENCES "public"."booking_statuses"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "bookings" ADD CONSTRAINT "bookings_cancelled_by_users_id_fk" FOREIGN KEY ("cancelled_by") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_booking_id_bookings_id_fk" FOREIGN KEY ("booking_id") REFERENCES "public"."bookings"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_customer_id_customers_id_fk" FOREIGN KEY ("customer_id") REFERENCES "public"."customers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_provider_id_service_providers_id_fk" FOREIGN KEY ("provider_id") REFERENCES "public"."service_providers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "payments" ADD CONSTRAINT "payments_booking_id_bookings_id_fk" FOREIGN KEY ("booking_id") REFERENCES "public"."bookings"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "payments" ADD CONSTRAINT "payments_customer_id_customers_id_fk" FOREIGN KEY ("customer_id") REFERENCES "public"."customers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "payments" ADD CONSTRAINT "payments_payment_method_id_payment_methods_id_fk" FOREIGN KEY ("payment_method_id") REFERENCES "public"."payment_methods"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "payments" ADD CONSTRAINT "payments_payment_status_id_payment_statuses_id_fk" FOREIGN KEY ("payment_status_id") REFERENCES "public"."payment_statuses"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "payments" ADD CONSTRAINT "payments_reviewed_by_users_id_fk" FOREIGN KEY ("reviewed_by") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "notifications" ADD CONSTRAINT "notifications_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "notifications" ADD CONSTRAINT "notifications_notification_type_id_notification_types_id_fk" FOREIGN KEY ("notification_type_id") REFERENCES "public"."notification_types"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "conversations" ADD CONSTRAINT "conversations_customer_id_customers_id_fk" FOREIGN KEY ("customer_id") REFERENCES "public"."customers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "conversations" ADD CONSTRAINT "conversations_provider_id_service_providers_id_fk" FOREIGN KEY ("provider_id") REFERENCES "public"."service_providers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "conversations" ADD CONSTRAINT "conversations_booking_id_bookings_id_fk" FOREIGN KEY ("booking_id") REFERENCES "public"."bookings"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "messages" ADD CONSTRAINT "messages_conversation_id_conversations_id_fk" FOREIGN KEY ("conversation_id") REFERENCES "public"."conversations"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "messages" ADD CONSTRAINT "messages_sender_id_users_id_fk" FOREIGN KEY ("sender_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "messages" ADD CONSTRAINT "messages_message_type_id_message_types_id_fk" FOREIGN KEY ("message_type_id") REFERENCES "public"."message_types"("id") ON DELETE no action ON UPDATE no action;

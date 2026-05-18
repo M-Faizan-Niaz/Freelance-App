@@ -21,7 +21,10 @@ export const list = createRoute({
   description: 'Returns all active, non-deleted service categories ordered by name',
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(listServiceCategoriesResponseSchema, 'Service categories retrieved successfully'),
+      createSuccessResponseSchema(
+        listServiceCategoriesResponseSchema,
+        'Service categories retrieved successfully',
+      ),
       'List of active service categories',
     ),
     ...commonErrorResponses([HttpStatusCodes.INTERNAL_SERVER_ERROR], z.object({})),
@@ -40,7 +43,10 @@ export const create = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(serviceCategoryResponseSchema, 'Service category created successfully'),
+      createSuccessResponseSchema(
+        serviceCategoryResponseSchema,
+        'Service category created successfully',
+      ),
       'The created service category',
     ),
     ...commonErrorResponses(
@@ -68,7 +74,10 @@ export const patch = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(serviceCategoryResponseSchema, 'Service category updated successfully'),
+      createSuccessResponseSchema(
+        serviceCategoryResponseSchema,
+        'Service category updated successfully',
+      ),
       'The updated service category',
     ),
     ...commonErrorResponses(
@@ -119,14 +128,19 @@ export const uploadImage = createRoute({
   method: 'patch',
   tags,
   summary: 'Upload category image',
-  description: 'Admin only. Upload or replace the cover image for a service category. Send as multipart/form-data with field "image" (jpeg, png, webp, gif — max 5 MB).',
+  description:
+    'Admin only. Upload or replace the cover image for a service category. Send as multipart/form-data with field "image" (jpeg, png, webp, gif — max 5 MB).',
   request: {
     params: idParams,
     body: {
       content: {
         'multipart/form-data': {
           schema: z.object({
-            image: z.custom<File>().openapi({ type: 'string', format: 'binary', description: 'Category image (max 5 MB)' }),
+            image: z.custom<File>().openapi({
+              type: 'string',
+              format: 'binary',
+              description: 'Category image (max 5 MB)',
+            }),
           }),
         },
       },
@@ -135,11 +149,20 @@ export const uploadImage = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(serviceCategoryResponseSchema, 'Category image uploaded successfully'),
+      createSuccessResponseSchema(
+        serviceCategoryResponseSchema,
+        'Category image uploaded successfully',
+      ),
       'The updated service category',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.BAD_REQUEST, HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.FORBIDDEN, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.BAD_REQUEST,
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.FORBIDDEN,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       serviceCategoryResponseSchema,
     ),
   },

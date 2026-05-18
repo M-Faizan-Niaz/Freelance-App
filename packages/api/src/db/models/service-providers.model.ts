@@ -41,6 +41,7 @@ export const serviceProviders = pgTable('service_providers', {
   cnicBackUrl: varchar({ length: 1024 }),
   coverageRadiusKm: numeric({ precision: 6, scale: 2 }),
   city: varchar({ length: 100 }),
+  verificationStatus: varchar({ length: 20 }).notNull().default('pending'),
   createdAt: timestamp({ mode: 'string' }).notNull().defaultNow(),
   updatedAt: timestamp({ mode: 'string' }).notNull().defaultNow(),
   isDeleted: boolean().notNull().default(false),

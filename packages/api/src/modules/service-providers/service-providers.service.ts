@@ -1,7 +1,11 @@
 import { AppError, NotFoundError } from '@/core/errors';
 import db from '@/db';
 import { storageService } from '@/common/services/storage.service';
-import { generateUniqueFileName, validateFileSize, validateImageFile } from '@/common/upload-helpers';
+import {
+  generateUniqueFileName,
+  validateFileSize,
+  validateImageFile,
+} from '@/common/upload-helpers';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 
 import { ServiceProvidersRepository } from './service-providers.repository';
@@ -29,13 +33,21 @@ export class ServiceProvidersService {
     if (sp.cnicFrontUrl) {
       const oldName = storageService.extractFileNameFromUrl(sp.cnicFrontUrl);
       if (oldName) {
-        try { await storageService.deleteFile(oldName); } catch { /* continue */ }
+        try {
+          await storageService.deleteFile(oldName);
+        } catch {
+          /* continue */
+        }
       }
     }
     if (sp.cnicBackUrl) {
       const oldName = storageService.extractFileNameFromUrl(sp.cnicBackUrl);
       if (oldName) {
-        try { await storageService.deleteFile(oldName); } catch { /* continue */ }
+        try {
+          await storageService.deleteFile(oldName);
+        } catch {
+          /* continue */
+        }
       }
     }
 
@@ -110,9 +122,7 @@ export class ServiceProvidersService {
       await this.repo.deletePortfolioImages(tx, ids);
     });
 
-    await Promise.allSettled(
-      images.map((img) => storageService.deleteFile(img.fileName)),
-    );
+    await Promise.allSettled(images.map((img) => storageService.deleteFile(img.fileName)));
 
     return { deleted: images.map((img) => img.fileName) };
   }

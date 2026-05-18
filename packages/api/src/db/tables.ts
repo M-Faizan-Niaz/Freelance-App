@@ -35,6 +35,25 @@ export const allTables: Table[] = [
   schema.userProfiles,
   schema.customers,
   schema.serviceProviders,
+  // booking tables (FK → customers, serviceProviders, serviceCategories, bookingStatuses)
+  schema.bookings,
+  schema.bookingCompletionPhotos,
+  // reviews table (FK → bookings, customers, serviceProviders)
+  schema.reviews,
+  // notification tables (FK → users, notificationTypes)
+  schema.notifications,
+  // chat tables (FK → customers, serviceProviders, bookings, users, messageTypes)
+  schema.conversations,
+  schema.messages,
+  // payment tables (FK → bookings, customers, paymentMethods, paymentStatuses)
+  schema.payments,
+  // payout requests (FK → serviceProviders, payoutStatuses)
+  schema.payoutRequests,
+  // dispute tables (FK → bookings, disputeStatuses)
+  schema.disputes,
+  // fraud & audit (soft FK → users, FK → actionTypes)
+  schema.fraudFlags,
+  schema.adminActions,
   // domain tables
   schema.colors,
   schema.countries,

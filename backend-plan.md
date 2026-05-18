@@ -317,6 +317,50 @@
 
  Real-time: Hono supports WebSocket via hono/ws. Add GET /v1/api/chat/ws for WebSocket upgrade. (Phase 2 enhancement — REST first.)
 
+
+ How This Chat System Works (Conceptual)
+
+ This is a two-party, thread-based chat system between customers and service providers —
+ think WhatsApp DMs, not a group chat.
+
+ Core Concepts
+
+ Conversation = one persistent thread between exactly ONE customer and ONE provider.
+ Optionally linked to a booking. If Customer A already has a thread with Provider B, posting
+ to /conversations again just returns the existing one (no duplicates). This pattern is called
+ "get-or-create".
+
+ Message = a single message inside a conversation. Has a senderId (the auth user who sent
+ it), content, a messageType (text | image | quick_reply), and isRead / readAt for
+ read receipts.
+
+ Read receipts — isRead on a message means "the recipient has seen it". When a user
+ fetches /conversations/:id/messages, all messages sent by the other party that are still
+ isRead = false are flipped to isRead = true in the same DB call. This is how iMessage /
+ WhatsApp "double tick → blue tick" works.
+
+ lastMessageAt on the conversation is updated every time a message is sent. Used to sort the
+ conversation list by most recently active (exactly like a real chat app).
+
+ The Full User Flow
+
+ 1. Customer finds a Provider they want to contact
+ 2. POST /conversations  { providerId: 42 }
+    → Conversation #7 created (or existing returned)
+ 3. POST /conversations/7/messages  { content: "Hi, need AC repair tomorrow" }
+    → Message sent, conversation.lastMessageAt updated
+ 4. Provider: GET /conversations
+    → Sees conversation #7 in their list, unreadCount: 1
+ 5. Provider: GET /conversations/7/messages
+    → Messages returned, Customer's message auto-marked isRead = true
+ 6. Provider: POST /conversations/7/messages  { content: "Sure, I'm available at 10am" }
+ 7. Repeat — polling for now, WebSocket in Phase 2
+
+
+
+
+
+
  ---
  Module 12 — Admin (modules/admin/)
 

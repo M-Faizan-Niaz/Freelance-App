@@ -21,11 +21,18 @@ export const getMe = createRoute({
   summary: 'Get own customer profile',
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(customerProfileResponseSchema, 'Customer profile retrieved successfully'),
+      createSuccessResponseSchema(
+        customerProfileResponseSchema,
+        'Customer profile retrieved successfully',
+      ),
       'Customer profile',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       customerProfileResponseSchema,
     ),
   },
@@ -39,11 +46,18 @@ export const listAddresses = createRoute({
   summary: 'List saved addresses',
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(z.array(addressResponseSchema), 'Addresses retrieved successfully'),
+      createSuccessResponseSchema(
+        z.array(addressResponseSchema),
+        'Addresses retrieved successfully',
+      ),
       'List of saved addresses',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       addressResponseSchema,
     ),
   },
@@ -64,7 +78,12 @@ export const createAddress = createRoute({
       'The created address',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.UNPROCESSABLE_ENTITY, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.UNPROCESSABLE_ENTITY,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       createAddressRequestSchema,
     ),
   },
@@ -86,7 +105,12 @@ export const updateAddress = createRoute({
       'The updated address',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.UNPROCESSABLE_ENTITY, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.UNPROCESSABLE_ENTITY,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       updateAddressRequestSchema,
     ),
   },
@@ -106,7 +130,11 @@ export const deleteAddress = createRoute({
       description: 'Address deleted successfully',
     },
     ...commonErrorResponses(
-      [HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       idParams,
     ),
   },
@@ -127,7 +155,11 @@ export const setDefaultAddress = createRoute({
       'The address set as default',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       idParams,
     ),
   },

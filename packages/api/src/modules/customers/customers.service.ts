@@ -45,9 +45,7 @@ export class CustomersService {
     if (!existing) {
       throw new NotFoundError('Address not found');
     }
-    return db.transaction(async (tx) =>
-      this.repo.updateAddress(tx, addressId, customer.id, data),
-    );
+    return db.transaction(async (tx) => this.repo.updateAddress(tx, addressId, customer.id, data));
   }
 
   async deleteAddress(userId: string, addressId: number) {
@@ -71,8 +69,6 @@ export class CustomersService {
     if (!existing) {
       throw new NotFoundError('Address not found');
     }
-    return db.transaction(async (tx) =>
-      this.repo.setDefault(tx, addressId, customer.id),
-    );
+    return db.transaction(async (tx) => this.repo.setDefault(tx, addressId, customer.id));
   }
 }

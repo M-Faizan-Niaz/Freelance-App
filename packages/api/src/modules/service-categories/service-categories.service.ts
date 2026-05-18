@@ -50,7 +50,11 @@ export class ServiceCategoriesService {
     if (existing.imageUrl) {
       const oldName = storageService.extractFileNameFromUrl(existing.imageUrl);
       if (oldName) {
-        try { await storageService.deleteFile(oldName); } catch { /* continue */ }
+        try {
+          await storageService.deleteFile(oldName);
+        } catch {
+          /* continue */
+        }
       }
     }
 

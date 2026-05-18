@@ -1,4 +1,10 @@
-import type { CreateRoute, ListRoute, PatchRoute, RemoveSelectedRoute, UploadImageRoute } from './service-categories.route';
+import type {
+  CreateRoute,
+  ListRoute,
+  PatchRoute,
+  RemoveSelectedRoute,
+  UploadImageRoute,
+} from './service-categories.route';
 import type { AppRouteHandler } from '@/lib/types';
 import { successResponse } from '@/lib/api-response';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
@@ -10,7 +16,10 @@ const service = new ServiceCategoriesService();
 
 export const list: AppRouteHandler<ListRoute> = async (c) => {
   const data = await service.listActive();
-  return c.json(successResponse(data, 'Service categories retrieved successfully'), HttpStatusCodes.OK);
+  return c.json(
+    successResponse(data, 'Service categories retrieved successfully'),
+    HttpStatusCodes.OK,
+  );
 };
 
 export const create: AppRouteHandler<CreateRoute> = async (c) => {
@@ -45,5 +54,8 @@ export const uploadImage: AppRouteHandler<UploadImageRoute> = async (c) => {
   validateFileSize(file, 5);
 
   const category = await service.uploadImage(id, file);
-  return c.json(successResponse(category, 'Category image uploaded successfully'), HttpStatusCodes.OK);
+  return c.json(
+    successResponse(category, 'Category image uploaded successfully'),
+    HttpStatusCodes.OK,
+  );
 };

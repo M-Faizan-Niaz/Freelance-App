@@ -64,13 +64,18 @@ export const uploadProfilePhoto = createRoute({
   method: 'patch',
   tags,
   summary: 'Upload profile photo',
-  description: 'Upload or replace the authenticated user profile photo. Send as multipart/form-data with field "photo" (jpeg, png, webp, gif — max 5 MB).',
+  description:
+    'Upload or replace the authenticated user profile photo. Send as multipart/form-data with field "photo" (jpeg, png, webp, gif — max 5 MB).',
   request: {
     body: {
       content: {
         'multipart/form-data': {
           schema: z.object({
-            photo: z.custom<File>().openapi({ type: 'string', format: 'binary', description: 'Image file (jpeg, png, webp, gif) max 5 MB' }),
+            photo: z.custom<File>().openapi({
+              type: 'string',
+              format: 'binary',
+              description: 'Image file (jpeg, png, webp, gif) max 5 MB',
+            }),
           }),
         },
       },

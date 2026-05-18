@@ -19,11 +19,7 @@ export class ServiceProvidersRepository {
     });
   }
 
-  async updateDocuments(
-    tx: TX,
-    id: number,
-    data: { cnicFrontUrl?: string; cnicBackUrl?: string },
-  ) {
+  async updateDocuments(tx: TX, id: number, data: { cnicFrontUrl?: string; cnicBackUrl?: string }) {
     await tx.update(serviceProviders).set(data).where(eq(serviceProviders.id, id));
   }
 
@@ -50,10 +46,7 @@ export class ServiceProvidersRepository {
   async findPortfolioImagesByFileNames(serviceProviderId: number, fileNames: string[]) {
     return db.query.spPortfolioImages.findMany({
       where: (t, { and, inArray: inn }) =>
-        and(
-          eq(t.serviceProviderId, serviceProviderId),
-          inn(t.fileName, fileNames),
-        ),
+        and(eq(t.serviceProviderId, serviceProviderId), inn(t.fileName, fileNames)),
     });
   }
 

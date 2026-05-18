@@ -1,6 +1,15 @@
 import type { z } from 'zod';
 
-import { boolean, integer, numeric, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import {
+  boolean,
+  integer,
+  numeric,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 import { customers } from './customers.model';

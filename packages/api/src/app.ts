@@ -9,6 +9,12 @@ import usersRouter from '@/modules/users/users.index';
 import serviceCategoriesRouter from '@/modules/service-categories/service-categories.index';
 import serviceProvidersRouter from '@/modules/service-providers/service-providers.index';
 import customersRouter from '@/modules/customers/customers.index';
+import bookingsRouter from '@/modules/bookings/bookings.index';
+import paymentsRouter from '@/modules/payments/payments.index';
+import reviewsRouter from '@/modules/reviews/reviews.index';
+import notificationsRouter from '@/modules/notifications/notifications.index';
+import chatRouter from '@/modules/chat/chat.index';
+import adminRouter from '@/modules/admin/admin.index';
 import index from '@/modules/index.route';
 
 const app = createApp();
@@ -63,6 +69,12 @@ app.route('/v1/api', usersRouter);
 app.route('/v1/api', serviceCategoriesRouter);
 app.route('/v1/api', serviceProvidersRouter);
 app.route('/v1/api', customersRouter);
+app.route('/v1/api', bookingsRouter);
+app.route('/v1/api', paymentsRouter);
+app.route('/v1/api', reviewsRouter);
+app.route('/v1/api', notificationsRouter);
+app.route('/v1/api', chatRouter);
+app.route('/v1/api', adminRouter);
 
 export type AppType = (typeof routes)[number];
 

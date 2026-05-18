@@ -28,7 +28,10 @@ async function requireUserId(headers: Headers): Promise<string> {
 export const getMe: AppRouteHandler<GetMeRoute> = async (c) => {
   const userId = await requireUserId(c.req.raw.headers);
   const profile = await service.getMyProfile(userId);
-  return c.json(successResponse(profile, 'Customer profile retrieved successfully'), HttpStatusCodes.OK);
+  return c.json(
+    successResponse(profile, 'Customer profile retrieved successfully'),
+    HttpStatusCodes.OK,
+  );
 };
 
 export const listAddresses: AppRouteHandler<ListAddressesRoute> = async (c) => {
@@ -63,5 +66,8 @@ export const setDefaultAddress: AppRouteHandler<SetDefaultAddressRoute> = async 
   const userId = await requireUserId(c.req.raw.headers);
   const { id } = c.req.valid('param');
   const address = await service.setDefaultAddress(userId, id);
-  return c.json(successResponse(address, 'Default address updated successfully'), HttpStatusCodes.OK);
+  return c.json(
+    successResponse(address, 'Default address updated successfully'),
+    HttpStatusCodes.OK,
+  );
 };

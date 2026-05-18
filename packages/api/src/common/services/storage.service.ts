@@ -53,8 +53,7 @@ export class StorageService {
 
   private getPublicUrl(fileName: string): string {
     const protocol = env.MINIO_USE_SSL ? 'https' : 'http';
-    const portStr =
-      env.MINIO_PORT === 80 || env.MINIO_PORT === 443 ? '' : `:${env.MINIO_PORT}`;
+    const portStr = env.MINIO_PORT === 80 || env.MINIO_PORT === 443 ? '' : `:${env.MINIO_PORT}`;
     return `${protocol}://${env.MINIO_ENDPOINT}${portStr}/${this.bucketName}/${fileName}`;
   }
 

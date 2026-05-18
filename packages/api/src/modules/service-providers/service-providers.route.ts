@@ -19,14 +19,23 @@ export const uploadDocuments = createRoute({
   method: 'post',
   tags,
   summary: 'Upload CNIC verification documents',
-  description: 'Upload CNIC front and back images. Send as multipart/form-data with fields "cnicFront" and "cnicBack" (jpeg, png, webp, pdf — max 10 MB each).',
+  description:
+    'Upload CNIC front and back images. Send as multipart/form-data with fields "cnicFront" and "cnicBack" (jpeg, png, webp, pdf — max 10 MB each).',
   request: {
     body: {
       content: {
         'multipart/form-data': {
           schema: z.object({
-            cnicFront: z.custom<File>().openapi({ type: 'string', format: 'binary', description: 'CNIC front (image or PDF, max 10 MB)' }),
-            cnicBack: z.custom<File>().openapi({ type: 'string', format: 'binary', description: 'CNIC back (image or PDF, max 10 MB)' }),
+            cnicFront: z.custom<File>().openapi({
+              type: 'string',
+              format: 'binary',
+              description: 'CNIC front (image or PDF, max 10 MB)',
+            }),
+            cnicBack: z.custom<File>().openapi({
+              type: 'string',
+              format: 'binary',
+              description: 'CNIC back (image or PDF, max 10 MB)',
+            }),
           }),
         },
       },
@@ -39,7 +48,12 @@ export const uploadDocuments = createRoute({
       'Upload result with CNIC URLs',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.BAD_REQUEST, HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.BAD_REQUEST,
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       uploadDocumentsResultSchema,
     ),
   },
@@ -57,7 +71,10 @@ export const listPortfolio = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(z.array(portfolioImageSchema), 'Portfolio images retrieved successfully'),
+      createSuccessResponseSchema(
+        z.array(portfolioImageSchema),
+        'Portfolio images retrieved successfully',
+      ),
       'List of portfolio images',
     ),
     ...commonErrorResponses(
@@ -73,13 +90,18 @@ export const uploadPortfolio = createRoute({
   method: 'post',
   tags,
   summary: 'Upload portfolio images',
-  description: 'Upload up to 10 portfolio images total. Send as multipart/form-data with field "images" (jpeg, png, webp, gif — max 5 MB each, 10 images max across all uploads).',
+  description:
+    'Upload up to 10 portfolio images total. Send as multipart/form-data with field "images" (jpeg, png, webp, gif — max 5 MB each, 10 images max across all uploads).',
   request: {
     body: {
       content: {
         'multipart/form-data': {
           schema: z.object({
-            images: z.custom<File>().openapi({ type: 'string', format: 'binary', description: 'Portfolio images (multiple allowed)' }),
+            images: z.custom<File>().openapi({
+              type: 'string',
+              format: 'binary',
+              description: 'Portfolio images (multiple allowed)',
+            }),
           }),
         },
       },
@@ -92,7 +114,12 @@ export const uploadPortfolio = createRoute({
       'Upload result with success and failure details',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.BAD_REQUEST, HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.BAD_REQUEST,
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       portfolioUploadResultSchema,
     ),
   },
@@ -104,17 +131,26 @@ export const deletePortfolio = createRoute({
   method: 'delete',
   tags,
   summary: 'Delete portfolio images',
-  description: 'Delete one or more portfolio images by file name. Only images belonging to the authenticated provider can be deleted.',
+  description:
+    'Delete one or more portfolio images by file name. Only images belonging to the authenticated provider can be deleted.',
   request: {
     body: jsonContentRequired(deletePortfolioRequestSchema, 'File names to delete'),
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(z.object({ deleted: z.array(z.string()) }), 'Images deleted successfully'),
+      createSuccessResponseSchema(
+        z.object({ deleted: z.array(z.string()) }),
+        'Images deleted successfully',
+      ),
       'Deleted file names',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.BAD_REQUEST, HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.BAD_REQUEST,
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       deletePortfolioRequestSchema,
     ),
   },
