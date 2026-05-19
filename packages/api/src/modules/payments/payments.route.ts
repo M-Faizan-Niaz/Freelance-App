@@ -8,6 +8,7 @@ import {
   listPaymentsQuerySchema,
   paymentResponseSchema,
   rejectPaymentRequestSchema,
+  submitPaymentRequestSchema,
 } from './payments.schema';
 
 const tags = ['Payments'];
@@ -26,18 +27,7 @@ export const submitPayment = createRoute({
     body: {
       content: {
         'multipart/form-data': {
-          schema: z.object({
-            bookingId: z.coerce.number().openapi({ description: 'Booking ID to pay for' }),
-            amount: z.coerce.number().openapi({ description: 'Payment amount' }),
-            paymentMethodId: z.coerce.number().openapi({ description: 'Payment method ID (jazzcash, easypaisa, etc.)' }),
-            proofImage: z.custom<File>().openapi({
-              type: 'string',
-              format: 'binary',
-              description: 'Screenshot or receipt of the payment (image/*, max 10 MB)',
-            }),
-            transactionReference: z.string().optional().openapi({ description: 'Transaction reference number from payment app' }),
-            notes: z.string().optional().openapi({ description: 'Optional notes for the admin' }),
-          }),
+          schema: submitPaymentRequestSchema,
         },
       },
       required: true,

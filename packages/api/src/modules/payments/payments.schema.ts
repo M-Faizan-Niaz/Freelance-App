@@ -1,11 +1,16 @@
 import { z } from '@hono/zod-openapi';
 
 export const submitPaymentRequestSchema = z.object({
-  bookingId: z.coerce.number().int().positive(),
-  amount: z.coerce.number().positive(),
-  paymentMethodId: z.coerce.number().int().positive(),
-  transactionReference: z.string().max(255).optional(),
-  notes: z.string().optional(),
+  bookingId: z.coerce.number().int().positive().openapi({ description: 'Booking ID to pay for' }),
+  amount: z.coerce.number().positive().openapi({ description: 'Payment amount' }),
+  paymentMethodId: z.coerce.number().int().positive().openapi({ description: 'Payment method ID (jazzcash, easypaisa, etc.)' }),
+  proofImage: z.custom<File>().openapi({
+    type: 'string',
+    format: 'binary',
+    description: 'Screenshot or receipt of the payment (image/*, max 10 MB)',
+  }),
+  transactionReference: z.string().max(255).optional().openapi({ description: 'Transaction reference number from payment app' }),
+  notes: z.string().optional().openapi({ description: 'Optional notes for the admin' }),
 });
 export type SubmitPaymentRequest = z.infer<typeof submitPaymentRequestSchema>;
 

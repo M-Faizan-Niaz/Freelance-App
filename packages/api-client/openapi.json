@@ -10776,18 +10776,21 @@
                 "type": "object",
                 "properties": {
                   "bookingId": {
-                    "type": "number",
-                    "nullable": true,
+                    "type": "integer",
+                    "minimum": 0,
+                    "exclusiveMinimum": true,
                     "description": "Booking ID to pay for"
                   },
                   "amount": {
                     "type": "number",
-                    "nullable": true,
+                    "minimum": 0,
+                    "exclusiveMinimum": true,
                     "description": "Payment amount"
                   },
                   "paymentMethodId": {
-                    "type": "number",
-                    "nullable": true,
+                    "type": "integer",
+                    "minimum": 0,
+                    "exclusiveMinimum": true,
                     "description": "Payment method ID (jazzcash, easypaisa, etc.)"
                   },
                   "proofImage": {
@@ -10797,6 +10800,7 @@
                   },
                   "transactionReference": {
                     "type": "string",
+                    "maxLength": 255,
                     "description": "Transaction reference number from payment app"
                   },
                   "notes": {
