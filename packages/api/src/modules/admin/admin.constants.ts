@@ -39,3 +39,11 @@ export const PAYMENT_STATUS = {
 } as const;
 
 export const REASSIGNABLE_BOOKING_STATUSES = ['pending', 'accepted'] as const;
+
+export const ACTIVE_BOOKING_STATUSES = [
+  'pending',
+  'accepted',
+  'travelling',
+  'arrived',
+  'in_progress',
+] as const;

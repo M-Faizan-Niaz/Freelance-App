@@ -117,14 +117,15 @@ export class AdminService {
     const actionType = await this.repo.lookupActionTypeByName(USER_ACTION.SUSPEND);
     if (!actionType) throw new AppError('Action type configuration missing');
 
+    const customer = await this.repo.findCustomerByUserId(targetUserId);
+    const blockedStatus = customer
+      ? await this.repo.lookupCustomerStatusByName(CUSTOMER_STATUS.BLOCKED)
+      : null;
+
     await db.transaction(async (tx) => {
       await this.repo.setUserProfileActive(tx, targetUserId, false);
-      const customer = await this.repo.findCustomerByUserId(targetUserId);
-      if (customer) {
-        const blockedStatus = await this.repo.lookupCustomerStatusByName(CUSTOMER_STATUS.BLOCKED);
-        if (blockedStatus) {
-          await this.repo.updateCustomerStatus(tx, targetUserId, blockedStatus.id);
-        }
+      if (customer && blockedStatus) {
+        await this.repo.updateCustomerStatus(tx, targetUserId, blockedStatus.id);
       }
       await this.repo.logAdminAction(tx, {
         adminId,
@@ -145,14 +146,15 @@ export class AdminService {
     const actionType = await this.repo.lookupActionTypeByName(USER_ACTION.BAN);
     if (!actionType) throw new AppError('Action type configuration missing');
 
+    const customer = await this.repo.findCustomerByUserId(targetUserId);
+    const blockedStatus = customer
+      ? await this.repo.lookupCustomerStatusByName(CUSTOMER_STATUS.BLOCKED)
+      : null;
+
     await db.transaction(async (tx) => {
       await this.repo.setUserProfileActive(tx, targetUserId, false);
-      const customer = await this.repo.findCustomerByUserId(targetUserId);
-      if (customer) {
-        const blockedStatus = await this.repo.lookupCustomerStatusByName(CUSTOMER_STATUS.BLOCKED);
-        if (blockedStatus) {
-          await this.repo.updateCustomerStatus(tx, targetUserId, blockedStatus.id);
-        }
+      if (customer && blockedStatus) {
+        await this.repo.updateCustomerStatus(tx, targetUserId, blockedStatus.id);
       }
       await this.repo.logAdminAction(tx, {
         adminId,
@@ -172,14 +174,15 @@ export class AdminService {
     const actionType = await this.repo.lookupActionTypeByName(USER_ACTION.UNSUSPEND);
     if (!actionType) throw new AppError('Action type configuration missing');
 
+    const customer = await this.repo.findCustomerByUserId(targetUserId);
+    const activeStatus = customer
+      ? await this.repo.lookupCustomerStatusByName(CUSTOMER_STATUS.ACTIVE)
+      : null;
+
     await db.transaction(async (tx) => {
       await this.repo.setUserProfileActive(tx, targetUserId, true);
-      const customer = await this.repo.findCustomerByUserId(targetUserId);
-      if (customer) {
-        const activeStatus = await this.repo.lookupCustomerStatusByName(CUSTOMER_STATUS.ACTIVE);
-        if (activeStatus) {
-          await this.repo.updateCustomerStatus(tx, targetUserId, activeStatus.id);
-        }
+      if (customer && activeStatus) {
+        await this.repo.updateCustomerStatus(tx, targetUserId, activeStatus.id);
       }
       await this.repo.logAdminAction(tx, {
         adminId,
@@ -210,8 +213,8 @@ export class AdminService {
     const booking = await this.repo.findBookingById(bookingId);
     if (!booking) throw new NotFoundError('Booking not found');
 
-    const bookingStatus = await this.repo.lookupBookingStatusByName(booking.statusId.toString());
-    const currentStatusName = await this.getBookingStatusName(booking.statusId);
+    const bookingStatus = await this.repo.findBookingStatusById(booking.statusId);
+    const currentStatusName = bookingStatus?.name ?? '';
 
     if (!REASSIGNABLE_BOOKING_STATUSES.includes(currentStatusName as 'pending' | 'accepted')) {
       throw new AppError(
@@ -311,14 +314,15 @@ export class AdminService {
       const actionType = await this.repo.lookupActionTypeByName(USER_ACTION.SUSPEND);
       if (!actionType) throw new AppError('Action type configuration missing');
 
+      const customer = await this.repo.findCustomerByUserId(flag.userId);
+      const blockedStatus = customer
+        ? await this.repo.lookupCustomerStatusByName(CUSTOMER_STATUS.BLOCKED)
+        : null;
+
       await db.transaction(async (tx) => {
         await this.repo.setUserProfileActive(tx, flag.userId, false);
-        const customer = await this.repo.findCustomerByUserId(flag.userId);
-        if (customer) {
-          const blockedStatus = await this.repo.lookupCustomerStatusByName(CUSTOMER_STATUS.BLOCKED);
-          if (blockedStatus) {
-            await this.repo.updateCustomerStatus(tx, flag.userId, blockedStatus.id);
-          }
+        if (customer && blockedStatus) {
+          await this.repo.updateCustomerStatus(tx, flag.userId, blockedStatus.id);
         }
         await this.repo.logAdminAction(tx, {
           adminId,
@@ -364,16 +368,4 @@ export class AdminService {
     return this.repo.getAnalytics(period);
   }
 
-  // ---------------------------------------------------------------------------
-  // Helpers
-  // ---------------------------------------------------------------------------
-
-  private async getBookingStatusName(statusId: number): Promise<string> {
-    const { bookingStatuses } = await import('@/db/models/lookups.model');
-    const { eq } = await import('drizzle-orm');
-    const row = await db.query.bookingStatuses.findFirst({
-      where: eq(bookingStatuses.id, statusId),
-    });
-    return row?.name ?? '';
-  }
 }

@@ -1,11 +1,5 @@
 import { AppError, NotFoundError } from '@/core/errors';
 import db from '@/db';
-import { storageService } from '@/common/services/storage.service';
-import {
-  generateUniqueFileName,
-  validateFileSize,
-  validateImageFile,
-} from '@/common/upload-helpers';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 
 import { ServiceProvidersRepository } from './service-providers.repository';
@@ -27,43 +21,21 @@ export class ServiceProvidersService {
     return sp;
   }
 
-  async uploadDocuments(userId: string, cnicFront: File, cnicBack: File) {
+  async uploadDocuments(
+    userId: string,
+    data: { cnicFrontUrl: string; cnicBackUrl: string },
+  ) {
     const sp = await this.requireServiceProvider(userId);
-
-    if (sp.cnicFrontUrl) {
-      const oldName = storageService.extractFileNameFromUrl(sp.cnicFrontUrl);
-      if (oldName) {
-        try {
-          await storageService.deleteFile(oldName);
-        } catch {
-          /* continue */
-        }
-      }
-    }
-    if (sp.cnicBackUrl) {
-      const oldName = storageService.extractFileNameFromUrl(sp.cnicBackUrl);
-      if (oldName) {
-        try {
-          await storageService.deleteFile(oldName);
-        } catch {
-          /* continue */
-        }
-      }
-    }
-
-    const frontFileName = generateUniqueFileName(cnicFront, 'sp-documents');
-    const backFileName = generateUniqueFileName(cnicBack, 'sp-documents');
-
-    const [cnicFrontUrl, cnicBackUrl] = await Promise.all([
-      storageService.uploadFile(cnicFront, frontFileName),
-      storageService.uploadFile(cnicBack, backFileName),
-    ]);
+    const oldUrls = {
+      cnicFrontUrl: sp.cnicFrontUrl ?? null,
+      cnicBackUrl: sp.cnicBackUrl ?? null,
+    };
 
     await db.transaction(async (tx) => {
-      await this.repo.updateDocuments(tx, sp.id, { cnicFrontUrl, cnicBackUrl });
+      await this.repo.updateDocuments(tx, sp.id, data);
     });
 
-    return { cnicFrontUrl, cnicBackUrl };
+    return { ...data, oldUrls };
   }
 
   async listPortfolioImages(serviceProviderId: number) {
@@ -72,41 +44,29 @@ export class ServiceProvidersService {
     return this.repo.listPortfolioImages(serviceProviderId);
   }
 
-  async uploadPortfolioImages(userId: string, files: File[]) {
+  async uploadPortfolioImages(
+    userId: string,
+    photos: { imageUrl: string; fileName: string }[],
+  ) {
     const sp = await this.requireServiceProvider(userId);
 
     const existing = await this.repo.countPortfolioImages(sp.id);
-    if (existing + files.length > MAX_PORTFOLIO_IMAGES) {
+    if (existing + photos.length > MAX_PORTFOLIO_IMAGES) {
       throw new AppError(
-        `Cannot upload ${files.length} image(s). You have ${existing} and the limit is ${MAX_PORTFOLIO_IMAGES}.`,
+        `Cannot upload ${photos.length} image(s). You have ${existing} and the limit is ${MAX_PORTFOLIO_IMAGES}.`,
         HttpStatusCodes.BAD_REQUEST,
       );
     }
 
-    const uploaded = [];
-    const failed = [];
+    const rows = await Promise.all(
+      photos.map(({ imageUrl, fileName }) =>
+        db.transaction((tx) =>
+          this.repo.insertPortfolioImage(tx, { serviceProviderId: sp.id, url: imageUrl, fileName }),
+        ),
+      ),
+    );
 
-    for (const file of files) {
-      try {
-        validateImageFile(file);
-        validateFileSize(file, 5);
-
-        const fileName = generateUniqueFileName(file, 'sp-portfolio');
-        const url = await storageService.uploadFile(file, fileName);
-
-        const row = await db.transaction(async (tx) =>
-          this.repo.insertPortfolioImage(tx, { serviceProviderId: sp.id, fileName, url }),
-        );
-        uploaded.push(row);
-      } catch (error) {
-        failed.push({
-          fileName: file.name,
-          error: error instanceof Error ? error.message : 'Upload failed',
-        });
-      }
-    }
-
-    return { uploaded, failed };
+    return rows;
   }
 
   async deletePortfolioImages(userId: string, fileNames: string[]) {
@@ -122,8 +82,6 @@ export class ServiceProvidersService {
       await this.repo.deletePortfolioImages(tx, ids);
     });
 
-    await Promise.allSettled(images.map((img) => storageService.deleteFile(img.fileName)));
-
-    return { deleted: images.map((img) => img.fileName) };
+    return images.map((img) => img.fileName);
   }
 }

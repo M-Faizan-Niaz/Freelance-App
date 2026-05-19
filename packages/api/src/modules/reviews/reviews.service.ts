@@ -1,19 +1,20 @@
 import type { CreateReviewRequest } from './reviews.schema';
 
-import { and, eq } from 'drizzle-orm';
 import db from '@/db';
-import { customers } from '@/db/models/customers.model';
 import { AppError, ConflictError, ForbiddenError, NotFoundError } from '@/core/errors';
 import { createPagination } from '@/lib/searching-sorting';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
+import { CustomersRepository } from '@/modules/customers/customers.repository';
 
 import { ReviewsRepository } from './reviews.repository';
 
 export class ReviewsService {
   private readonly repo: ReviewsRepository;
+  private readonly customersRepo: CustomersRepository;
 
   constructor() {
     this.repo = new ReviewsRepository();
+    this.customersRepo = new CustomersRepository();
   }
 
   async createReview(userId: string, body: CreateReviewRequest) {
@@ -64,9 +65,7 @@ export class ReviewsService {
   }
 
   private async requireCustomer(userId: string) {
-    const customer = await db.query.customers.findFirst({
-      where: and(eq(customers.userId, userId), eq(customers.isDeleted, false)),
-    });
+    const customer = await this.customersRepo.findByUserId(userId);
     if (!customer) throw new NotFoundError('Customer profile not found');
     return customer;
   }

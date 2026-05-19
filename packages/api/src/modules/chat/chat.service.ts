@@ -7,64 +7,67 @@ import { createPagination, getPaginationValues } from '@/lib/searching-sorting';
 import { MESSAGE_TYPE } from './chat.constants';
 import { ChatRepository } from './chat.repository';
 
-const repo = new ChatRepository();
+type ConversationWithParties = NonNullable<
+  Awaited<ReturnType<ChatRepository['findConversationWithParties']>>
+>;
 
 export class ChatService {
+  private readonly repo = new ChatRepository();
+
   async listConversations(userId: string, page: number, limit: number) {
     const { limit: take, offset } = getPaginationValues(page, limit);
     const [items, total] = await Promise.all([
-      repo.findManyForUser(userId, take, offset),
-      repo.countForUser(userId),
+      this.repo.findManyForUser(userId, take, offset),
+      this.repo.countForUser(userId),
     ]);
     return { items, pagination: createPagination(total, page, limit) };
   }
 
   async getOrCreateConversation(userId: string, providerId: number, bookingId?: number) {
-    const customer = await repo.findCustomerByUserId(userId);
+    const customer = await this.repo.findCustomerByUserId(userId);
     if (!customer) {
       throw new ForbiddenError('Only customers can initiate conversations');
     }
 
-    const provider = await repo.findProviderById(providerId);
+    const provider = await this.repo.findProviderById(providerId);
     if (!provider) {
       throw new NotFoundError('Service provider not found');
     }
 
     if (bookingId !== undefined) {
-      const booking = await repo.findBookingById(bookingId);
+      const booking = await this.repo.findBookingById(bookingId);
       if (!booking) {
         throw new NotFoundError(`Booking ${bookingId} not found`);
       }
     }
 
-    const existing = await repo.findExisting(customer.id, providerId, bookingId);
+    const existing = await this.repo.findExisting(customer.id, providerId, bookingId);
     if (existing) {
-      const row = await repo.findConversationWithParties(existing.id);
+      const row = await this.repo.findConversationWithParties(existing.id);
       return this.formatConversation(row!, userId);
     }
 
     const created = await db.transaction((tx) =>
-      repo.createConversation(tx, { customerId: customer.id, providerId, bookingId }),
+      this.repo.createConversation(tx, { customerId: customer.id, providerId, bookingId }),
     );
 
-    const row = await repo.findConversationWithParties(created.id);
+    const row = await this.repo.findConversationWithParties((created as { id: number }).id);
     return this.formatConversation(row!, userId);
   }
 
   async listMessages(userId: string, conversationId: number, page: number, limit: number) {
-    const isParticipant = await repo.isParticipant(conversationId, userId);
+    const isParticipant = await this.repo.isParticipant(conversationId, userId);
     if (!isParticipant) {
       throw new ForbiddenError('You are not a participant in this conversation');
     }
 
     const { limit: take, offset } = getPaginationValues(page, limit);
 
-    // Mark incoming messages as read before fetching
-    await db.transaction((tx) => repo.markMessagesAsRead(tx, conversationId, userId));
+    await db.transaction((tx) => this.repo.markMessagesAsRead(tx, conversationId, userId));
 
     const [items, total] = await Promise.all([
-      repo.findManyByConversationId(conversationId, take, offset),
-      repo.countByConversationId(conversationId),
+      this.repo.findManyByConversationId(conversationId, take, offset),
+      this.repo.countByConversationId(conversationId),
     ]);
 
     return { items, pagination: createPagination(total, page, limit) };
@@ -76,24 +79,24 @@ export class ChatService {
     content: string,
     messageTypeName: MessageTypeName = MESSAGE_TYPE.TEXT,
   ) {
-    const isParticipant = await repo.isParticipant(conversationId, userId);
+    const isParticipant = await this.repo.isParticipant(conversationId, userId);
     if (!isParticipant) {
       throw new ForbiddenError('You are not a participant in this conversation');
     }
 
-    const msgType = await repo.findMessageTypeByName(messageTypeName);
+    const msgType = await this.repo.findMessageTypeByName(messageTypeName);
     if (!msgType) {
       throw new NotFoundError(`Message type "${messageTypeName}" not found`);
     }
 
     const msg = await db.transaction((tx) =>
-      repo.createMessage(tx, {
+      this.repo.createMessage(tx, {
         conversationId,
         senderId: userId,
         content,
         messageTypeId: msgType.id,
       }),
-    );
+    ) as Awaited<ReturnType<ChatRepository['createMessage']>>;
 
     return {
       id: msg.id,
@@ -108,10 +111,7 @@ export class ChatService {
     };
   }
 
-  private formatConversation(
-    row: NonNullable<Awaited<ReturnType<typeof repo.findConversationWithParties>>>,
-    userId: string,
-  ) {
+  private formatConversation(row: ConversationWithParties, userId: string) {
     const isCustomer = row.customerUserId === userId;
     return {
       id: row.id,

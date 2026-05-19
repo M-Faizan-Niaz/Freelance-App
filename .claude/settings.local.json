@@ -26,7 +26,12 @@
       "Bash(wait)",
       "Bash(npx tsx *)",
       "Bash(npx orval *)",
-      "Bash(pnpm --filter api-client orval)"
+      "Bash(pnpm --filter api-client orval)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(pnpm build *)"
     ]
   },
   "enableAllProjectMcpServers": true,

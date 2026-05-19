@@ -2,14 +2,10 @@ import type { CreateBookingRequest } from './bookings.schema';
 
 import { AppError, ForbiddenError, NotFoundError } from '@/core/errors';
 import db from '@/db';
-import { storageService } from '@/common/services/storage.service';
-import {
-  generateUniqueFileName,
-  validateFileSize,
-  validateImageFile,
-} from '@/common/upload-helpers';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 import { createPagination } from '@/lib/searching-sorting';
+import { CustomersRepository } from '@/modules/customers/customers.repository';
+import { ServiceProvidersRepository } from '@/modules/service-providers/service-providers.repository';
 
 import {
   BOOKING_STATUS,
@@ -20,29 +16,25 @@ import {
 } from './bookings.constants';
 import { BookingsRepository } from './bookings.repository';
 
-import { customers } from '@/db/models/customers.model';
-import { serviceProviders } from '@/db/models/service-providers.model';
-import { eq } from 'drizzle-orm';
-
 export class BookingsService {
   private readonly repo: BookingsRepository;
+  private readonly customersRepo: CustomersRepository;
+  private readonly providersRepo: ServiceProvidersRepository;
 
   constructor() {
     this.repo = new BookingsRepository();
+    this.customersRepo = new CustomersRepository();
+    this.providersRepo = new ServiceProvidersRepository();
   }
 
   private async requireCustomer(userId: string) {
-    const customer = await db.query.customers.findFirst({
-      where: eq(customers.userId, userId),
-    });
+    const customer = await this.customersRepo.findByUserId(userId);
     if (!customer) throw new NotFoundError('Customer profile not found');
     return customer;
   }
 
-  private async requireProvider(userId: string) {
-    const provider = await db.query.serviceProviders.findFirst({
-      where: eq(serviceProviders.userId, userId),
-    });
+  private async requireProviderByUserId(userId: string) {
+    const provider = await this.providersRepo.findByUserId(userId);
     if (!provider) throw new NotFoundError('Service provider profile not found');
     return provider;
   }
@@ -50,9 +42,7 @@ export class BookingsService {
   async createBooking(userId: string, data: CreateBookingRequest) {
     const customer = await this.requireCustomer(userId);
 
-    const provider = await db.query.serviceProviders.findFirst({
-      where: eq(serviceProviders.id, data.providerId),
-    });
+    const provider = await this.providersRepo.findById(data.providerId);
     if (!provider) throw new NotFoundError('Service provider not found');
 
     const commissionRate = await this.repo.lookupCommissionRate(provider.tierId);
@@ -94,7 +84,7 @@ export class BookingsService {
     params: { page: number; limit: number; sortOrder?: 'asc' | 'desc' },
   ) {
     if (role === 'provider') {
-      const provider = await this.requireProvider(userId);
+      const provider = await this.requireProviderByUserId(userId);
       const { data, total } = await this.repo.listByProvider(provider.id, params);
       return { data, pagination: createPagination(total, params.page, params.limit) };
     }
@@ -202,7 +192,11 @@ export class BookingsService {
     return updated;
   }
 
-  async uploadCompletionPhotos(userId: string, bookingId: number, files: File[]) {
+  async uploadCompletionPhotos(
+    userId: string,
+    bookingId: number,
+    photos: { imageUrl: string; fileName: string }[],
+  ) {
     const booking = await this.repo.findById(bookingId);
     if (!booking) throw new NotFoundError('Booking not found');
 
@@ -219,38 +213,17 @@ export class BookingsService {
     }
 
     const existing = await this.repo.countCompletionPhotos(bookingId);
-    if (existing + files.length > MAX_COMPLETION_PHOTOS) {
+    if (existing + photos.length > MAX_COMPLETION_PHOTOS) {
       throw new AppError(
-        `Cannot upload ${files.length} photo(s). You have ${existing} and the limit is ${MAX_COMPLETION_PHOTOS}.`,
+        `Cannot upload ${photos.length} photo(s). You have ${existing} and the limit is ${MAX_COMPLETION_PHOTOS}.`,
         HttpStatusCodes.BAD_REQUEST,
       );
     }
 
-    const uploaded = [];
-    const failed = [];
+    await db.transaction(async (tx) => {
+      await this.repo.insertCompletionPhotos(tx, bookingId, photos);
+    });
 
-    for (const file of files) {
-      try {
-        validateImageFile(file);
-        validateFileSize(file, 5);
-
-        const fileName = generateUniqueFileName(file, 'booking-completion');
-        const imageUrl = await storageService.uploadFile(file, fileName);
-
-        const [row] = await db.transaction(async (tx) => {
-          await this.repo.insertCompletionPhotos(tx, bookingId, [{ imageUrl, fileName }]);
-          return this.repo.listCompletionPhotos(bookingId);
-        });
-
-        uploaded.push(row);
-      } catch (error) {
-        failed.push({
-          fileName: file.name,
-          error: error instanceof Error ? error.message : 'Upload failed',
-        });
-      }
-    }
-
-    return { uploaded, failed };
+    return this.repo.listCompletionPhotos(bookingId);
   }
 }

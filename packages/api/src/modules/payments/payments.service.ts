@@ -1,22 +1,12 @@
 import { AppError, ConflictError, ForbiddenError, NotFoundError } from '@/core/errors';
 import db from '@/db';
-import { bookings } from '@/db/models/bookings.model';
-import { bookingStatuses } from '@/db/models/lookups.model';
-import { customers } from '@/db/models/customers.model';
-import { storageService } from '@/common/services/storage.service';
-import {
-  generateUniqueFileName,
-  validateFileSize,
-  validateImageFile,
-} from '@/common/upload-helpers';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 import { createPagination } from '@/lib/searching-sorting';
-import { and, eq } from 'drizzle-orm';
+import { CustomersRepository } from '@/modules/customers/customers.repository';
+import { BookingsRepository } from '@/modules/bookings/bookings.repository';
 
 import {
   PAYABLE_BOOKING_STATUS,
-  PAYMENT_PROOF_FOLDER,
-  PAYMENT_PROOF_MAX_MB,
   PAYMENT_STATUS,
   TERMINAL_PAYMENT_STATUSES,
 } from './payments.constants';
@@ -24,32 +14,23 @@ import { PaymentsRepository } from './payments.repository';
 
 export class PaymentsService {
   private readonly repo: PaymentsRepository;
+  private readonly customersRepo: CustomersRepository;
+  private readonly bookingsRepo: BookingsRepository;
 
   constructor() {
     this.repo = new PaymentsRepository();
+    this.customersRepo = new CustomersRepository();
+    this.bookingsRepo = new BookingsRepository();
   }
 
   private async requireCustomer(userId: string) {
-    const customer = await db.query.customers.findFirst({
-      where: eq(customers.userId, userId),
-    });
+    const customer = await this.customersRepo.findByUserId(userId);
     if (!customer) throw new NotFoundError('Customer profile not found');
     return customer;
   }
 
   private async requireBookingCompleted(bookingId: number, customerId: number) {
-    const rows = await db
-      .select({
-        id: bookings.id,
-        customerId: bookings.customerId,
-        statusName: bookingStatuses.name,
-      })
-      .from(bookings)
-      .innerJoin(bookingStatuses, eq(bookingStatuses.id, bookings.statusId))
-      .where(and(eq(bookings.id, bookingId), eq(bookings.isDeleted, false)))
-      .limit(1);
-
-    const booking = rows[0];
+    const booking = await this.bookingsRepo.findById(bookingId);
     if (!booking) throw new NotFoundError('Booking not found');
 
     if (booking.customerId !== customerId) {
@@ -76,7 +57,7 @@ export class PaymentsService {
       transactionReference?: string;
       notes?: string;
     },
-    proofFile: File,
+    proof: { proofImageUrl: string; proofImageKey: string },
   ) {
     const customer = await this.requireCustomer(userId);
     await this.requireBookingCompleted(data.bookingId, customer.id);
@@ -86,14 +67,8 @@ export class PaymentsService {
       throw new ConflictError('A payment has already been submitted for this booking');
     }
 
-    validateImageFile(proofFile);
-    validateFileSize(proofFile, PAYMENT_PROOF_MAX_MB);
-
     const pendingStatus = await this.repo.lookupStatusByName(PAYMENT_STATUS.PENDING);
     if (!pendingStatus) throw new AppError('Payment status configuration missing');
-
-    const proofImageKey = generateUniqueFileName(proofFile, PAYMENT_PROOF_FOLDER);
-    const proofImageUrl = await storageService.uploadFile(proofFile, proofImageKey);
 
     const created = await db.transaction(async (tx) =>
       this.repo.create(tx, {
@@ -102,8 +77,8 @@ export class PaymentsService {
         amount: String(data.amount),
         paymentMethodId: data.paymentMethodId,
         paymentStatusId: pendingStatus.id,
-        proofImageUrl,
-        proofImageKey,
+        proofImageUrl: proof.proofImageUrl,
+        proofImageKey: proof.proofImageKey,
         transactionReference: data.transactionReference ?? null,
         notes: data.notes ?? null,
       }),

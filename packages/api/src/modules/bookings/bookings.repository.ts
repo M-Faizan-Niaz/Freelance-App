@@ -9,6 +9,29 @@ import { customers } from '@/db/models/customers.model';
 import { serviceProviders } from '@/db/models/service-providers.model';
 import { getPaginationValues } from '@/lib/searching-sorting';
 
+const bookingSelect = {
+  id: bookings.id,
+  customerId: bookings.customerId,
+  providerId: bookings.providerId,
+  categoryId: bookings.categoryId,
+  scheduledAt: bookings.scheduledAt,
+  completedAt: bookings.completedAt,
+  customerLatitude: bookings.customerLatitude,
+  customerLongitude: bookings.customerLongitude,
+  customerAddress: bookings.customerAddress,
+  description: bookings.description,
+  estimatedPrice: bookings.estimatedPrice,
+  finalPrice: bookings.finalPrice,
+  commissionRate: bookings.commissionRate,
+  commissionAmount: bookings.commissionAmount,
+  statusId: bookings.statusId,
+  statusName: bookingStatuses.name,
+  cancelledBy: bookings.cancelledBy,
+  cancellationReason: bookings.cancellationReason,
+  createdAt: bookings.createdAt,
+  updatedAt: bookings.updatedAt,
+};
+
 export class BookingsRepository {
   async lookupStatusByName(name: string) {
     return db.query.bookingStatuses.findFirst({
@@ -47,26 +70,7 @@ export class BookingsRepository {
   async findById(id: number) {
     const rows = await db
       .select({
-        id: bookings.id,
-        customerId: bookings.customerId,
-        providerId: bookings.providerId,
-        categoryId: bookings.categoryId,
-        scheduledAt: bookings.scheduledAt,
-        completedAt: bookings.completedAt,
-        customerLatitude: bookings.customerLatitude,
-        customerLongitude: bookings.customerLongitude,
-        customerAddress: bookings.customerAddress,
-        description: bookings.description,
-        estimatedPrice: bookings.estimatedPrice,
-        finalPrice: bookings.finalPrice,
-        commissionRate: bookings.commissionRate,
-        commissionAmount: bookings.commissionAmount,
-        statusId: bookings.statusId,
-        statusName: bookingStatuses.name,
-        cancelledBy: bookings.cancelledBy,
-        cancellationReason: bookings.cancellationReason,
-        createdAt: bookings.createdAt,
-        updatedAt: bookings.updatedAt,
+        ...bookingSelect,
         customerUserId: customers.userId,
         providerUserId: serviceProviders.userId,
       })
@@ -98,28 +102,7 @@ export class BookingsRepository {
       .where(and(eq(bookings.customerId, customerId), eq(bookings.isDeleted, false)));
 
     const data = await db
-      .select({
-        id: bookings.id,
-        customerId: bookings.customerId,
-        providerId: bookings.providerId,
-        categoryId: bookings.categoryId,
-        scheduledAt: bookings.scheduledAt,
-        completedAt: bookings.completedAt,
-        customerLatitude: bookings.customerLatitude,
-        customerLongitude: bookings.customerLongitude,
-        customerAddress: bookings.customerAddress,
-        description: bookings.description,
-        estimatedPrice: bookings.estimatedPrice,
-        finalPrice: bookings.finalPrice,
-        commissionRate: bookings.commissionRate,
-        commissionAmount: bookings.commissionAmount,
-        statusId: bookings.statusId,
-        statusName: bookingStatuses.name,
-        cancelledBy: bookings.cancelledBy,
-        cancellationReason: bookings.cancellationReason,
-        createdAt: bookings.createdAt,
-        updatedAt: bookings.updatedAt,
-      })
+      .select(bookingSelect)
       .from(bookings)
       .innerJoin(bookingStatuses, eq(bookingStatuses.id, bookings.statusId))
       .where(and(eq(bookings.customerId, customerId), eq(bookings.isDeleted, false)))
@@ -142,28 +125,7 @@ export class BookingsRepository {
       .where(and(eq(bookings.providerId, providerId), eq(bookings.isDeleted, false)));
 
     const data = await db
-      .select({
-        id: bookings.id,
-        customerId: bookings.customerId,
-        providerId: bookings.providerId,
-        categoryId: bookings.categoryId,
-        scheduledAt: bookings.scheduledAt,
-        completedAt: bookings.completedAt,
-        customerLatitude: bookings.customerLatitude,
-        customerLongitude: bookings.customerLongitude,
-        customerAddress: bookings.customerAddress,
-        description: bookings.description,
-        estimatedPrice: bookings.estimatedPrice,
-        finalPrice: bookings.finalPrice,
-        commissionRate: bookings.commissionRate,
-        commissionAmount: bookings.commissionAmount,
-        statusId: bookings.statusId,
-        statusName: bookingStatuses.name,
-        cancelledBy: bookings.cancelledBy,
-        cancellationReason: bookings.cancellationReason,
-        createdAt: bookings.createdAt,
-        updatedAt: bookings.updatedAt,
-      })
+      .select(bookingSelect)
       .from(bookings)
       .innerJoin(bookingStatuses, eq(bookingStatuses.id, bookings.statusId))
       .where(and(eq(bookings.providerId, providerId), eq(bookings.isDeleted, false)))

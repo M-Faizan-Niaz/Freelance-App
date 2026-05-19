@@ -9,7 +9,9 @@ import type {
 } from './bookings.route';
 import type { AppRouteHandler } from '@/lib/types';
 
-import { UnauthorizedError } from '@/core/errors';
+import { AppError, UnauthorizedError } from '@/core/errors';
+import { storageService } from '@/common/services/storage.service';
+import { generateUniqueFileName, validateFileSize, validateImageFile } from '@/common/upload-helpers';
 import { successResponse, successResponseWithPagination } from '@/lib/api-response';
 import { auth } from '@/lib/auth';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
@@ -83,10 +85,31 @@ export const uploadCompletionPhoto: AppRouteHandler<UploadCompletionPhotoRoute> 
   const files = rawImages.filter((f): f is File => f instanceof File);
 
   if (files.length === 0) {
-    const { AppError } = await import('@/core/errors');
-    throw new AppError('No image files provided', 400);
+    throw new AppError('No image files provided', HttpStatusCodes.BAD_REQUEST);
   }
 
-  const result = await service.uploadCompletionPhotos(userId, id, files);
-  return c.json(successResponse(result, 'Photos processed'), HttpStatusCodes.OK);
+  const uploaded: { imageUrl: string; fileName: string }[] = [];
+  const failed: { fileName: string; error: string }[] = [];
+
+  for (const file of files) {
+    try {
+      validateImageFile(file);
+      validateFileSize(file, 5);
+      const fileName = generateUniqueFileName(file, 'booking-completion');
+      const imageUrl = await storageService.uploadFile(file, fileName);
+      uploaded.push({ imageUrl, fileName });
+    } catch (error) {
+      failed.push({
+        fileName: file.name,
+        error: error instanceof Error ? error.message : 'Upload failed',
+      });
+    }
+  }
+
+  if (uploaded.length === 0) {
+    return c.json(successResponse({ uploaded: [], failed }, 'No photos were uploaded'), HttpStatusCodes.OK);
+  }
+
+  const photos = await service.uploadCompletionPhotos(userId, id, uploaded);
+  return c.json(successResponse({ uploaded: photos, failed }, 'Photos processed'), HttpStatusCodes.OK);
 };

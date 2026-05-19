@@ -5,24 +5,24 @@ import { createPagination, getPaginationValues } from '@/lib/searching-sorting';
 
 import { NotificationsRepository } from './notifications.repository';
 
-const repo = new NotificationsRepository();
-
 export class NotificationsService {
+  private readonly repo = new NotificationsRepository();
+
   async listForUser(userId: string, page: number, limit: number) {
     const { limit: take, offset } = getPaginationValues(page, limit);
     const [items, total] = await Promise.all([
-      repo.findManyByUserId(userId, take, offset),
-      repo.countByUserId(userId),
+      this.repo.findManyByUserId(userId, take, offset),
+      this.repo.countByUserId(userId),
     ]);
     return { items, pagination: createPagination(total, page, limit) };
   }
 
   async markRead(userId: string, ids: number[]) {
-    await db.transaction((tx) => repo.markReadByIds(tx, userId, ids));
+    await db.transaction((tx) => this.repo.markReadByIds(tx, userId, ids));
   }
 
   async markAllRead(userId: string) {
-    await db.transaction((tx) => repo.markAllRead(tx, userId));
+    await db.transaction((tx) => this.repo.markAllRead(tx, userId));
   }
 
   static async send(
@@ -32,6 +32,7 @@ export class NotificationsService {
     body: string,
     data?: unknown,
   ): Promise<void> {
+    const repo = new NotificationsRepository();
     const type = await repo.findTypeByName(typeName);
     if (!type) {
       console.warn(`[NotificationsService.send] unknown type: ${typeName}`);

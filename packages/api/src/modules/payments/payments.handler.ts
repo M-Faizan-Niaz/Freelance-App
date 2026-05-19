@@ -9,10 +9,13 @@ import type {
 import type { AppRouteHandler } from '@/lib/types';
 
 import { AppError, UnauthorizedError } from '@/core/errors';
+import { storageService } from '@/common/services/storage.service';
+import { generateUniqueFileName, validateFileSize, validateImageFile } from '@/common/upload-helpers';
 import { successResponse, successResponseWithPagination } from '@/lib/api-response';
 import { auth } from '@/lib/auth';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 
+import { PAYMENT_PROOF_FOLDER, PAYMENT_PROOF_MAX_MB } from './payments.constants';
 import { PaymentsService } from './payments.service';
 
 const service = new PaymentsService();
@@ -46,10 +49,16 @@ export const submitPayment: AppRouteHandler<SubmitPaymentRoute> = async (c) => {
     );
   }
 
+  validateImageFile(proofImage);
+  validateFileSize(proofImage, PAYMENT_PROOF_MAX_MB);
+
+  const proofImageKey = generateUniqueFileName(proofImage, PAYMENT_PROOF_FOLDER);
+  const proofImageUrl = await storageService.uploadFile(proofImage, proofImageKey);
+
   const payment = await service.submitPayment(
     session.user.id,
     { bookingId, amount, paymentMethodId, transactionReference, notes },
-    proofImage,
+    { proofImageUrl, proofImageKey },
   );
   return c.json(successResponse(payment, 'Payment submitted successfully'), HttpStatusCodes.OK);
 };

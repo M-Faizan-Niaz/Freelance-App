@@ -3,6 +3,7 @@ import type { TX } from '@/lib/types';
 import { and, count, desc, eq, gte, ilike, lte, or, sql, sum } from 'drizzle-orm';
 import db from '@/db';
 import { adminActions, commissionSettings, fraudFlags } from '@/db/models/admin.model';
+import { ACTIVE_BOOKING_STATUSES } from './admin.constants';
 import { bookings } from '@/db/models/bookings.model';
 import { customers } from '@/db/models/customers.model';
 import { userProfiles } from '@/db/models/user-profiles.model';
@@ -59,13 +60,7 @@ export class AdminRepository {
           .where(
             and(
               eq(bookings.isDeleted, false),
-              or(
-                eq(bookingStatuses.name, 'pending'),
-                eq(bookingStatuses.name, 'accepted'),
-                eq(bookingStatuses.name, 'travelling'),
-                eq(bookingStatuses.name, 'arrived'),
-                eq(bookingStatuses.name, 'in_progress'),
-              ),
+              or(...ACTIVE_BOOKING_STATUSES.map((s) => eq(bookingStatuses.name, s))),
             ),
           ),
         db
@@ -567,6 +562,10 @@ export class AdminRepository {
           updatedAt: new Date().toISOString(),
         },
       });
+  }
+
+  async findBookingStatusById(id: number) {
+    return db.query.bookingStatuses.findFirst({ where: eq(bookingStatuses.id, id) });
   }
 
   async findTierById(id: number) {
