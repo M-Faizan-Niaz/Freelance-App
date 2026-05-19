@@ -8,6 +8,7 @@ import commonQueryParamsSchema from '@/lib/openapi/schemas/query-params-schema';
 import {
   createColorsRequestSchema,
   createColorsResponseSchema,
+  deleteColorsRequestSchema,
   getColorsResponseSchema,
   listColorsResponseSchema,
   updateColorsRequestSchema,
@@ -131,12 +132,7 @@ export const removeSelected = createRoute({
   path: '/colors',
   method: 'delete',
   request: {
-    body: jsonContentRequired(
-      z.object({
-        ids: z.array(z.number()),
-      }),
-      'The colors IDs to remove',
-    ),
+    body: jsonContentRequired(deleteColorsRequestSchema, 'The colors IDs to remove'),
   },
   tags,
   summary: 'Delete multiple colors',

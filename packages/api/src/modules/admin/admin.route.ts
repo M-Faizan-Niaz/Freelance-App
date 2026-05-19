@@ -7,12 +7,14 @@ import { createSuccessResponseSchema, idParams, idUuidParams } from '@/lib/opena
 import {
   adminBookingSchema,
   adminCustomerSchema,
+  adminPaginationQuerySchema,
   adminPaymentSchema,
   adminPayoutRequestSchema,
   adminProviderDetailSchema,
   adminProviderSchema,
   analyticsQuerySchema,
   analyticsResponseSchema,
+  approvePayoutResponseSchema,
   assignProviderRequestSchema,
   banUserRequestSchema,
   commissionSettingSchema,
@@ -22,19 +24,16 @@ import {
   listAdminCustomersQuerySchema,
   listAdminPaymentsQuerySchema,
   listAdminProvidersQuerySchema,
+  refundBookingResponseSchema,
   suspendUserRequestSchema,
   updateCommissionSettingsRequestSchema,
   updateFraudFlagRequestSchema,
+  updateFraudFlagResponseSchema,
   userActionResponseSchema,
   verifyProviderRequestSchema,
 } from './admin.schema';
 
 const tags = ['Admin'];
-
-const paginationQuerySchema = z.object({
-  page: z.coerce.number().int().positive().optional().default(1),
-  limit: z.coerce.number().int().positive().max(100).optional().default(20),
-});
 
 // ---------------------------------------------------------------------------
 // Dashboard
@@ -300,10 +299,7 @@ export const refundBooking = createRoute({
   request: { params: idParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(
-        z.object({ bookingId: z.number(), paymentId: z.number(), refunded: z.boolean() }),
-        'Booking refunded successfully',
-      ),
+      createSuccessResponseSchema(refundBookingResponseSchema, 'Booking refunded successfully'),
       'Refund result',
     ),
     ...commonErrorResponses(
@@ -313,7 +309,7 @@ export const refundBooking = createRoute({
         HttpStatusCodes.NOT_FOUND,
         HttpStatusCodes.INTERNAL_SERVER_ERROR,
       ],
-      z.object({ bookingId: z.number(), paymentId: z.number(), refunded: z.boolean() }),
+      refundBookingResponseSchema,
     ),
   },
 });
@@ -351,7 +347,7 @@ export const getAdminPayouts = createRoute({
   method: 'get',
   tags,
   summary: 'List payout requests',
-  request: { query: paginationQuerySchema },
+  request: { query: adminPaginationQuerySchema },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       createSuccessResponseSchema(
@@ -376,10 +372,7 @@ export const approvePayout = createRoute({
   request: { params: idParams },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(
-        z.object({ payoutRequestId: z.number(), approved: z.boolean() }),
-        'Payout approved successfully',
-      ),
+      createSuccessResponseSchema(approvePayoutResponseSchema, 'Payout approved successfully'),
       'Approval result',
     ),
     ...commonErrorResponses(
@@ -389,7 +382,7 @@ export const approvePayout = createRoute({
         HttpStatusCodes.NOT_FOUND,
         HttpStatusCodes.INTERNAL_SERVER_ERROR,
       ],
-      z.object({ payoutRequestId: z.number(), approved: z.boolean() }),
+      approvePayoutResponseSchema,
     ),
   },
 });
@@ -404,7 +397,7 @@ export const getFraudFlags = createRoute({
   method: 'get',
   tags,
   summary: 'List flagged accounts',
-  request: { query: paginationQuerySchema },
+  request: { query: adminPaginationQuerySchema },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       createSuccessResponseSchema(z.array(fraudFlagSchema), 'Fraud flags retrieved'),
@@ -429,10 +422,7 @@ export const updateFraudFlag = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(
-        z.object({ flagId: z.number(), action: z.string() }),
-        'Fraud flag updated',
-      ),
+      createSuccessResponseSchema(updateFraudFlagResponseSchema, 'Fraud flag updated'),
       'Update result',
     ),
     ...commonErrorResponses(

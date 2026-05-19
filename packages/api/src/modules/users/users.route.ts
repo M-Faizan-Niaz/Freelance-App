@@ -4,7 +4,7 @@ import * as HttpStatusCodes from '@/lib/http-status-codes';
 import { commonErrorResponses, jsonContent, jsonContentRequired } from '@/lib/openapi/helpers';
 import { createSuccessResponseSchema } from '@/lib/openapi/schemas';
 
-import { getMeResponseSchema, updateMeRequestSchema } from './users.schema';
+import { getMeResponseSchema, updateMeRequestSchema, uploadProfilePhotoRequestSchema } from './users.schema';
 
 const tags = ['Users'];
 
@@ -70,13 +70,7 @@ export const uploadProfilePhoto = createRoute({
     body: {
       content: {
         'multipart/form-data': {
-          schema: z.object({
-            photo: z.custom<File>().openapi({
-              type: 'string',
-              format: 'binary',
-              description: 'Image file (jpeg, png, webp, gif) max 5 MB',
-            }),
-          }),
+          schema: uploadProfilePhotoRequestSchema,
         },
       },
       required: true,

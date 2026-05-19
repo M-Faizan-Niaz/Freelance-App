@@ -6,9 +6,12 @@ import { createSuccessResponseSchema, idParams } from '@/lib/openapi/schemas';
 
 import {
   deletePortfolioRequestSchema,
+  deletePortfolioResponseSchema,
   portfolioImageSchema,
   portfolioUploadResultSchema,
+  uploadDocumentsRequestSchema,
   uploadDocumentsResultSchema,
+  uploadPortfolioRequestSchema,
 } from './service-providers.schema';
 
 const tags = ['Service Providers'];
@@ -25,18 +28,7 @@ export const uploadDocuments = createRoute({
     body: {
       content: {
         'multipart/form-data': {
-          schema: z.object({
-            cnicFront: z.custom<File>().openapi({
-              type: 'string',
-              format: 'binary',
-              description: 'CNIC front (image or PDF, max 10 MB)',
-            }),
-            cnicBack: z.custom<File>().openapi({
-              type: 'string',
-              format: 'binary',
-              description: 'CNIC back (image or PDF, max 10 MB)',
-            }),
-          }),
+          schema: uploadDocumentsRequestSchema,
         },
       },
       required: true,
@@ -96,13 +88,7 @@ export const uploadPortfolio = createRoute({
     body: {
       content: {
         'multipart/form-data': {
-          schema: z.object({
-            images: z.custom<File>().openapi({
-              type: 'string',
-              format: 'binary',
-              description: 'Portfolio images (multiple allowed)',
-            }),
-          }),
+          schema: uploadPortfolioRequestSchema,
         },
       },
       required: true,
@@ -138,10 +124,7 @@ export const deletePortfolio = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(
-        z.object({ deleted: z.array(z.string()) }),
-        'Images deleted successfully',
-      ),
+      createSuccessResponseSchema(deletePortfolioResponseSchema, 'Images deleted successfully'),
       'Deleted file names',
     ),
     ...commonErrorResponses(

@@ -6,16 +6,13 @@ import { createSuccessResponseSchema, idParams } from '@/lib/openapi/schemas';
 
 import {
   listPaymentsQuerySchema,
+  paymentBookingIdParamsSchema,
   paymentResponseSchema,
   rejectPaymentRequestSchema,
   submitPaymentRequestSchema,
 } from './payments.schema';
 
 const tags = ['Payments'];
-
-const bookingIdParams = z.object({
-  bookingId: z.coerce.number().int().positive().openapi({ param: { name: 'bookingId', in: 'path' } }),
-});
 
 export const submitPayment = createRoute({
   operationId: 'submitPayment',
@@ -84,7 +81,7 @@ export const getPaymentByBooking = createRoute({
   tags,
   summary: 'Get payment by booking ID',
   request: {
-    params: bookingIdParams,
+    params: paymentBookingIdParamsSchema,
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(

@@ -30,3 +30,8 @@ export type GetColorsResponse = z.infer<typeof getColorsResponseSchema>;
 export const listColorsResponseSchema = z.array(getColorsResponseSchema);
 
 export type ListColorsResponse = z.infer<typeof listColorsResponseSchema>;
+
+export const deleteColorsRequestSchema = z.object({
+  ids: z.array(z.number()),
+});
+export type DeleteColorsRequest = z.infer<typeof deleteColorsRequestSchema>;

@@ -18,3 +18,17 @@ export type ServiceCategoryResponse = z.infer<typeof serviceCategoryResponseSche
 
 export const listServiceCategoriesResponseSchema = z.array(serviceCategoryResponseSchema);
 export type ListServiceCategoriesResponse = z.infer<typeof listServiceCategoriesResponseSchema>;
+
+export const deleteServiceCategoriesRequestSchema = z.object({
+  ids: z.array(z.number()).min(1),
+});
+export type DeleteServiceCategoriesRequest = z.infer<typeof deleteServiceCategoriesRequestSchema>;
+
+export const uploadServiceCategoryImageRequestSchema = z.object({
+  image: z.custom<File>().openapi({
+    type: 'string',
+    format: 'binary',
+    description: 'Category image (max 5 MB)',
+  }),
+});
+export type UploadServiceCategoryImageRequest = z.infer<typeof uploadServiceCategoryImageRequestSchema>;

@@ -25,3 +25,12 @@ export const updateMeRequestSchema = z.object({
 });
 
 export type UpdateMeRequest = z.infer<typeof updateMeRequestSchema>;
+
+export const uploadProfilePhotoRequestSchema = z.object({
+  photo: z.custom<File>().openapi({
+    type: 'string',
+    format: 'binary',
+    description: 'Image file (jpeg, png, webp, gif) max 5 MB',
+  }),
+});
+export type UploadProfilePhotoRequest = z.infer<typeof uploadProfilePhotoRequestSchema>;

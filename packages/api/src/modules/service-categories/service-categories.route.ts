@@ -5,9 +5,11 @@ import { createSuccessResponseSchema, idParams } from '@/lib/openapi/schemas';
 
 import {
   createServiceCategoryRequestSchema,
+  deleteServiceCategoriesRequestSchema,
   listServiceCategoriesResponseSchema,
   serviceCategoryResponseSchema,
   updateServiceCategoryRequestSchema,
+  uploadServiceCategoryImageRequestSchema,
 } from './service-categories.schema';
 
 const tags = ['Service Categories'];
@@ -101,10 +103,7 @@ export const removeSelected = createRoute({
   summary: 'Soft-delete service categories',
   description: 'Admin only. Soft-deletes one or more service categories by ID.',
   request: {
-    body: jsonContentRequired(
-      z.object({ ids: z.array(z.number()).min(1) }),
-      'IDs of categories to delete',
-    ),
+    body: jsonContentRequired(deleteServiceCategoriesRequestSchema, 'IDs of categories to delete'),
   },
   responses: {
     [HttpStatusCodes.NO_CONTENT]: {
@@ -117,7 +116,7 @@ export const removeSelected = createRoute({
         HttpStatusCodes.UNPROCESSABLE_ENTITY,
         HttpStatusCodes.INTERNAL_SERVER_ERROR,
       ],
-      z.object({ ids: z.array(z.number()) }),
+      deleteServiceCategoriesRequestSchema,
     ),
   },
 });
@@ -135,13 +134,7 @@ export const uploadImage = createRoute({
     body: {
       content: {
         'multipart/form-data': {
-          schema: z.object({
-            image: z.custom<File>().openapi({
-              type: 'string',
-              format: 'binary',
-              description: 'Category image (max 5 MB)',
-            }),
-          }),
+          schema: uploadServiceCategoryImageRequestSchema,
         },
       },
       required: true,

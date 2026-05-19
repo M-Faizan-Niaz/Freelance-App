@@ -12,6 +12,7 @@ import {
   listBookingsQuerySchema,
   rescheduleBookingRequestSchema,
   updateBookingStatusRequestSchema,
+  uploadCompletionPhotoRequestSchema,
 } from './bookings.schema';
 
 const tags = ['Bookings'];
@@ -191,13 +192,7 @@ export const uploadCompletionPhoto = createRoute({
     body: {
       content: {
         'multipart/form-data': {
-          schema: z.object({
-            images: z.custom<File>().openapi({
-              type: 'string',
-              format: 'binary',
-              description: 'One or more completion photo files (image/*, max 5 MB each)',
-            }),
-          }),
+          schema: uploadCompletionPhotoRequestSchema,
         },
       },
       required: true,

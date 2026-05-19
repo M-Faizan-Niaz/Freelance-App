@@ -55,6 +55,15 @@ export const completionPhotoUploadResponseSchema = z.object({
 });
 export type CompletionPhotoUploadResponse = z.infer<typeof completionPhotoUploadResponseSchema>;
 
+export const uploadCompletionPhotoRequestSchema = z.object({
+  images: z.custom<File>().openapi({
+    type: 'string',
+    format: 'binary',
+    description: 'One or more completion photo files (image/*, max 5 MB each)',
+  }),
+});
+export type UploadCompletionPhotoRequest = z.infer<typeof uploadCompletionPhotoRequestSchema>;
+
 export const bookingResponseSchema = z.object({
   id: z.number(),
   customerId: z.number(),

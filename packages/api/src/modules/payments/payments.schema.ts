@@ -1,5 +1,10 @@
 import { z } from '@hono/zod-openapi';
 
+export const paymentBookingIdParamsSchema = z.object({
+  bookingId: z.coerce.number().int().positive().openapi({ param: { name: 'bookingId', in: 'path' } }),
+});
+export type PaymentBookingIdParams = z.infer<typeof paymentBookingIdParamsSchema>;
+
 export const submitPaymentRequestSchema = z.object({
   bookingId: z.coerce.number().int().positive().openapi({ description: 'Booking ID to pay for' }),
   amount: z.coerce.number().positive().openapi({ description: 'Payment amount' }),

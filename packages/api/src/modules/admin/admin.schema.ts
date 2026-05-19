@@ -259,6 +259,31 @@ export const analyticsQuerySchema = z.object({
 });
 export type AnalyticsQuery = z.infer<typeof analyticsQuerySchema>;
 
+export const adminPaginationQuerySchema = z.object({
+  page: z.coerce.number().int().positive().optional().default(1),
+  limit: z.coerce.number().int().positive().max(100).optional().default(20),
+});
+export type AdminPaginationQuery = z.infer<typeof adminPaginationQuerySchema>;
+
+export const refundBookingResponseSchema = z.object({
+  bookingId: z.number(),
+  paymentId: z.number(),
+  refunded: z.boolean(),
+});
+export type RefundBookingResponse = z.infer<typeof refundBookingResponseSchema>;
+
+export const approvePayoutResponseSchema = z.object({
+  payoutRequestId: z.number(),
+  approved: z.boolean(),
+});
+export type ApprovePayoutResponse = z.infer<typeof approvePayoutResponseSchema>;
+
+export const updateFraudFlagResponseSchema = z.object({
+  flagId: z.number(),
+  action: z.string(),
+});
+export type UpdateFraudFlagResponse = z.infer<typeof updateFraudFlagResponseSchema>;
+
 export const analyticsResponseSchema = z.object({
   revenue: z.array(z.object({ date: z.string(), amount: z.string() })),
   bookingsByStatus: z.array(z.object({ status: z.string(), count: z.number() })),

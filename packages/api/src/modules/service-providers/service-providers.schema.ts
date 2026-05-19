@@ -25,3 +25,19 @@ export const uploadDocumentsResultSchema = z.object({
   cnicFrontUrl: z.string(),
   cnicBackUrl: z.string(),
 });
+
+export const uploadDocumentsRequestSchema = z.object({
+  cnicFront: z.custom<File>().openapi({ type: 'string', format: 'binary', description: 'CNIC front (image or PDF, max 10 MB)' }),
+  cnicBack: z.custom<File>().openapi({ type: 'string', format: 'binary', description: 'CNIC back (image or PDF, max 10 MB)' }),
+});
+export type UploadDocumentsRequest = z.infer<typeof uploadDocumentsRequestSchema>;
+
+export const uploadPortfolioRequestSchema = z.object({
+  images: z.custom<File>().openapi({ type: 'string', format: 'binary', description: 'Portfolio images (multiple allowed)' }),
+});
+export type UploadPortfolioRequest = z.infer<typeof uploadPortfolioRequestSchema>;
+
+export const deletePortfolioResponseSchema = z.object({
+  deleted: z.array(z.string()),
+});
+export type DeletePortfolioResponse = z.infer<typeof deletePortfolioResponseSchema>;
