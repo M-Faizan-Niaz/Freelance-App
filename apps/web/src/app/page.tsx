@@ -1,12 +1,21 @@
-import { TodoApp } from '@/components/todo-app';
+import { HeroSection } from '@/components/home/hero-section';
+import { CategoryGrid } from '@/components/home/category-grid';
+import { StatsStrip } from '@/components/home/stats-strip';
+import { HowItWorksStrip } from '@/components/home/how-it-works-strip';
+import { FeaturedProviders } from '@/components/home/featured-providers';
+import { Testimonials } from '@/components/home/testimonials';
+import { AppDownloadBanner } from '@/components/home/app-download-banner';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background">
-      <div className="container mx-auto py-10 px-4 max-w-2xl">
-        <h1 className="text-3xl font-bold mb-8">Todo App</h1>
-        <TodoApp />
-      </div>
+    <main>
+      <HeroSection />
+      <CategoryGrid />
+      <StatsStrip />
+      <HowItWorksStrip />
+      <FeaturedProviders />
+      <Testimonials />
+      <AppDownloadBanner />
     </main>
   );
 }

@@ -2,7 +2,25 @@
   "permissions": {
     "allow": [
       "mcp__playwright__browser_navigate",
-      "WebFetch(domain:www.taskrabbit.com)"
+      "WebFetch(domain:www.taskrabbit.com)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Freelance-App\\\\apps\\\\web\\\\src\" -Recurse -Force)",
+      "Bash(Select-Object FullName, PSIsContainer)",
+      "Bash(Sort-Object FullName)",
+      "Bash(ConvertTo-Json)",
+      "PowerShell(Get-ChildItem -Path \"D:\\\\Freelance-App\\\\\" -File | Where-Object { $_.Extension -match '\\\\.\\(md|txt|doc|docx\\)$' -or $_.Name -match '\\(README|PLAN|SPEC|DESIGN|ARCHITECTURE|GUIDE\\)' } | Select-Object Name, LastWriteTime)",
+      "Bash(mkdir -p \"D:\\\\Freelance-App\\\\apps\\\\web\\\\src\\\\app\\\\dashboard\\\\_data\")",
+      "Bash(mkdir -p \"D:\\\\Freelance-App\\\\apps\\\\web\\\\src\\\\components\\\\dashboard\")",
+      "Bash(mkdir -p \"D:\\\\Freelance-App\\\\apps\\\\web\\\\src\\\\app\\\\dashboard\\\\bookings\\\\[id]\")",
+      "Bash(mkdir -p \"D:\\\\Freelance-App\\\\apps\\\\web\\\\src\\\\app\\\\dashboard\\\\profile\")",
+      "Bash(mkdir -p \"D:\\\\Freelance-App\\\\apps\\\\web\\\\src\\\\app\\\\dashboard\\\\addresses\")",
+      "Bash(Get-ChildItem -Path \"D:\\\\Freelance-App\\\\apps\\\\web\\\\src\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Freelance-App\" -Directory)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Freelance-App\\\\apps\\\\web\\\\src\" -Force)",
+      "Bash(Select-Object Name, Mode)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(xargs grep -l \"fetch\\\\|axios\\\\|api\")",
+      "Bash(Get-ChildItem *)"
     ]
   },
   "enableAllProjectMcpServers": true,
