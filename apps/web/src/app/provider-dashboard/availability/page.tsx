@@ -7,6 +7,16 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
+function useSave() {
+  const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+  function save() {
+    setLoading(true);
+    setTimeout(() => { setLoading(false); setSaved(true); setTimeout(() => setSaved(false), 2000); }, 600);
+  }
+  return { save, saved, loading };
+}
+
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
 const SLOTS = [
   { id: 'Morning', label: 'Morning', hours: '6 am – 12 pm' },
@@ -25,16 +35,6 @@ function buildDefault(): Record<AvailKey, boolean> {
     }
   }
   return rec as Record<AvailKey, boolean>;
-}
-
-function useSave() {
-  const [saved, setSaved] = useState(false);
-  const [loading, setLoading] = useState(false);
-  function save() {
-    setLoading(true);
-    setTimeout(() => { setLoading(false); setSaved(true); setTimeout(() => setSaved(false), 2000); }, 600);
-  }
-  return { save, saved, loading };
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {

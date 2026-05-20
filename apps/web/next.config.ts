@@ -5,6 +5,7 @@ const tld = process.env.PORTLESS_TLD ?? 'test';
 const nextConfig = {
   reactStrictMode: true,
   allowedDevOrigins: [`web.${project}.${tld}`],
+  transpilePackages: ['@repo/api-client'],
 };
 
 export default nextConfig;

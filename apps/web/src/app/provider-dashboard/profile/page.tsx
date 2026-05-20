@@ -18,13 +18,6 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
-const CITIES = ['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Peshawar'];
-const CATEGORY_OPTIONS = [
-  'Electrician', 'Plumber', 'AC & Appliances', 'Cleaning',
-  'Painting', 'Moving', 'Carpenter', 'Outdoor',
-];
-const EXPERIENCE_OPTIONS = ['Less than 1 year', '1–2 years', '3–5 years', '6–10 years', '10+ years'];
-
 function useSave() {
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,6 +27,13 @@ function useSave() {
   }
   return { save, saved, loading };
 }
+
+const CITIES = ['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Peshawar'];
+const CATEGORY_OPTIONS = [
+  'Electrician', 'Plumber', 'AC & Appliances', 'Cleaning',
+  'Painting', 'Moving', 'Carpenter', 'Outdoor',
+];
+const EXPERIENCE_OPTIONS = ['Less than 1 year', '1–2 years', '3–5 years', '6–10 years', '10+ years'];
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (

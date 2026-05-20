@@ -1,6 +1,4 @@
 import { makeAuthClient } from '@repo/auth-client';
+import { API_BASE_URL } from '@/lib/constants';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.viteplusmono.test';
-const authUrl = API_URL + '/v1/api/auth';
-
-export const authClient = makeAuthClient(authUrl);
+export const authClient = makeAuthClient(`${API_BASE_URL}/v1/api/auth`);

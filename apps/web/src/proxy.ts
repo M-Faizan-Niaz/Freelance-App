@@ -5,7 +5,14 @@ import { NextResponse } from 'next/server';
  * Protected route prefixes — any path not starting with these is public.
  * Adjust to match your application's route structure.
  */
-const PROTECTED_PREFIXES = ['/dashboard', '/settings', '/profile'];
+const PROTECTED_PREFIXES = [
+  '/dashboard',
+  '/provider-dashboard',
+  '/chat',
+  '/payment',
+  '/review',
+  '/notifications',
+];
 
 /** better-auth session cookie name */
 const SESSION_COOKIE = 'better-auth.session_token';

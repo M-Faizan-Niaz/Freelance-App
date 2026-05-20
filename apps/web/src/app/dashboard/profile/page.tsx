@@ -10,6 +10,16 @@ import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
 
+function useSave() {
+  const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
+  function save() {
+    setLoading(true);
+    setTimeout(() => { setLoading(false); setSaved(true); setTimeout(() => setSaved(false), 2000); }, 600);
+  }
+  return { save, saved, loading };
+}
+
 /* ── Mock initial profile ────────────────────────────────────── */
 
 const MOCK_PROFILE = {
@@ -28,24 +38,6 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       {children}
     </section>
   );
-}
-
-/* ── Save feedback ───────────────────────────────────────────── */
-
-function useSave() {
-  const [saved, setSaved] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  function save() {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSaved(true);
-      setTimeout(() => setSaved(false), 2000);
-    }, 600);
-  }
-
-  return { save, saved, loading };
 }
 
 /* ── Page ─────────────────────────────────────────────────────── */

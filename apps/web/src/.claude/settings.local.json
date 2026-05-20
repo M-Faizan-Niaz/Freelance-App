@@ -20,7 +20,9 @@
       "Bash(Select-Object Name, Mode)",
       "Bash(Format-Table -AutoSize)",
       "Bash(xargs grep -l \"fetch\\\\|axios\\\\|api\")",
-      "Bash(Get-ChildItem *)"
+      "Bash(Get-ChildItem *)",
+      "PowerShell(Get-ChildItem \"D:\\\\Freelance-App\\\\packages\\\\api-client\\\\node_modules\\\\@tanstack\\\\react-query\" -ErrorAction SilentlyContinue | Select-Object Name; \\(Get-Item \"D:\\\\Freelance-App\\\\packages\\\\api-client\\\\node_modules\\\\@tanstack\\\\react-query\" -ErrorAction SilentlyContinue\\).Target)",
+      "Bash(Sort-Object)"
     ]
   },
   "enableAllProjectMcpServers": true,

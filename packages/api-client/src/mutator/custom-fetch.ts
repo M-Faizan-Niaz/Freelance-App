@@ -1,4 +1,7 @@
 const getBaseUrl = () => {
+  if (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
   if (typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_API_URL) {
     return (import.meta as any).env.VITE_API_URL as string;
   }
@@ -43,14 +46,18 @@ export const customFetch = async <T>(
     if (qs) fullUrl += `?${qs}`;
   }
 
+  const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
+  const mergedHeaders: Record<string, string> = {
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+    ...(headers as Record<string, string> | undefined),
+  };
+  if (isFormData) delete mergedHeaders['Content-Type'];
+
   const res = await fetch(fullUrl, {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(headers as Record<string, string> | undefined),
-    },
+    headers: mergedHeaders,
     credentials: 'include',
-    body: data !== undefined ? JSON.stringify(data) : undefined,
+    body: isFormData ? (data as FormData) : data !== undefined ? JSON.stringify(data) : undefined,
     signal,
   });
 

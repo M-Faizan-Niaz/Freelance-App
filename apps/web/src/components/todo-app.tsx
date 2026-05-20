@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { Plus, Trash2, Edit2, Check, X } from 'lucide-react';
+import type { Todo } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import type { Todo } from '@/lib/types';
 
 export function TodoApp() {
   const [todos, setTodos] = useState<Todo[]>([]);

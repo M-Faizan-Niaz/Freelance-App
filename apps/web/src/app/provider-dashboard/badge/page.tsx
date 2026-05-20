@@ -133,9 +133,6 @@ export default function BadgePage() {
                   <tier.Icon className="h-5 w-5" strokeWidth={1.5} />
                 </div>
                 <p className={cn('text-xs font-medium', reached ? tier.color : 'text-muted-foreground')}>{tier.label}</p>
-                {i < TIERS.length - 1 && (
-                  <div className={cn('absolute mt-5 h-0.5 w-full', reached ? 'bg-primary/30' : 'bg-border')} style={{ display: 'none' }} />
-                )}
               </div>
             );
           })}
