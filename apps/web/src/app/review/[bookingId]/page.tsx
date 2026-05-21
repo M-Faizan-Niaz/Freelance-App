@@ -12,11 +12,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
 import { StarSelector } from '@/components/review/star-selector';
 import { TagChips } from '@/components/review/tag-chips';
-
-function formatDate(iso?: string | null): string {
-  if (!iso) return '—';
-  return new Date(iso).toLocaleDateString('en-PK', { weekday: 'short', month: 'short', day: 'numeric' });
-}
+import { formatDate } from '@/lib/utils';
+import type { ApiError } from '@/lib/types';
 
 export default function ReviewPage() {
   const { bookingId } = useParams<{ bookingId: string }>();
@@ -57,7 +54,7 @@ export default function ReviewPage() {
       await submit({ data: body });
       router.push('/dashboard');
     } catch (e: unknown) {
-      const err = e as { data?: { error?: { message?: string } } };
+      const err = e as ApiError;
       setError(err?.data?.error?.message ?? 'Failed to submit review. Please try again.');
     }
   }

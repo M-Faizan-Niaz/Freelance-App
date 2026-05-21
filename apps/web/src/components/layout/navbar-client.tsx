@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import {
   Bell,
   CalendarCheck,
@@ -14,7 +14,6 @@ import {
   Settings,
   User,
 } from 'lucide-react';
-import { authClient } from '@/lib/auth-client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,45 +24,39 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import type { NavUser } from './navbar';
+import { getInitials } from '@/lib/utils';
+import { useSignOut } from '@/lib/hooks/use-sign-out';
+import { authClient } from '@/lib/auth-client';
+import { CATEGORIES } from '@/app/services/_data/categories';
 
-const SERVICE_CATEGORIES = [
-  { label: 'Electrician', href: '/services/electrician' },
-  { label: 'Plumber', href: '/services/plumber' },
-  { label: 'AC & Appliances', href: '/services/ac-appliances' },
-  { label: 'Cleaning', href: '/services/cleaning' },
-  { label: 'Painting', href: '/services/painting' },
-  { label: 'Moving', href: '/services/moving' },
-  { label: 'Carpenter', href: '/services/carpenter' },
-  { label: 'Outdoor', href: '/services/outdoor' },
-];
+const SERVICE_CATEGORIES = CATEGORIES.map((cat) => ({
+  label: cat.label,
+  href: `/services/${cat.slug}`,
+}));
 
 const NAV_LINKS = [
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Become a Provider', href: '/become-provider' },
 ];
 
-interface NavbarClientProps {
-  user: NavUser | null;
-}
+type SessionUser = { name: string; email: string; image: string | null };
 
-export function NavbarClient({ user }: NavbarClientProps) {
-  const router = useRouter();
+export function NavbarClient() {
+  const handleSignOut = useSignOut();
+  const [user, setUser] = useState<SessionUser | null>(null);
+  const [isPending, setIsPending] = useState(true);
+  const initials = user?.name ? getInitials(user.name) : 'U';
 
-  async function handleSignOut() {
-    await authClient.signOut();
-    router.push('/');
-    router.refresh();
-  }
-
-  const initials = user?.name
-    ? user.name
-        .split(' ')
-        .map((n: string) => n[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2)
-    : 'U';
+  useEffect(() => {
+    authClient.getSession().then(({ data }) => {
+      setUser(
+        data?.user
+          ? { name: data.user.name, email: data.user.email, image: data.user.image ?? null }
+          : null,
+      );
+      setIsPending(false);
+    });
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -115,7 +108,9 @@ export function NavbarClient({ user }: NavbarClientProps) {
             Karachi
           </Button>
 
-          {user ? (
+          {isPending ? (
+            <div className="h-8 w-20 animate-pulse rounded-md bg-muted" />
+          ) : user ? (
             <>
               <Button variant="ghost" size="icon" aria-label="Notifications">
                 <Bell className="h-4 w-4" />
@@ -272,7 +267,9 @@ export function NavbarClient({ user }: NavbarClientProps) {
               </nav>
 
               <div className="space-y-2 border-t p-4">
-                {user ? (
+                {isPending ? (
+                  <div className="h-9 animate-pulse rounded-md bg-muted" />
+                ) : user ? (
                   <Button
                     variant="outline"
                     className="w-full gap-2 border-destructive text-destructive hover:bg-destructive/5"

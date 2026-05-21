@@ -2,42 +2,44 @@
 
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useState } from 'react';
-
+import { Suspense } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 import { authClient } from '@/lib/auth-client';
+import { signInSchema, type SignInValues } from '@/lib/validations';
 
 function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/';
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const form = useForm<SignInValues>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: { email: '', password: '' },
+    mode: 'onTouched',
+  });
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+  const apiError = form.formState.errors.root?.message;
 
-    const { data, error: err } = await authClient.signIn.email({
-      email,
-      password,
+  async function onSubmit(data: SignInValues) {
+    const { data: result, error: err } = await authClient.signIn.email({
+      email: data.email,
+      password: data.password,
       callbackURL: callbackUrl,
     });
 
-    setLoading(false);
-
     if (err) {
-      setError(err.message ?? 'Sign-in failed. Please check your credentials.');
+      form.setError('root', {
+        message: err.message ?? 'Sign-in failed. Please check your credentials.',
+      });
       return;
     }
 
-    // better-auth signals that 2FA is required
-    if ((data as { twoFactorRedirect?: boolean } | null)?.twoFactorRedirect) {
+    if ((result as { twoFactorRedirect?: boolean } | null)?.twoFactorRedirect) {
       router.push(`/auth/otp?callbackUrl=${encodeURIComponent(callbackUrl)}`);
       return;
     }
@@ -53,47 +55,65 @@ function SignInForm() {
           <p className="text-sm text-muted-foreground">Enter your email and password</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <label className="text-sm font-medium" htmlFor="email">
-              Email
-            </label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="jane@example.com"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+        <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <Controller
+            control={form.control}
+            name="email"
+            render={({ field, fieldState }) => (
+              <div className="space-y-1.5">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  {...field}
+                  id="email"
+                  type="email"
+                  placeholder="jane@example.com"
+                  aria-invalid={fieldState.invalid}
+                  className={cn(fieldState.invalid && 'border-destructive focus-visible:ring-destructive')}
+                />
+                {fieldState.error && (
+                  <p className="text-xs text-destructive">{fieldState.error.message}</p>
+                )}
+              </div>
+            )}
+          />
 
-          <div className="space-y-1">
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-medium" htmlFor="password">
-                Password
-              </label>
-              <Link
-                href="/auth/forgot-password"
-                className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
-              >
-                Forgot password?
-              </Link>
-            </div>
-            <Input
-              id="password"
-              type="password"
-              placeholder="••••••••"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+          <Controller
+            control={form.control}
+            name="password"
+            render={({ field, fieldState }) => (
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Password</Label>
+                  <Link
+                    href="/auth/forgot-password"
+                    className="text-xs text-muted-foreground underline underline-offset-4 hover:text-foreground"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
+                <Input
+                  {...field}
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  aria-invalid={fieldState.invalid}
+                  className={cn(fieldState.invalid && 'border-destructive focus-visible:ring-destructive')}
+                />
+                {fieldState.error && (
+                  <p className="text-xs text-destructive">{fieldState.error.message}</p>
+                )}
+              </div>
+            )}
+          />
 
-          {error && <p className="text-sm text-destructive">{error}</p>}
+          {apiError && (
+            <p className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
+              {apiError}
+            </p>
+          )}
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Signing in…' : 'Sign in'}
+          <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? 'Signing in…' : 'Sign in'}
           </Button>
         </form>
 

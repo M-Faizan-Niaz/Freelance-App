@@ -16,7 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
+import { cn, getInitials } from '@/lib/utils';
+import { PAKISTAN_CITIES } from '@/lib/constants';
 
 function useSave() {
   const [saved, setSaved] = useState(false);
@@ -28,7 +29,6 @@ function useSave() {
   return { save, saved, loading };
 }
 
-const CITIES = ['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Peshawar'];
 const CATEGORY_OPTIONS = [
   'Electrician', 'Plumber', 'AC & Appliances', 'Cleaning',
   'Painting', 'Moving', 'Carpenter', 'Outdoor',
@@ -55,7 +55,7 @@ export default function ProviderProfilePage() {
   const [portfolioCount, setPortfolioCount] = useState(0);
 
   const info = useSave();
-  const initials = name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
+  const initials = getInitials(name);
 
   function toggleCategory(cat: string) {
     setCategories((prev) =>
@@ -163,7 +163,7 @@ export default function ProviderProfilePage() {
             <Select value={city} onValueChange={setCity}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                {CITIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                {PAKISTAN_CITIES.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
               </SelectContent>
             </Select>
           </div>

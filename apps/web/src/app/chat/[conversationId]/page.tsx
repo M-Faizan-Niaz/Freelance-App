@@ -17,6 +17,7 @@ import { ChatHeader } from '@/components/chat/chat-header';
 import { MessageBubble } from '@/components/chat/message-bubble';
 import { QuickReplyChips } from '@/components/chat/quick-reply-chips';
 import { authClient } from '@/lib/auth-client';
+import { CHAT_POLL_INTERVAL_MS } from '@/lib/constants';
 
 const MESSAGES_PARAMS = { limit: 50 } as const;
 
@@ -44,7 +45,7 @@ export default function ActiveChatPage() {
 
   // Poll messages every 3 seconds
   const { data: messagesData, isLoading } = useListMessages(id, MESSAGES_PARAMS, {
-    query: { refetchInterval: 8000, enabled: !!id },
+    query: { refetchInterval: CHAT_POLL_INTERVAL_MS, enabled: !!id },
   });
 
   // API returns newest-first → reverse for display (oldest at top)

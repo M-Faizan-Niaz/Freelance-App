@@ -1,37 +1,12 @@
-import { cookies } from 'next/headers';
 import { ProviderSidebarNav } from '@/components/provider-dashboard/provider-sidebar-nav';
-import type { NavUser } from '@/components/layout/navbar';
-
-async function getProviderUser(): Promise<NavUser | null> {
-  try {
-    const cookieStore = await cookies();
-    if (!cookieStore.has('better-auth.session_token')) return null;
-
-    const cookieHeader = cookieStore
-      .getAll()
-      .map((c) => `${c.name}=${encodeURIComponent(c.value)}`)
-      .join('; ');
-
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.viteplusmono.test';
-    const res = await fetch(`${apiUrl}/v1/api/auth/get-session`, {
-      headers: { cookie: cookieHeader },
-      cache: 'no-store',
-    });
-
-    if (!res.ok) return null;
-    const data = (await res.json()) as { user?: NavUser } | null;
-    return data?.user ?? null;
-  } catch {
-    return null;
-  }
-}
+import { getServerSession } from '@/lib/server-auth';
 
 export default async function ProviderDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getProviderUser();
+  const user = await getServerSession();
 
   return (
     <div className="flex min-h-screen bg-surface">

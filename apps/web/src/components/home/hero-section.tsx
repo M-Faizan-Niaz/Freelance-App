@@ -5,6 +5,7 @@ import { Search, MapPin, ShieldCheck, UserCheck, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { PAKISTAN_CITIES } from '@/lib/constants';
 
 const QUICK_LINKS = [
   { label: 'Electrician', href: '/services/electrician' },
@@ -76,13 +77,9 @@ export function HeroSection() {
                 onChange={(e) => setCity(e.target.value)}
                 className="bg-transparent text-sm text-foreground outline-none cursor-pointer pr-1"
               >
-                {['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Peshawar'].map(
-                  (c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ),
-                )}
+                {PAKISTAN_CITIES.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
               </select>
             </div>
 

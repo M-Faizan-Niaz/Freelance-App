@@ -1,37 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { CalendarDays, CheckCircle2, Clock, CreditCard, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { BookingCard } from '@/components/dashboard/booking-card';
 import { MOCK_BOOKINGS } from './_data/mock-bookings';
-import type { NavUser } from '@/components/layout/navbar';
+import { getServerSession } from '@/lib/server-auth';
 
 export const metadata: Metadata = { title: 'Dashboard — HirePro' };
 
-async function getUser(): Promise<NavUser | null> {
-  try {
-    const cookieStore = await cookies();
-    if (!cookieStore.has('better-auth.session_token')) return null;
-    const cookieHeader = cookieStore
-      .getAll()
-      .map((c) => `${c.name}=${encodeURIComponent(c.value)}`)
-      .join('; ');
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL ?? 'https://api.viteplusmono.test'}/v1/api/auth/get-session`,
-      { headers: { cookie: cookieHeader }, cache: 'no-store' },
-    );
-    if (!res.ok) return null;
-    const data = (await res.json()) as { user?: NavUser } | null;
-    return data?.user ?? null;
-  } catch {
-    return null;
-  }
-}
-
 export default async function DashboardPage() {
-  const user = await getUser();
+  const user = await getServerSession();
 
   const total = MOCK_BOOKINGS.length;
   const completed = MOCK_BOOKINGS.filter((b) => b.status === 'completed').length;

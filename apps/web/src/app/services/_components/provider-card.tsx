@@ -7,6 +7,7 @@ import { StarRating } from '@/components/ui/star-rating';
 import { BadgeChip } from '@/components/ui/badge-chip';
 import { PriceTag } from '@/components/ui/price-tag';
 import { VerificationBadge } from '@/components/ui/verification-badge';
+import { getInitials } from '@/lib/utils';
 import type { ServiceProvider } from '../_data/mock-providers';
 
 interface ServiceProviderCardProps {
@@ -14,12 +15,7 @@ interface ServiceProviderCardProps {
 }
 
 export function ServiceProviderCard({ provider }: ServiceProviderCardProps) {
-  const initials = provider.name
-    .split(' ')
-    .map((n: string) => n[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
+  const initials = getInitials(provider.name);
 
   return (
     <article className="flex flex-col gap-0 rounded-xl border bg-card shadow-sm transition-all hover:shadow-md sm:flex-row">

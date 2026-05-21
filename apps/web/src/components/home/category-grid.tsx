@@ -1,64 +1,24 @@
 import Link from 'next/link';
 import { ArrowRight, Zap, Droplets, Wind, Sparkles, Brush, Truck, Hammer, Trees } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { CATEGORIES } from '@/app/services/_data/categories';
 
-const CATEGORIES = [
-  {
-    icon: Zap,
-    label: 'Electrician',
-    count: 12,
-    href: '/services/electrician',
-    color: 'bg-yellow-50 text-yellow-600',
-  },
-  {
-    icon: Droplets,
-    label: 'Plumber',
-    count: 9,
-    href: '/services/plumber',
-    color: 'bg-blue-50 text-blue-600',
-  },
-  {
-    icon: Wind,
-    label: 'AC & Appliances',
-    count: 8,
-    href: '/services/ac-appliances',
-    color: 'bg-sky-50 text-sky-600',
-  },
-  {
-    icon: Sparkles,
-    label: 'Cleaning',
-    count: 13,
-    href: '/services/cleaning',
-    color: 'bg-green-50 text-green-600',
-  },
-  {
-    icon: Brush,
-    label: 'Painting',
-    count: 6,
-    href: '/services/painting',
-    color: 'bg-purple-50 text-purple-600',
-  },
-  {
-    icon: Truck,
-    label: 'Moving',
-    count: 7,
-    href: '/services/moving',
-    color: 'bg-orange-50 text-orange-600',
-  },
-  {
-    icon: Hammer,
-    label: 'Carpenter',
-    count: 10,
-    href: '/services/carpenter',
-    color: 'bg-amber-50 text-amber-600',
-  },
-  {
-    icon: Trees,
-    label: 'Outdoor',
-    count: 5,
-    href: '/services/outdoor',
-    color: 'bg-emerald-50 text-emerald-600',
-  },
-];
+const CATEGORY_UI: Record<string, { icon: LucideIcon; count: number; color: string }> = {
+  electrician:   { icon: Zap,      count: 12, color: 'bg-yellow-50 text-yellow-600' },
+  plumber:       { icon: Droplets, count: 9,  color: 'bg-blue-50 text-blue-600' },
+  'ac-appliances': { icon: Wind,   count: 8,  color: 'bg-sky-50 text-sky-600' },
+  cleaning:      { icon: Sparkles, count: 13, color: 'bg-green-50 text-green-600' },
+  painting:      { icon: Brush,    count: 6,  color: 'bg-purple-50 text-purple-600' },
+  moving:        { icon: Truck,    count: 7,  color: 'bg-orange-50 text-orange-600' },
+  carpenter:     { icon: Hammer,   count: 10, color: 'bg-amber-50 text-amber-600' },
+  outdoor:       { icon: Trees,    count: 5,  color: 'bg-emerald-50 text-emerald-600' },
+};
+
+const GRID_CATEGORIES = CATEGORIES.map((cat) => ({
+  ...CATEGORY_UI[cat.slug],
+  label: cat.label,
+  href: `/services/${cat.slug}`,
+}));
 
 export function CategoryGrid() {
   return (
@@ -80,7 +40,7 @@ export function CategoryGrid() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {CATEGORIES.map((cat) => {
+          {GRID_CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             return (
               <Link

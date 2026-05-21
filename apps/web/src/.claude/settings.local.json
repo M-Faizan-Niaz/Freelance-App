@@ -22,7 +22,13 @@
       "Bash(xargs grep -l \"fetch\\\\|axios\\\\|api\")",
       "Bash(Get-ChildItem *)",
       "PowerShell(Get-ChildItem \"D:\\\\Freelance-App\\\\packages\\\\api-client\\\\node_modules\\\\@tanstack\\\\react-query\" -ErrorAction SilentlyContinue | Select-Object Name; \\(Get-Item \"D:\\\\Freelance-App\\\\packages\\\\api-client\\\\node_modules\\\\@tanstack\\\\react-query\" -ErrorAction SilentlyContinue\\).Target)",
-      "Bash(Sort-Object)"
+      "Bash(Sort-Object)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(xargs grep -l \"^[[:space:]]*//.*\")",
+      "Bash(Select-Object FullName)",
+      "Bash(xargs grep -l \"register\\\\|Register\" -i)",
+      "Bash(xargs ls -la)",
+      "Bash(pnpm --filter web build)"
     ]
   },
   "enableAllProjectMcpServers": true,

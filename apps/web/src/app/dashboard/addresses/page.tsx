@@ -16,8 +16,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { EmptyState } from '@/components/ui/empty-state';
 import { cn } from '@/lib/utils';
-
-const CITIES = ['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Peshawar'];
+import { PAKISTAN_CITIES } from '@/lib/constants';
 
 interface Address {
   id: string;
@@ -204,7 +203,7 @@ export default function AddressesPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {CITIES.map((c) => (
+                  {PAKISTAN_CITIES.map((c) => (
                     <SelectItem key={c} value={c}>
                       {c}
                     </SelectItem>

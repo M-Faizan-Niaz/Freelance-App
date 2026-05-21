@@ -7,7 +7,7 @@ import { StarRating } from '@/components/ui/star-rating';
 import { BadgeChip } from '@/components/ui/badge-chip';
 import { PriceTag } from '@/components/ui/price-tag';
 import { VerificationBadge } from '@/components/ui/verification-badge';
-import { cn } from '@/lib/utils';
+import { cn, getInitials } from '@/lib/utils';
 
 export interface ProviderCardData {
   id: string;
@@ -30,12 +30,7 @@ interface ProviderCardProps {
 }
 
 export function ProviderCard({ provider, className }: ProviderCardProps) {
-  const initials = provider.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
+  const initials = getInitials(provider.name);
 
   return (
     <div

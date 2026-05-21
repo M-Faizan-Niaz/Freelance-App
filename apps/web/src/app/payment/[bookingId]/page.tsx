@@ -14,13 +14,13 @@ import { PaymentMethodSelector } from '@/components/payment/payment-method-selec
 import { CardForm } from '@/components/payment/card-form';
 import type { CardData } from '@/components/payment/card-form';
 import { PromoCodeInput } from '@/components/payment/promo-code-input';
+import { formatDate } from '@/lib/utils';
+import { PLATFORM_FEE_RATE } from '@/lib/constants';
+import type { ApiError } from '@/lib/types';
 
-function formatDate(iso?: string | null): string {
-  if (!iso) return '—';
-  return new Date(iso).toLocaleDateString('en-PK', {
-    weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true,
-  });
-}
+const DATE_TIME_FORMAT: Intl.DateTimeFormatOptions = {
+  weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true,
+};
 
 function SectionCard({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -61,7 +61,7 @@ export default function PaymentPage() {
   const booking = bookingData?.data;
 
   const subtotal    = Number(booking?.estimatedPrice ?? 0);
-  const platformFee = Math.round(subtotal * 0.05);
+  const platformFee = Math.round(subtotal * PLATFORM_FEE_RATE);
   const discountAmt = Math.round(subtotal * discount / 100);
   const total       = subtotal + platformFee - discountAmt;
 
@@ -81,7 +81,7 @@ export default function PaymentPage() {
       const txnId = res.data.id;
       router.push(`/payment/${bookingId}/success?amount=${total}&txnId=${txnId}`);
     } catch (e: unknown) {
-      const err = e as { data?: { error?: { message?: string } } };
+      const err = e as ApiError;
       setError(err?.data?.error?.message ?? 'Payment failed. Please try again.');
     }
   }
@@ -110,7 +110,7 @@ export default function PaymentPage() {
             {booking?.scheduledAt && (
               <div className="flex items-center gap-2 text-muted-foreground">
                 <CalendarDays className="h-4 w-4 shrink-0" />
-                <span>{formatDate(booking.scheduledAt)}</span>
+                <span>{formatDate(booking.scheduledAt, DATE_TIME_FORMAT)}</span>
               </div>
             )}
             {booking?.customerAddress && (
