@@ -1,7 +1,5 @@
 'use client';
 
-import * as React from 'react';
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Bell,
@@ -24,39 +22,35 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { getInitials } from '@/lib/utils';
+import { getInitials, toSlug } from '@/lib/utils';
 import { useSignOut } from '@/lib/hooks/use-sign-out';
-import { authClient } from '@/lib/auth-client';
-import { CATEGORIES } from '@/app/services/_data/categories';
-
-const SERVICE_CATEGORIES = CATEGORIES.map((cat) => ({
-  label: cat.label,
-  href: `/services/${cat.slug}`,
-}));
+import { useGetMe, useListServiceCategories } from '@repo/api-client';
+import { ROLE } from '@/lib/constants';
 
 const NAV_LINKS = [
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Become a Provider', href: '/become-provider' },
 ];
 
-type SessionUser = { name: string; email: string; image: string | null };
-
 export function NavbarClient() {
   const handleSignOut = useSignOut();
-  const [user, setUser] = useState<SessionUser | null>(null);
-  const [isPending, setIsPending] = useState(true);
-  const initials = user?.name ? getInitials(user.name) : 'U';
 
-  useEffect(() => {
-    authClient.getSession().then(({ data }) => {
-      setUser(
-        data?.user
-          ? { name: data.user.name, email: data.user.email, image: data.user.image ?? null }
-          : null,
-      );
-      setIsPending(false);
-    });
-  }, []);
+  const { data: meData, isPending } = useGetMe({ query: { retry: false } });
+  const user = meData?.data ?? null;
+
+  const { data: categoriesData } = useListServiceCategories();
+  const serviceCategories = (categoriesData?.data ?? []).map((c) => ({
+    label: c.name,
+    href: `/services/${toSlug(c.name)}`,
+  }));
+
+  const isProvider = user?.roleId === ROLE.SERVICE_PROVIDER;
+  const bookingsHref = isProvider ? '/provider-dashboard/jobs' : '/dashboard/bookings';
+  const profileHref = isProvider ? '/provider-dashboard/profile' : '/dashboard/profile';
+
+  const displayName = user?.fullName || user?.name || '';
+  const initials = displayName ? getInitials(displayName) : 'U';
+  const avatarSrc = user?.profilePhotoUrl ?? user?.image ?? '';
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -78,7 +72,7 @@ export function NavbarClient() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-52">
-              {SERVICE_CATEGORIES.map((cat) => (
+              {serviceCategories.map((cat) => (
                 <DropdownMenuItem key={cat.href} asChild>
                   <Link href={cat.href}>{cat.label}</Link>
                 </DropdownMenuItem>
@@ -117,31 +111,31 @@ export function NavbarClient() {
               </Button>
 
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/dashboard/bookings">Bookings</Link>
+                <Link href={bookingsHref}>Bookings</Link>
               </Button>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="rounded-full">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={user.image ?? ''} alt={user.name} />
+                      <AvatarImage src={avatarSrc} alt={displayName} />
                       <AvatarFallback className="text-xs">{initials}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <div className="px-2 py-1.5">
-                    <p className="truncate text-sm font-semibold">{user.name}</p>
+                    <p className="truncate text-sm font-semibold">{displayName}</p>
                     <p className="truncate text-xs text-muted-foreground">{user.email}</p>
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/profile" className="gap-2">
+                    <Link href={profileHref} className="gap-2">
                       <User className="h-4 w-4" /> Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard/bookings" className="gap-2">
+                    <Link href={bookingsHref} className="gap-2">
                       <CalendarCheck className="h-4 w-4" /> My Bookings
                     </Link>
                   </DropdownMenuItem>
@@ -162,9 +156,23 @@ export function NavbarClient() {
             </>
           ) : (
             <>
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/auth/sign-in">Sign In</Link>
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="gap-1">
+                    Sign In <ChevronDown className="h-4 w-4 opacity-60" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link href="/auth/sign-in">Sign in as Customer</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/auth/sign-in?callbackUrl=/provider-dashboard">
+                      Sign in as Provider
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <Button
                 size="sm"
                 className="bg-orange font-semibold text-orange-foreground hover:bg-orange/90"
@@ -198,11 +206,11 @@ export function NavbarClient() {
                 {user && (
                   <div className="mb-3 flex items-center gap-3 rounded-lg bg-muted p-3">
                     <Avatar className="h-10 w-10">
-                      <AvatarImage src={user.image ?? ''} alt={user.name} />
+                      <AvatarImage src={avatarSrc} alt={displayName} />
                       <AvatarFallback>{initials}</AvatarFallback>
                     </Avatar>
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold">{user.name}</p>
+                      <p className="truncate text-sm font-semibold">{displayName}</p>
                       <p className="truncate text-xs text-muted-foreground">{user.email}</p>
                     </div>
                   </div>
@@ -211,7 +219,7 @@ export function NavbarClient() {
                 <p className="px-2 py-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   Services
                 </p>
-                {SERVICE_CATEGORIES.map((cat) => (
+                {serviceCategories.map((cat) => (
                   <SheetClose asChild key={cat.href}>
                     <Link
                       href={cat.href}
@@ -248,7 +256,7 @@ export function NavbarClient() {
                     <div className="my-2 h-px bg-border" />
                     <SheetClose asChild>
                       <Link
-                        href="/dashboard/bookings"
+                        href={bookingsHref}
                         className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent"
                       >
                         My Bookings
@@ -256,7 +264,7 @@ export function NavbarClient() {
                     </SheetClose>
                     <SheetClose asChild>
                       <Link
-                        href="/dashboard/profile"
+                        href={profileHref}
                         className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-accent"
                       >
                         Profile
@@ -280,7 +288,12 @@ export function NavbarClient() {
                 ) : (
                   <>
                     <Button variant="outline" className="w-full" asChild>
-                      <Link href="/auth/sign-in">Sign In</Link>
+                      <Link href="/auth/sign-in">Sign in as Customer</Link>
+                    </Button>
+                    <Button variant="outline" className="w-full" asChild>
+                      <Link href="/auth/sign-in?callbackUrl=/provider-dashboard">
+                        Sign in as Provider
+                      </Link>
                     </Button>
                     <Button
                       className="w-full bg-orange font-semibold text-orange-foreground hover:bg-orange/90"

@@ -1,26 +1,16 @@
+'use client';
+
 import Link from 'next/link';
-import { ArrowRight, Zap, Droplets, Wind, Sparkles, Brush, Truck, Hammer, Trees } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-import { CATEGORIES } from '@/app/services/_data/categories';
-
-const CATEGORY_UI: Record<string, { icon: LucideIcon; count: number; color: string }> = {
-  electrician:   { icon: Zap,      count: 12, color: 'bg-yellow-50 text-yellow-600' },
-  plumber:       { icon: Droplets, count: 9,  color: 'bg-blue-50 text-blue-600' },
-  'ac-appliances': { icon: Wind,   count: 8,  color: 'bg-sky-50 text-sky-600' },
-  cleaning:      { icon: Sparkles, count: 13, color: 'bg-green-50 text-green-600' },
-  painting:      { icon: Brush,    count: 6,  color: 'bg-purple-50 text-purple-600' },
-  moving:        { icon: Truck,    count: 7,  color: 'bg-orange-50 text-orange-600' },
-  carpenter:     { icon: Hammer,   count: 10, color: 'bg-amber-50 text-amber-600' },
-  outdoor:       { icon: Trees,    count: 5,  color: 'bg-emerald-50 text-emerald-600' },
-};
-
-const GRID_CATEGORIES = CATEGORIES.map((cat) => ({
-  ...CATEGORY_UI[cat.slug],
-  label: cat.label,
-  href: `/services/${cat.slug}`,
-}));
+import { ArrowRight } from 'lucide-react';
+import { useListServiceCategories } from '@repo/api-client';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ICON_MAP, COLOR_MAP } from '@/app/services/_data/category-ui';
+import { toSlug } from '@/lib/utils';
 
 export function CategoryGrid() {
+  const { data, isLoading } = useListServiceCategories();
+  const categories = data?.data ?? [];
+
   return (
     <section className="py-16 bg-surface">
       <div className="container mx-auto px-4 lg:px-6">
@@ -40,26 +30,29 @@ export function CategoryGrid() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {GRID_CATEGORIES.map((cat) => {
-            const Icon = cat.icon;
-            return (
-              <Link
-                key={cat.href}
-                href={cat.href}
-                className="group flex flex-col items-center gap-3 rounded-xl border bg-card p-5 text-center shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 hover:border-primary/20"
-              >
-                <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${cat.color}`}>
-                  <Icon className="h-6 w-6" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {cat.label}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{cat.count} services</p>
-                </div>
-              </Link>
-            );
-          })}
+          {isLoading
+            ? Array.from({ length: 8 }).map((_, i) => (
+                <Skeleton key={i} className="h-24 rounded-xl" />
+              ))
+            : categories.map((cat) => {
+                const slug = toSlug(cat.name);
+                const Icon = ICON_MAP[slug] ?? ICON_MAP.electrician;
+                const color = COLOR_MAP[slug] ?? 'bg-muted text-muted-foreground';
+                return (
+                  <Link
+                    key={cat.id}
+                    href={`/services/${slug}`}
+                    className="group flex flex-col items-center gap-3 rounded-xl border bg-card p-5 text-center shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 hover:border-primary/20"
+                  >
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${color}`}>
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {cat.name}
+                    </p>
+                  </Link>
+                );
+              })}
         </div>
 
         <div className="mt-6 text-center sm:hidden">

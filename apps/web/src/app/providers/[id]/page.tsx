@@ -91,9 +91,7 @@ export default async function ProviderProfilePage({ params }: { params: Params }
             <ServicesOffered provider={provider} />
 
             {/* Portfolio gallery */}
-            {provider.portfolioImages.length > 0 && (
-              <PortfolioGallery images={provider.portfolioImages} />
-            )}
+            <PortfolioGallery providerId={Number(id)} />
 
             {/* Availability */}
             {availability && <AvailabilityCalendar days={availability} />}

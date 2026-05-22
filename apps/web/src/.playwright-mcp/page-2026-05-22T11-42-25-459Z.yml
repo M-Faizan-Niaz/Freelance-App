@@ -1,0 +1,253 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "Taskrabbit Home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "Taskrabbit Home" [ref=e8]
+        - generic [ref=e10]:
+          - link "Services" [ref=e11] [cursor=pointer]:
+            - /url: /services
+          - link "Sign up / Log in" [ref=e12] [cursor=pointer]:
+            - /url: /login?source=header
+          - link "Become a Tasker" [ref=e13] [cursor=pointer]:
+            - /url: /become-a-tasker
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e18]:
+          - img "Person sitting on ladder after doing a painting task" [ref=e20]
+          - generic [ref=e21]:
+            - heading "Earn money your way" [level=1] [ref=e22]
+            - paragraph [ref=e23]: See how much you can make tasking on Taskrabbit
+            - generic [ref=e25]:
+              - generic [ref=e26]: Select your area
+              - generic [ref=e27]:
+                - combobox "Wichita" [ref=e28] [cursor=pointer]
+                - textbox: "1173"
+                - img
+            - generic [ref=e30]:
+              - generic [ref=e31]: Choose a category
+              - generic [ref=e32]:
+                - combobox "Help Moving" [ref=e33] [cursor=pointer]
+                - textbox: "6"
+                - img
+            - generic [ref=e34]:
+              - text: $46per hour
+              - button "Price estimate details" [ref=e35] [cursor=pointer]:
+                - img [ref=e37]
+            - button "Get started" [ref=e41] [cursor=pointer]
+            - generic [ref=e42]:
+              - paragraph [ref=e43]: Already have an account?
+              - button "Sign in" [ref=e44] [cursor=pointer]
+        - generic [ref=e47]:
+          - generic [ref=e49]:
+            - img "IKEA logo" [ref=e50]
+            - paragraph [ref=e51]: Proud partner of IKEA
+          - generic [ref=e55]:
+            - generic [ref=e56]:
+              - generic [ref=e57]: Get started faster.
+              - generic [ref=e58]: Download our app
+            - generic [ref=e59]:
+              - button "Download app from Apple App Store" [ref=e60] [cursor=pointer]
+              - button "Download app from Google Play Store" [ref=e61] [cursor=pointer]
+        - region "Flexible work, at your fingertips" [ref=e62]:
+          - generic [ref=e63]:
+            - heading "Flexible work, at your fingertips" [level=2] [ref=e68]
+            - paragraph [ref=e69]: Find local jobs that fit your skills and schedule. With Taskrabbit, you have the freedom and support to be your own boss.
+            - generic [ref=e70]:
+              - generic [ref=e72]:
+                - img [ref=e74]
+                - heading "Be your own boss" [level=3] [ref=e94]
+                - paragraph [ref=e95]: Work how, when, and where you want. Offer services in 50+ categories and set a flexible schedule and work area.
+              - generic [ref=e97]:
+                - img [ref=e99]
+                - heading "Set your own rates" [level=3] [ref=e114]
+                - paragraph [ref=e115]: You keep 100% of what you charge, plus tips! Invoice and get paid directly through our secure payment system.
+              - generic [ref=e117]:
+                - img [ref=e119]
+                - heading "Grow your business" [level=3] [ref=e123]
+                - paragraph [ref=e124]: We connect you with clients in your area, and ways to market yourself — so you can focus on what you do best.
+        - generic [ref=e129]:
+          - heading "What is Taskrabbit?" [level=2] [ref=e130]
+          - paragraph [ref=e131]: Taskrabbit connects busy people in need of help with trusted local Taskers who can lend a hand with everything from home repairs to errands. As a Tasker, you can get paid to do what you love, when and where you want — all while saving the day for someone in your city.
+        - region "Getting Started" [ref=e132]:
+          - generic [ref=e133]:
+            - heading "Getting Started" [level=2] [ref=e138]
+            - generic [ref=e139]:
+              - generic [ref=e141]:
+                - img [ref=e143]
+                - heading "1. Sign up" [level=4] [ref=e154]
+                - paragraph [ref=e155]: Create your account. Then download the Tasker app to continue registration.
+              - generic [ref=e157]:
+                - img [ref=e159]
+                - heading "2. Build your profile" [level=4] [ref=e173]
+                - paragraph [ref=e174]: Select what services you want to offer and where.
+              - generic [ref=e176]:
+                - img [ref=e178]
+                - heading "3. Verify your eligibility to task" [level=4] [ref=e196]
+                - paragraph [ref=e197]: Confirm your identity and submit business verifications, as required.
+            - generic [ref=e198]:
+              - generic [ref=e200]:
+                - img [ref=e202]
+                - heading "4. Pay registration fee" [level=4] [ref=e214]
+                - paragraph [ref=e215]: In applicable cities, we charge a $25 registration fee that helps us provide the best service to you.
+              - generic [ref=e217]:
+                - img [ref=e219]
+                - heading "5. Set your schedule and work area" [level=4] [ref=e236]
+                - paragraph [ref=e237]: Set your weekly availability and opt in to receive same-day jobs.
+              - generic [ref=e239]:
+                - img [ref=e241]
+                - heading "6. Start getting jobs" [level=4] [ref=e255]
+                - paragraph [ref=e256]: Grow your business on your own terms.
+        - generic [ref=e259]:
+          - generic [ref=e260]:
+            - img [ref=e261]
+            - heading "I love Taskrabbit! I was able to get out of debt, tackle bills, provide for my family, and still have enough room to save for future goals." [level=3] [ref=e262]
+            - paragraph [ref=e263]: Karsheem W., New York, NY
+          - img "Tasker testimonial" [ref=e266]
+        - generic [ref=e268]:
+          - heading "Your questions, answered" [level=2] [ref=e273]
+          - button "What's required to become a Tasker?" [ref=e275] [cursor=pointer]:
+            - paragraph [ref=e277]: What's required to become a Tasker?
+            - img [ref=e279]
+          - button "Do I need experience to task?" [ref=e283] [cursor=pointer]:
+            - paragraph [ref=e285]: Do I need experience to task?
+            - img [ref=e287]
+          - button "How do I get jobs?" [ref=e291] [cursor=pointer]:
+            - paragraph [ref=e293]: How do I get jobs?
+            - img [ref=e295]
+          - button "How do I get paid?" [ref=e299] [cursor=pointer]:
+            - paragraph [ref=e301]: How do I get paid?
+            - img [ref=e303]
+          - button "Where does Taskrabbit operate?" [ref=e307] [cursor=pointer]:
+            - paragraph [ref=e309]: Where does Taskrabbit operate?
+            - img [ref=e311]
+          - button "What categories can I task in on Taskrabbit?" [ref=e315] [cursor=pointer]:
+            - paragraph [ref=e317]: What categories can I task in on Taskrabbit?
+            - img [ref=e319]
+          - button "How long does it take for my registration to be processed?" [ref=e323] [cursor=pointer]:
+            - paragraph [ref=e325]: How long does it take for my registration to be processed?
+            - img [ref=e327]
+        - generic [ref=e332]:
+          - heading "Ready to make money your way?" [level=2] [ref=e333]
+          - button "Get started" [ref=e334] [cursor=pointer]
+          - generic [ref=e335]:
+            - button "Download app from Apple App Store" [ref=e336] [cursor=pointer]
+            - button "Download app from Google Play Store" [ref=e337] [cursor=pointer]
+    - contentinfo [ref=e338]:
+      - generic [ref=e339]:
+        - generic [ref=e340]:
+          - paragraph [ref=e341]: "Follow us! We're friendly:"
+          - generic [ref=e342]:
+            - link "Facebook" [ref=e343] [cursor=pointer]:
+              - /url: https://www.facebook.com/taskrabbit/
+              - img "Facebook" [ref=e344]
+            - separator [ref=e345]
+            - link "Twitter" [ref=e346] [cursor=pointer]:
+              - /url: https://twitter.com/taskrabbit
+              - img "Twitter" [ref=e347]
+            - separator [ref=e348]
+            - link "Instagram" [ref=e349] [cursor=pointer]:
+              - /url: https://www.instagram.com/taskrabbit/
+              - img "Instagram" [ref=e350]
+            - separator [ref=e351]
+            - link "TikTok" [ref=e352] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@taskrabbit
+              - img "TikTok" [ref=e353]
+            - separator [ref=e354]
+            - link "LinkedIn" [ref=e355] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/taskrabbit
+              - img "LinkedIn" [ref=e356]
+        - generic [ref=e357]:
+          - generic [ref=e359]:
+            - paragraph [ref=e360]: Discover
+            - list [ref=e361]:
+              - listitem [ref=e362]:
+                - link "Become a Tasker" [ref=e363] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/become-a-tasker
+              - listitem [ref=e364]:
+                - link "Services By City" [ref=e365] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/locations
+              - listitem [ref=e366]:
+                - link "Services Nearby" [ref=e367] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/near-me
+              - listitem [ref=e368]:
+                - link "All Services" [ref=e369] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e370]:
+                - link "Cost Guides By Category" [ref=e371] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/cost-guides
+              - listitem [ref=e372]:
+                - link "Elite Taskers" [ref=e373] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/taskrabbit-elite
+              - listitem
+              - listitem
+              - listitem
+              - listitem
+              - listitem [ref=e374]:
+                - link "Help" [ref=e375] [cursor=pointer]:
+                  - /url: https://support.taskrabbit.com/hc/en-us
+              - listitem
+              - listitem
+              - listitem
+              - listitem
+              - listitem
+          - generic [ref=e377]:
+            - paragraph [ref=e378]: Company
+            - list [ref=e379]:
+              - listitem [ref=e380]:
+                - link "About Us" [ref=e381] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/about
+              - listitem [ref=e382]:
+                - link "Careers" [ref=e383] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/careers
+              - listitem [ref=e384]:
+                - link "Partner with Taskrabbit" [ref=e385] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/blog/partner-lp/
+              - listitem
+              - listitem
+              - listitem
+              - listitem
+              - listitem [ref=e386]:
+                - link "Press" [ref=e387] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/press
+              - listitem [ref=e388]:
+                - link "Taskrabbit for Good" [ref=e389] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/taskrabbitforgood
+              - listitem [ref=e390]:
+                - link "Blog" [ref=e391] [cursor=pointer]:
+                  - /url: /blog
+            - generic [ref=e392]:
+              - link "Terms" [ref=e393] [cursor=pointer]:
+                - /url: https://www.taskrabbit.com/terms
+              - paragraph [ref=e394]: "&"
+              - link "Privacy" [ref=e395] [cursor=pointer]:
+                - /url: https://www.taskrabbit.com/privacy
+            - list [ref=e396]:
+              - listitem
+              - listitem [ref=e397]:
+                - link "California Consumer Notice" [ref=e398] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/ccpa
+              - listitem
+              - listitem [ref=e399]:
+                - link "Do Not Sell My Personal Information" [ref=e400] [cursor=pointer]:
+                  - /url: https://optout.privacyrights.info
+              - listitem
+              - listitem
+              - listitem [ref=e401]:
+                - link "Legal" [ref=e402] [cursor=pointer]:
+                  - /url: https://www.taskrabbit.com/legal
+          - generic [ref=e403]:
+            - paragraph [ref=e404]: Download our app
+            - generic [ref=e405]:
+              - paragraph [ref=e406]: Tackle your to-do list wherever you are with our mobile app.
+              - list [ref=e408]:
+                - listitem [ref=e409]:
+                  - link "Download app from Apple Store" [ref=e410] [cursor=pointer]:
+                    - /url: https://client.onelink.me/70Ot?af_js_web=true&af_ss_ver=2_10_0&pid=Direct&af_ss_ui=true
+                    - img "Download app from Apple Store" [ref=e411]
+                - listitem [ref=e412]:
+                  - link "Download app from Google Play Store" [ref=e413] [cursor=pointer]:
+                    - /url: https://client.onelink.me/70Ot?af_js_web=true&af_ss_ver=2_10_0&pid=Direct&af_ss_ui=true
+                    - img "Download app from Google Play Store" [ref=e414]
+  - alert [ref=e415]

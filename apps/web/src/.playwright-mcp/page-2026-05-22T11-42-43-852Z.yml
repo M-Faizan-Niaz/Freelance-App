@@ -1,0 +1,43 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e8]:
+    - img "TaskRabbit logo" [ref=e10]
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e14]: Email Address
+        - group [ref=e15]:
+          - generic [ref=e17] [cursor=pointer]:
+            - generic [ref=e18]: Email Address
+            - generic [ref=e19]: Must be a valid email address.
+            - textbox "Email Address Must be a valid email address." [ref=e20]:
+              - /placeholder: Email Address
+      - generic [ref=e21]:
+        - generic [ref=e23]: Password
+        - group [ref=e24]:
+          - generic [ref=e26] [cursor=pointer]:
+            - generic [ref=e27]: Password
+            - generic [ref=e28]: Must enter a valid password.
+            - textbox "Password Must enter a valid password." [ref=e29]:
+              - /placeholder: Password
+      - link "Forgot password?" [ref=e31] [cursor=pointer]:
+        - /url: /password/reset
+      - group [ref=e32]:
+        - button "Log in" [ref=e33] [cursor=pointer]:
+          - generic [ref=e34]: Log in
+      - generic [ref=e36]:
+        - text: Did you purchase an assembly from IKEA or sign up
+        - generic [ref=e37]: via Facebook or Google?
+        - link "Create Password" [ref=e38] [cursor=pointer]:
+          - /url: /password/reset
+  - button "Help" [ref=e40] [cursor=pointer]:
+    - img [ref=e42]
+    - text: Help
+  - iframe [ref=e49]:
+    - generic [ref=f13e5]:
+      - generic [ref=f13e6]:
+        - text: protected by
+        - strong [ref=f13e7]: reCAPTCHA
+      - generic [ref=f13e9]:
+        - text: This site is exceeding
+        - link "reCAPTCHA Enterprise free quota" [ref=f13e10] [cursor=pointer]:
+          - /url: https://cloud.google.com/recaptcha/docs/billing-information
+        - text: .

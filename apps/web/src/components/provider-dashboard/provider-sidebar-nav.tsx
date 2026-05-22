@@ -9,6 +9,7 @@ import {
   Award,
   Bell,
   HelpCircle,
+  Images,
 } from 'lucide-react';
 import { SidebarNavBase } from '@/components/ui/sidebar-nav-base';
 import type { NavUser } from '@/lib/types';
@@ -18,6 +19,7 @@ const NAV_ITEMS = [
   { href: '/provider-dashboard/jobs', label: 'Jobs', icon: Briefcase },
   { href: '/provider-dashboard/earnings', label: 'Earnings', icon: DollarSign },
   { href: '/provider-dashboard/profile', label: 'Profile', icon: User },
+  { href: '/provider-dashboard/portfolio', label: 'Portfolio', icon: Images },
   { href: '/provider-dashboard/availability', label: 'Availability', icon: CalendarDays },
   { href: '/provider-dashboard/badge', label: 'Badge & Tier', icon: Award },
 ];

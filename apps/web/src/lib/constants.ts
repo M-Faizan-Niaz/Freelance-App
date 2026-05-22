@@ -12,4 +12,9 @@ export const PAKISTAN_CITIES = [
 
 export const PLATFORM_FEE_RATE = 0.05;
 
+export const ROLE = {
+  CUSTOMER: 1,
+  SERVICE_PROVIDER: 2,
+} as const;
+
 export const CHAT_POLL_INTERVAL_MS = 8_000;

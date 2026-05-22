@@ -14,6 +14,10 @@ export function getInitials(name: string): string {
     .slice(0, 2);
 }
 
+export function toSlug(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
 export function formatDate(
   iso?: string | null,
   options: Intl.DateTimeFormatOptions = { weekday: 'short', month: 'short', day: 'numeric' },

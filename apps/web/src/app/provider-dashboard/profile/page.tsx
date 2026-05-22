@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { CheckCircle2, ImagePlus } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { CheckCircle2, ImagePlus, FileText, Upload } from 'lucide-react';
+import { useUploadServiceProviderDocuments } from '@repo/api-client';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -52,10 +53,35 @@ export default function ProviderProfilePage() {
   const [city, setCity] = useState('Karachi');
   const [experience, setExperience] = useState('6–10 years');
   const [categories, setCategories] = useState<string[]>(['Electrician']);
-  const [portfolioCount, setPortfolioCount] = useState(0);
 
+  // CNIC upload state
+  const cnicFrontRef = useRef<HTMLInputElement>(null);
+  const cnicBackRef = useRef<HTMLInputElement>(null);
+  const [cnicFrontFile, setCnicFrontFile] = useState<File | null>(null);
+  const [cnicBackFile, setCnicBackFile] = useState<File | null>(null);
+  const [cnicStatus, setCnicStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [cnicError, setCnicError] = useState<string | null>(null);
+
+  const uploadDocuments = useUploadServiceProviderDocuments();
   const info = useSave();
   const initials = getInitials(name);
+
+  async function handleCnicUpload() {
+    if (!cnicFrontFile || !cnicBackFile) return;
+    setCnicStatus('idle');
+    setCnicError(null);
+    try {
+      await uploadDocuments.mutateAsync({
+        data: { cnicFront: cnicFrontFile, cnicBack: cnicBackFile },
+      });
+      setCnicStatus('success');
+      setCnicFrontFile(null);
+      setCnicBackFile(null);
+    } catch (err) {
+      setCnicStatus('error');
+      setCnicError(err instanceof Error ? err.message : 'Upload failed. Please try again.');
+    }
+  }
 
   function toggleCategory(cat: string) {
     setCategories((prev) =>
@@ -170,31 +196,89 @@ export default function ProviderProfilePage() {
         </div>
       </Section>
 
-      {/* Portfolio */}
-      <Section title="Portfolio Photos">
+      {/* CNIC Documents */}
+      <Section title="Verification Documents">
         <p className="text-sm text-muted-foreground">
-          Show your best work. Providers with portfolio photos get 3× more bookings.
+          Upload your CNIC front and back to get verified. Verified providers appear higher in search results.
         </p>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          className="hidden"
-          id="portfolio-upload"
-          onChange={(e) => setPortfolioCount(Math.min(e.target.files?.length ?? 0, 6))}
-        />
-        <label
-          htmlFor="portfolio-upload"
-          className={cn(
-            'flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed py-6 text-sm transition-colors',
-            portfolioCount > 0
-              ? 'border-green-500 bg-green-50 text-green-700 dark:bg-green-950/20 dark:text-green-400'
-              : 'border-border text-muted-foreground hover:border-orange hover:text-orange',
-          )}
+
+        <div className="space-y-3">
+          <input
+            ref={cnicFrontRef}
+            type="file"
+            accept="image/*,.pdf"
+            className="hidden"
+            onChange={(e) => setCnicFrontFile(e.target.files?.[0] ?? null)}
+          />
+          <button
+            type="button"
+            onClick={() => cnicFrontRef.current?.click()}
+            className={cn(
+              'flex w-full items-center gap-3 rounded-lg border-2 border-dashed px-4 py-3 text-sm transition-colors',
+              cnicFrontFile
+                ? 'border-green-500 bg-green-50 text-green-700 dark:bg-green-950/20 dark:text-green-400'
+                : 'border-border text-muted-foreground hover:border-primary hover:text-primary',
+            )}
+          >
+            {cnicFrontFile ? (
+              <CheckCircle2 className="h-4 w-4 shrink-0" />
+            ) : (
+              <Upload className="h-4 w-4 shrink-0" />
+            )}
+            {cnicFrontFile ? `Front: ${cnicFrontFile.name}` : 'CNIC — Front side'}
+          </button>
+
+          <input
+            ref={cnicBackRef}
+            type="file"
+            accept="image/*,.pdf"
+            className="hidden"
+            onChange={(e) => setCnicBackFile(e.target.files?.[0] ?? null)}
+          />
+          <button
+            type="button"
+            onClick={() => cnicBackRef.current?.click()}
+            className={cn(
+              'flex w-full items-center gap-3 rounded-lg border-2 border-dashed px-4 py-3 text-sm transition-colors',
+              cnicBackFile
+                ? 'border-green-500 bg-green-50 text-green-700 dark:bg-green-950/20 dark:text-green-400'
+                : 'border-border text-muted-foreground hover:border-primary hover:text-primary',
+            )}
+          >
+            {cnicBackFile ? (
+              <CheckCircle2 className="h-4 w-4 shrink-0" />
+            ) : (
+              <Upload className="h-4 w-4 shrink-0" />
+            )}
+            {cnicBackFile ? `Back: ${cnicBackFile.name}` : 'CNIC — Back side'}
+          </button>
+        </div>
+
+        {cnicStatus === 'success' && (
+          <p className="flex items-center gap-2 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700 dark:bg-green-950/20 dark:text-green-400">
+            <CheckCircle2 className="h-4 w-4 shrink-0" />
+            Documents uploaded. Under review within 24–48 hours.
+          </p>
+        )}
+
+        {cnicStatus === 'error' && cnicError && (
+          <p className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
+            {cnicError}
+          </p>
+        )}
+
+        <div className="flex items-start gap-2 rounded-lg bg-primary/5 p-3 text-xs text-muted-foreground">
+          <FileText className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+          <p>JPEG, PNG, WEBP, or PDF · Max 10 MB each. Your data is encrypted and never shared.</p>
+        </div>
+
+        <Button
+          size="sm"
+          onClick={handleCnicUpload}
+          disabled={!cnicFrontFile || !cnicBackFile || uploadDocuments.isPending}
         >
-          <ImagePlus className="h-5 w-5" />
-          {portfolioCount > 0 ? `${portfolioCount} photo${portfolioCount > 1 ? 's' : ''} selected` : 'Upload up to 6 photos'}
-        </label>
+          {uploadDocuments.isPending ? 'Uploading…' : 'Upload Documents'}
+        </Button>
       </Section>
     </div>
   );

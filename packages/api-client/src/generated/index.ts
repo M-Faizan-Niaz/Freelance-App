@@ -6,4 +6,7 @@ export * from './colors/colors';
 export * from './payments/payments';
 export * from './reviews/reviews';
 export * from './notifications/notifications';
+export * from './service-categories/service-categories';
+export * from './service-providers/service-providers';
+export * from './users/users';
 export * from './model';

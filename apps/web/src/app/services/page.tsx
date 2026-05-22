@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
-import { CATEGORIES } from './_data/categories';
+import { fetchCategories } from '@/lib/api';
 import { CategoryCard } from './_components/category-card';
 
 export const metadata: Metadata = {
@@ -14,14 +14,11 @@ type SearchParams = Promise<{ q?: string }>;
 
 export default async function ServicesPage({ searchParams }: { searchParams: SearchParams }) {
   const { q } = await searchParams;
+  const categories = await fetchCategories();
 
   const filtered = q
-    ? CATEGORIES.filter(
-        (c) =>
-          c.label.toLowerCase().includes(q.toLowerCase()) ||
-          c.subcategories.some((s) => s.toLowerCase().includes(q.toLowerCase())),
-      )
-    : CATEGORIES;
+    ? categories.filter((c) => c.name.toLowerCase().includes(q.toLowerCase()))
+    : categories;
 
   return (
     <main>
@@ -30,10 +27,9 @@ export default async function ServicesPage({ searchParams }: { searchParams: Sea
         <div className="container mx-auto px-4 lg:px-6">
           <h1 className="text-2xl font-bold text-foreground sm:text-3xl">All Services</h1>
           <p className="mt-1 text-muted-foreground">
-            {CATEGORIES.length} service categories · Pakistan-wide
+            {categories.length} service categories · Pakistan-wide
           </p>
 
-          {/* Search bar */}
           <div className="mt-5 flex max-w-md items-center gap-2 rounded-lg border bg-background px-3 shadow-sm focus-within:ring-2 focus-within:ring-ring">
             <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
             <form method="GET" className="flex-1">
@@ -69,7 +65,7 @@ export default async function ServicesPage({ searchParams }: { searchParams: Sea
           {filtered.length > 0 ? (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((category) => (
-                <CategoryCard key={category.slug} category={category} />
+                <CategoryCard key={category.id} category={category} />
               ))}
             </div>
           ) : (

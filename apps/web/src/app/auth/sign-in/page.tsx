@@ -16,6 +16,7 @@ function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/';
+  const isProviderSignIn = callbackUrl === '/provider-dashboard';
 
   const form = useForm<SignInValues>({
     resolver: zodResolver(signInSchema),
@@ -29,7 +30,6 @@ function SignInForm() {
     const { data: result, error: err } = await authClient.signIn.email({
       email: data.email,
       password: data.password,
-      callbackURL: callbackUrl,
     });
 
     if (err) {
@@ -51,7 +51,9 @@ function SignInForm() {
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-6">
         <div className="space-y-1 text-center">
-          <h1 className="text-2xl font-semibold">Sign in</h1>
+          <h1 className="text-2xl font-semibold">
+            {isProviderSignIn ? 'Sign in as Provider' : 'Sign in'}
+          </h1>
           <p className="text-sm text-muted-foreground">Enter your email and password</p>
         </div>
 
