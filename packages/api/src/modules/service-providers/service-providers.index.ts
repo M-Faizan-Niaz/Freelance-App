@@ -11,5 +11,7 @@ router.openapi(routes.uploadDocuments, handlers.uploadDocuments);
 router.openapi(routes.listPortfolio, handlers.listPortfolio);
 router.openapi(routes.uploadPortfolio, handlers.uploadPortfolio);
 router.openapi(routes.deletePortfolio, handlers.deletePortfolio);
+router.openapi(routes.updateMyProfile, handlers.updateMyProfile);
+router.openapi(routes.setMyCategories, handlers.setMyCategories);
 
 export default router;

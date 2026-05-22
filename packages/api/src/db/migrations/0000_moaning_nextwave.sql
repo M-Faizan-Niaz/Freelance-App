@@ -378,6 +378,13 @@ CREATE TABLE "sp_portfolio_images" (
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE "sp_service_categories" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"sp_id" integer NOT NULL,
+	"category_id" integer NOT NULL,
+	CONSTRAINT "sp_service_categories_spId_categoryId_unique" UNIQUE("sp_id","category_id")
+);
+--> statement-breakpoint
 CREATE TABLE "booking_completion_photos" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"booking_id" integer NOT NULL,
@@ -514,6 +521,8 @@ ALTER TABLE "saved_addresses" ADD CONSTRAINT "saved_addresses_customer_id_custom
 ALTER TABLE "service_providers" ADD CONSTRAINT "service_providers_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "service_providers" ADD CONSTRAINT "service_providers_tier_id_tiers_id_fk" FOREIGN KEY ("tier_id") REFERENCES "public"."tiers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "sp_portfolio_images" ADD CONSTRAINT "sp_portfolio_images_service_provider_id_service_providers_id_fk" FOREIGN KEY ("service_provider_id") REFERENCES "public"."service_providers"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "sp_service_categories" ADD CONSTRAINT "sp_service_categories_sp_id_service_providers_id_fk" FOREIGN KEY ("sp_id") REFERENCES "public"."service_providers"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "sp_service_categories" ADD CONSTRAINT "sp_service_categories_category_id_service_categories_id_fk" FOREIGN KEY ("category_id") REFERENCES "public"."service_categories"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "booking_completion_photos" ADD CONSTRAINT "booking_completion_photos_booking_id_bookings_id_fk" FOREIGN KEY ("booking_id") REFERENCES "public"."bookings"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "bookings" ADD CONSTRAINT "bookings_customer_id_customers_id_fk" FOREIGN KEY ("customer_id") REFERENCES "public"."customers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "bookings" ADD CONSTRAINT "bookings_provider_id_service_providers_id_fk" FOREIGN KEY ("provider_id") REFERENCES "public"."service_providers"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint

@@ -84,4 +84,27 @@ export class ServiceProvidersService {
 
     return images.map((img) => img.fileName);
   }
+
+  async updateProfile(userId: string, data: { bio?: string; hourlyRate?: number }) {
+    const sp = await this.requireServiceProvider(userId);
+    const patch: { bio?: string; hourlyRate?: string } = {};
+    if (data.bio !== undefined) patch.bio = data.bio;
+    if (data.hourlyRate !== undefined) patch.hourlyRate = data.hourlyRate.toFixed(2);
+
+    await db.transaction(async (tx) => {
+      await this.repo.updateProfile(tx, sp.id, patch);
+    });
+
+    const updated = await this.repo.findByUserId(userId);
+    return { bio: updated?.bio ?? null, hourlyRate: updated?.hourlyRate ?? '0.00' };
+  }
+
+  async setCategories(userId: string, categoryIds: number[]) {
+    const sp = await this.requireServiceProvider(userId);
+    await db.transaction(async (tx) => {
+      await this.repo.setCategories(tx, sp.id, categoryIds);
+    });
+    const ids = await this.repo.listCategoryIds(sp.id);
+    return { categoryIds: ids };
+  }
 }

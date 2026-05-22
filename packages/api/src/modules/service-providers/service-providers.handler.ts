@@ -1,6 +1,8 @@
 import type {
   DeletePortfolioRoute,
   ListPortfolioRoute,
+  SetMyCategoriesRoute,
+  UpdateMyProfileRoute,
   UploadDocumentsRoute,
   UploadPortfolioRoute,
 } from './service-providers.route';
@@ -132,4 +134,18 @@ export const deletePortfolio: AppRouteHandler<DeletePortfolioRoute> = async (c) 
     successResponse({ deleted: deletedFileNames }, 'Images deleted successfully'),
     HttpStatusCodes.OK,
   );
+};
+
+export const updateMyProfile: AppRouteHandler<UpdateMyProfileRoute> = async (c) => {
+  const userId = await requireUserId(c.req.raw.headers);
+  const body = c.req.valid('json');
+  const result = await service.updateProfile(userId, body);
+  return c.json(successResponse(result, 'Profile updated successfully'), HttpStatusCodes.OK);
+};
+
+export const setMyCategories: AppRouteHandler<SetMyCategoriesRoute> = async (c) => {
+  const userId = await requireUserId(c.req.raw.headers);
+  const { categoryIds } = c.req.valid('json');
+  const result = await service.setCategories(userId, categoryIds);
+  return c.json(successResponse(result, 'Categories updated successfully'), HttpStatusCodes.OK);
 };

@@ -7,6 +7,7 @@ export * from './customers.model';
 export * from './saved-addresses.model';
 export * from './service-providers.model';
 export * from './sp-portfolio-images.model';
+export * from './sp-service-categories.model';
 export * from './bookings.model';
 export * from './reviews.model';
 export * from './payments.model';

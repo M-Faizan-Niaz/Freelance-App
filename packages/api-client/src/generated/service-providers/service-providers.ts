@@ -33,6 +33,18 @@ import type {
   ListServiceProviderPortfolio200,
   ListServiceProviderPortfolio404,
   ListServiceProviderPortfolio500,
+  SetServiceProviderCategories200,
+  SetServiceProviderCategories400,
+  SetServiceProviderCategories401,
+  SetServiceProviderCategories404,
+  SetServiceProviderCategories500,
+  SetServiceProviderCategoriesBody,
+  UpdateServiceProviderProfile200,
+  UpdateServiceProviderProfile400,
+  UpdateServiceProviderProfile401,
+  UpdateServiceProviderProfile404,
+  UpdateServiceProviderProfile500,
+  UpdateServiceProviderProfileBody,
   UploadPortfolioImages200,
   UploadPortfolioImages400,
   UploadPortfolioImages401,
@@ -349,6 +361,134 @@ export const useDeletePortfolioImages = <TError = DeletePortfolioImages400 | Del
       > => {
 
       const mutationOptions = getDeletePortfolioImagesMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * Update the authenticated provider's bio and/or hourly rate.
+ * @summary Update provider profile
+ */
+export const updateServiceProviderProfile = (
+    updateServiceProviderProfileBody: UpdateServiceProviderProfileBody,
+ options?: SecondParameter<typeof customFetch>,) => {
+      
+      
+      return customFetch<UpdateServiceProviderProfile200>(
+      {url: `/v1/api/service-providers/me`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateServiceProviderProfileBody
+    },
+      options);
+    }
+  
+
+
+export const getUpdateServiceProviderProfileMutationOptions = <TError = UpdateServiceProviderProfile400 | UpdateServiceProviderProfile401 | UpdateServiceProviderProfile404 | UpdateServiceProviderProfile500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateServiceProviderProfile>>, TError,{data: UpdateServiceProviderProfileBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateServiceProviderProfile>>, TError,{data: UpdateServiceProviderProfileBody}, TContext> => {
+
+const mutationKey = ['updateServiceProviderProfile'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateServiceProviderProfile>>, {data: UpdateServiceProviderProfileBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateServiceProviderProfile(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateServiceProviderProfileMutationResult = NonNullable<Awaited<ReturnType<typeof updateServiceProviderProfile>>>
+    export type UpdateServiceProviderProfileMutationBody = UpdateServiceProviderProfileBody
+    export type UpdateServiceProviderProfileMutationError = UpdateServiceProviderProfile400 | UpdateServiceProviderProfile401 | UpdateServiceProviderProfile404 | UpdateServiceProviderProfile500
+
+    /**
+ * @summary Update provider profile
+ */
+export const useUpdateServiceProviderProfile = <TError = UpdateServiceProviderProfile400 | UpdateServiceProviderProfile401 | UpdateServiceProviderProfile404 | UpdateServiceProviderProfile500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateServiceProviderProfile>>, TError,{data: UpdateServiceProviderProfileBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateServiceProviderProfile>>,
+        TError,
+        {data: UpdateServiceProviderProfileBody},
+        TContext
+      > => {
+
+      const mutationOptions = getUpdateServiceProviderProfileMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * Replace all service category assignments for the authenticated provider.
+ * @summary Set provider service categories
+ */
+export const setServiceProviderCategories = (
+    setServiceProviderCategoriesBody: SetServiceProviderCategoriesBody,
+ options?: SecondParameter<typeof customFetch>,) => {
+      
+      
+      return customFetch<SetServiceProviderCategories200>(
+      {url: `/v1/api/service-providers/me/categories`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: setServiceProviderCategoriesBody
+    },
+      options);
+    }
+  
+
+
+export const getSetServiceProviderCategoriesMutationOptions = <TError = SetServiceProviderCategories400 | SetServiceProviderCategories401 | SetServiceProviderCategories404 | SetServiceProviderCategories500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof setServiceProviderCategories>>, TError,{data: SetServiceProviderCategoriesBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof setServiceProviderCategories>>, TError,{data: SetServiceProviderCategoriesBody}, TContext> => {
+
+const mutationKey = ['setServiceProviderCategories'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof setServiceProviderCategories>>, {data: SetServiceProviderCategoriesBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  setServiceProviderCategories(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SetServiceProviderCategoriesMutationResult = NonNullable<Awaited<ReturnType<typeof setServiceProviderCategories>>>
+    export type SetServiceProviderCategoriesMutationBody = SetServiceProviderCategoriesBody
+    export type SetServiceProviderCategoriesMutationError = SetServiceProviderCategories400 | SetServiceProviderCategories401 | SetServiceProviderCategories404 | SetServiceProviderCategories500
+
+    /**
+ * @summary Set provider service categories
+ */
+export const useSetServiceProviderCategories = <TError = SetServiceProviderCategories400 | SetServiceProviderCategories401 | SetServiceProviderCategories404 | SetServiceProviderCategories500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof setServiceProviderCategories>>, TError,{data: SetServiceProviderCategoriesBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof setServiceProviderCategories>>,
+        TError,
+        {data: SetServiceProviderCategoriesBody},
+        TContext
+      > => {
+
+      const mutationOptions = getSetServiceProviderCategoriesMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }

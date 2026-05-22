@@ -1,5 +1,5 @@
 {
-  "id": "8b870a25-95a1-4f86-9668-63249217ea95",
+  "id": "b0dfeb39-6a19-4a89-ae3d-ffc79589808b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -2505,6 +2505,73 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sp_service_categories": {
+      "name": "sp_service_categories",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "sp_id": {
+          "name": "sp_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sp_service_categories_sp_id_service_providers_id_fk": {
+          "name": "sp_service_categories_sp_id_service_providers_id_fk",
+          "tableFrom": "sp_service_categories",
+          "tableTo": "service_providers",
+          "columnsFrom": [
+            "sp_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "sp_service_categories_category_id_service_categories_id_fk": {
+          "name": "sp_service_categories_category_id_service_categories_id_fk",
+          "tableFrom": "sp_service_categories",
+          "tableTo": "service_categories",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "sp_service_categories_spId_categoryId_unique": {
+          "name": "sp_service_categories_spId_categoryId_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "sp_id",
+            "category_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

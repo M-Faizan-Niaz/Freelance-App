@@ -9,6 +9,10 @@ import {
   deletePortfolioResponseSchema,
   portfolioImageSchema,
   portfolioUploadResultSchema,
+  setProviderCategoriesResponseSchema,
+  setProviderCategoriesSchema,
+  updateProviderProfileResponseSchema,
+  updateProviderProfileSchema,
   uploadDocumentsRequestSchema,
   uploadDocumentsResultSchema,
   uploadPortfolioRequestSchema,
@@ -139,7 +143,63 @@ export const deletePortfolio = createRoute({
   },
 });
 
+export const updateMyProfile = createRoute({
+  operationId: 'updateServiceProviderProfile',
+  path: '/service-providers/me',
+  method: 'patch',
+  tags,
+  summary: 'Update provider profile',
+  description: 'Update the authenticated provider\'s bio and/or hourly rate.',
+  request: {
+    body: jsonContentRequired(updateProviderProfileSchema, 'Fields to update'),
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      createSuccessResponseSchema(updateProviderProfileResponseSchema, 'Profile updated successfully'),
+      'Updated provider profile fields',
+    ),
+    ...commonErrorResponses(
+      [
+        HttpStatusCodes.BAD_REQUEST,
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
+      updateProviderProfileResponseSchema,
+    ),
+  },
+});
+
+export const setMyCategories = createRoute({
+  operationId: 'setServiceProviderCategories',
+  path: '/service-providers/me/categories',
+  method: 'put',
+  tags,
+  summary: 'Set provider service categories',
+  description: 'Replace all service category assignments for the authenticated provider.',
+  request: {
+    body: jsonContentRequired(setProviderCategoriesSchema, 'Category IDs to assign'),
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      createSuccessResponseSchema(setProviderCategoriesResponseSchema, 'Categories updated successfully'),
+      'Updated category IDs',
+    ),
+    ...commonErrorResponses(
+      [
+        HttpStatusCodes.BAD_REQUEST,
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
+      setProviderCategoriesResponseSchema,
+    ),
+  },
+});
+
 export type UploadDocumentsRoute = typeof uploadDocuments;
 export type ListPortfolioRoute = typeof listPortfolio;
 export type UploadPortfolioRoute = typeof uploadPortfolio;
 export type DeletePortfolioRoute = typeof deletePortfolio;
+export type UpdateMyProfileRoute = typeof updateMyProfile;
+export type SetMyCategoriesRoute = typeof setMyCategories;

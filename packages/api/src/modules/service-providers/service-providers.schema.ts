@@ -1,5 +1,25 @@
 import { z } from '@hono/zod-openapi';
 
+export const updateProviderProfileSchema = z.object({
+  bio: z.string().trim().max(1000).optional(),
+  hourlyRate: z.number().min(0).max(999999).optional(),
+});
+export type UpdateProviderProfile = z.infer<typeof updateProviderProfileSchema>;
+
+export const updateProviderProfileResponseSchema = z.object({
+  bio: z.string().nullable(),
+  hourlyRate: z.string(),
+});
+
+export const setProviderCategoriesSchema = z.object({
+  categoryIds: z.array(z.number().int().positive()).max(20),
+});
+export type SetProviderCategories = z.infer<typeof setProviderCategoriesSchema>;
+
+export const setProviderCategoriesResponseSchema = z.object({
+  categoryIds: z.array(z.number()),
+});
+
 export const portfolioImageSchema = z.object({
   id: z.number(),
   serviceProviderId: z.number(),

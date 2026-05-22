@@ -41,7 +41,7 @@ export function Confirmation() {
           <Link href="/">Back to Home</Link>
         </Button>
         <Button variant="outline" className="w-full" asChild>
-          <Link href="/auth/sign-in">Sign in to your account</Link>
+          <Link href="/auth/sign-in?callbackUrl=/provider-onboarding">Sign in to your account</Link>
         </Button>
       </div>
     </div>

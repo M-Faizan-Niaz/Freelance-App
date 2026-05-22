@@ -5,6 +5,7 @@ import { eq, inArray } from 'drizzle-orm';
 import db from '@/db';
 import { serviceProviders } from '@/db/models/service-providers.model';
 import { spPortfolioImages } from '@/db/models/sp-portfolio-images.model';
+import { spServiceCategories } from '@/db/models/sp-service-categories.model';
 
 export class ServiceProvidersRepository {
   async findByUserId(userId: string) {
@@ -52,5 +53,26 @@ export class ServiceProvidersRepository {
 
   async deletePortfolioImages(tx: TX, ids: number[]) {
     await tx.delete(spPortfolioImages).where(inArray(spPortfolioImages.id, ids));
+  }
+
+  async updateProfile(tx: TX, id: number, data: { bio?: string; hourlyRate?: string }) {
+    await tx.update(serviceProviders).set(data).where(eq(serviceProviders.id, id));
+  }
+
+  async setCategories(tx: TX, spId: number, categoryIds: number[]) {
+    await tx.delete(spServiceCategories).where(eq(spServiceCategories.spId, spId));
+    if (categoryIds.length > 0) {
+      await tx
+        .insert(spServiceCategories)
+        .values(categoryIds.map((categoryId) => ({ spId, categoryId })));
+    }
+  }
+
+  async listCategoryIds(spId: number): Promise<number[]> {
+    const rows = await db
+      .select({ categoryId: spServiceCategories.categoryId })
+      .from(spServiceCategories)
+      .where(eq(spServiceCategories.spId, spId));
+    return rows.map((r) => r.categoryId);
   }
 }

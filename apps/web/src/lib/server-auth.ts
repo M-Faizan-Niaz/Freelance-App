@@ -5,12 +5,12 @@ import type { NavUser } from './types';
 export async function getServerSession(): Promise<NavUser | null> {
   try {
     const cookieStore = await cookies();
-    if (!cookieStore.has('better-auth.session_token')) return null;
-
     const cookieHeader = cookieStore
       .getAll()
       .map((c) => `${c.name}=${encodeURIComponent(c.value)}`)
       .join('; ');
+
+    if (!cookieHeader) return null;
 
     const res = await fetch(`${API_BASE_URL}/v1/api/auth/get-session`, {
       headers: { cookie: cookieHeader },
