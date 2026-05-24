@@ -1,0 +1,459 @@
+- generic [ref=e2]:
+  - generic [ref=e4]:
+    - banner [ref=e6]:
+      - generic [ref=e8]:
+        - button [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+        - link [ref=e14] [cursor=pointer]:
+          - /url: /?source=top_nav
+          - img [ref=e15]
+        - navigation [ref=e20]:
+          - list [ref=e21]:
+            - listitem [ref=e22]:
+              - button "Fiverr Pro" [ref=e24] [cursor=pointer]:
+                - text: Fiverr Pro
+                - img [ref=e27]
+            - listitem [ref=e29]:
+              - button "Explore" [ref=e30] [cursor=pointer]:
+                - button "Explore" [ref=e31]:
+                  - generic [ref=e32]:
+                    - text: Explore
+                    - img [ref=e34]
+            - listitem [ref=e36]:
+              - link "Become a Seller" [ref=e37] [cursor=pointer]:
+                - /url: /start_selling?source=top_nav
+            - listitem [ref=e38]:
+              - link "Sign in" [ref=e39] [cursor=pointer]:
+                - /url: /login?source=top_nav
+            - listitem [ref=e40]:
+              - link "Join" [ref=e41] [cursor=pointer]:
+                - /url: /join?source=top_nav
+    - generic [ref=e42]:
+      - generic:
+        - generic:
+          - navigation:
+            - button:
+              - img
+            - list:
+              - listitem:
+                - link "Trending 🔥":
+                  - /url: /categories/trending
+              - listitem:
+                - link "Graphics & Design":
+                  - /url: /categories/graphics-design?source=category_tree
+              - listitem:
+                - link "Programming & Tech":
+                  - /url: /categories/programming-tech?source=category_tree
+              - listitem:
+                - link "Digital Marketing":
+                  - /url: /categories/online-marketing?source=category_tree
+              - listitem:
+                - link "Video & Animation":
+                  - /url: /categories/video-animation?source=category_tree
+              - listitem:
+                - link "Writing & Translation":
+                  - /url: /categories/writing-translation?source=category_tree
+              - listitem:
+                - link "Music & Audio":
+                  - /url: /categories/music-audio?source=category_tree
+              - listitem:
+                - link "Business":
+                  - /url: /categories/business?source=category_tree
+              - listitem:
+                - link "Finance":
+                  - /url: /categories/finance?source=category_tree
+              - listitem:
+                - link "AI Services":
+                  - /url: /categories/ai-services
+              - listitem:
+                - link "Personal Growth":
+                  - /url: /categories/lifestyle?source=category_tree
+              - listitem:
+                - link "Consulting":
+                  - /url: /categories/consulting-services
+              - listitem:
+                - link "Data":
+                  - /url: /categories/data?source=category_tree
+              - listitem:
+                - link "Photography":
+                  - /url: /categories/photography?source=category_tree
+  - generic [ref=e43]:
+    - dialog [ref=e44]:
+      - banner [ref=e45]:
+        - link [ref=e47] [cursor=pointer]:
+          - /url: /?source=side_navigation
+          - img [ref=e48]
+        - button "Close" [ref=e51] [cursor=pointer]:
+          - img [ref=e52]
+      - generic [ref=e57]:
+        - generic [ref=e59] [cursor=pointer]:
+          - generic [ref=e61]: Browse categories
+          - img [ref=e62]
+        - generic [ref=e65] [cursor=pointer]:
+          - generic [ref=e67]: Explore
+          - img [ref=e68]
+        - generic [ref=e71] [cursor=pointer]:
+          - generic [ref=e73]: Fiverr Pro
+          - img [ref=e74]
+        - generic [ref=e79] [cursor=pointer]:
+          - generic [ref=e80]:
+            - img [ref=e82]
+            - generic [ref=e85]: English
+          - img [ref=e86]
+        - generic [ref=e89] [cursor=pointer]:
+          - generic [ref=e90]:
+            - generic [ref=e91]: ₨
+            - generic [ref=e92]: PKR
+          - img [ref=e93]
+      - contentinfo [ref=e95]:
+        - generic [ref=e96]:
+          - button "Join Fiverr" [ref=e97] [cursor=pointer]
+          - button "Sign in" [ref=e98] [cursor=pointer]
+    - generic [ref=e101]:
+      - generic [ref=e107]:
+        - generic [ref=e108]:
+          - heading "Our freelancers will take it from here" [level=1] [ref=e110]:
+            - text: Our freelancers
+            - text: will take it from here
+          - generic [ref=e113]:
+            - searchbox "Search for any service..." [ref=e115]
+            - button [ref=e116] [cursor=pointer]:
+              - img [ref=e118]
+          - generic [ref=e121]:
+            - link "Website Development" [ref=e122] [cursor=pointer]:
+              - /url: /categories/programming-tech/website-development?source=header_lohp
+              - generic [ref=e123]:
+                - paragraph [ref=e124]: Website Development
+                - img [ref=e125]
+            - link "Architecture & Interior Design" [ref=e127] [cursor=pointer]:
+              - /url: /categories/graphics-design/architectural-design-services?source=header_lohp
+              - generic [ref=e128]:
+                - paragraph [ref=e129]: Architecture & Interior Design
+                - img [ref=e130]
+            - link "UGC Videos" [ref=e132] [cursor=pointer]:
+              - /url: /categories/video-animation/ugc-videos?source=header_lohp
+              - generic [ref=e133]:
+                - paragraph [ref=e134]: UGC Videos
+                - img [ref=e135]
+            - link "Video Editing" [ref=e137] [cursor=pointer]:
+              - /url: /categories/video-animation/video-editing?source=header_lohp
+              - generic [ref=e138]:
+                - paragraph [ref=e139]: Video Editing
+                - img [ref=e140]
+            - link "Book Publishing" [ref=e142] [cursor=pointer]:
+              - /url: /cp/books-publishing?source=header_lohp
+              - generic [ref=e143]:
+                - paragraph [ref=e144]: Book Publishing
+                - img [ref=e145]
+        - generic [ref=e147]:
+          - generic [ref=e148]:
+            - paragraph [ref=e149]: "Trusted by:"
+            - generic [ref=e150]:
+              - img "Trusted by Meta" [ref=e151]
+              - img "Trusted by Google" [ref=e152]
+              - img "Trusted by Netflix" [ref=e153]
+              - img "Trusted by PnG" [ref=e154]
+              - img "Trusted by Paypal" [ref=e155]
+              - img "Trusted by Payoneer" [ref=e156]
+          - button "Start/Pause video" [ref=e157] [cursor=pointer]:
+            - img [ref=e158]
+      - generic [ref=e162]:
+        - generic [ref=e163]:
+          - link "programming_tech Programming & Tech" [ref=e165] [cursor=pointer]:
+            - /url: https://www.fiverr.com/categories/programming-tech?source=hplo_cat_sec_TOP&pos=1
+            - img "programming_tech" [ref=e167]
+            - paragraph [ref=e168]: Programming & Tech
+          - link "graphics_design Graphics & Design" [ref=e170] [cursor=pointer]:
+            - /url: https://www.fiverr.com/categories/graphics-design?source=hplo_cat_sec_TOP&pos=2
+            - img "graphics_design" [ref=e172]
+            - paragraph [ref=e173]: Graphics & Design
+          - link "digital_marketing Digital Marketing" [ref=e175] [cursor=pointer]:
+            - /url: https://www.fiverr.com/categories/online-marketing?source=hplo_cat_sec_TOP&pos=3
+            - img "digital_marketing" [ref=e177]
+            - paragraph [ref=e178]: Digital Marketing
+          - link "writing_translation Writing & Translation" [ref=e180] [cursor=pointer]:
+            - /url: https://www.fiverr.com/categories/writing-translation?source=hplo_cat_sec_TOP&pos=4
+            - img "writing_translation" [ref=e182]
+            - paragraph [ref=e183]: Writing & Translation
+          - link "video_animation Video & Animation" [ref=e185] [cursor=pointer]:
+            - /url: https://www.fiverr.com/categories/video-animation?source=hplo_cat_sec_TOP&pos=5
+            - img "video_animation" [ref=e187]
+            - paragraph [ref=e188]: Video & Animation
+          - link "ai_services AI Services" [ref=e190] [cursor=pointer]:
+            - /url: /categories/ai-services?source=hplo_cat_sec_TOP&pos=6
+            - img "ai_services" [ref=e192]
+            - paragraph [ref=e193]: AI Services
+          - link "music_audio Music & Audio" [ref=e195] [cursor=pointer]:
+            - /url: https://www.fiverr.com/categories/music-audio?source=hplo_cat_sec_TOP&pos=7
+            - img "music_audio" [ref=e197]
+            - paragraph [ref=e198]: Music & Audio
+          - link "business Business" [ref=e200] [cursor=pointer]:
+            - /url: https://www.fiverr.com/categories/business?source=hplo_cat_sec_TOP&pos=8
+            - img "business" [ref=e202]
+            - paragraph [ref=e203]: Business
+          - link "consulting Consulting" [ref=e205] [cursor=pointer]:
+            - /url: /categories/consulting-services?source=hplo_cat_sec_TOP&pos=9
+            - img "consulting" [ref=e207]
+            - paragraph [ref=e208]: Consulting
+        - button "arrow-right" [ref=e209] [cursor=pointer]:
+          - img [ref=e210]
+      - generic [ref=e213]:
+        - heading "Popular services" [level=2] [ref=e214]
+        - generic [ref=e216]:
+          - button "right" [ref=e217] [cursor=pointer]:
+            - img [ref=e219]
+          - generic [ref=e221]:
+            - link "Vibe Coding Vibe Coding" [ref=e224] [cursor=pointer]:
+              - /url: /vibe_coding?source=hplo_subcat_first_step&pos=1
+              - heading "Vibe Coding" [level=3] [ref=e225]
+              - img "Vibe Coding" [ref=e227]
+            - link "Website Development Website Development" [ref=e230] [cursor=pointer]:
+              - /url: /categories/programming-tech/website-development
+              - heading "Website Development" [level=3] [ref=e231]
+              - img "Website Development" [ref=e233]
+            - link "Video Editing Video Editing" [ref=e236] [cursor=pointer]:
+              - /url: /categories/video-animation/video-editing
+              - heading "Video Editing" [level=3] [ref=e237]
+              - img "Video Editing" [ref=e239]
+            - link "Software Development Software Development" [ref=e242] [cursor=pointer]:
+              - /url: /categories/programming-tech/software-development
+              - heading "Software Development" [level=3] [ref=e243]
+              - img "Software Development" [ref=e245]
+            - link "Book Publishing Book Publishing" [ref=e248] [cursor=pointer]:
+              - /url: /cp/books-publishing?source=hplo_subcat_first_step&pos=5
+              - heading "Book Publishing" [level=3] [ref=e249]
+              - img "Book Publishing" [ref=e251]
+            - link "Architecture & Interior Design Architecture & Interior Design" [ref=e254] [cursor=pointer]:
+              - /url: /categories/graphics-design/architectural-design-services
+              - heading "Architecture & Interior Design" [level=3] [ref=e255]
+              - img "Architecture & Interior Design" [ref=e257]
+            - link "Book Design Book Design" [ref=e260] [cursor=pointer]:
+              - /url: /categories/graphics-design/book-design
+              - heading "Book Design" [level=3] [ref=e261]
+              - img "Book Design" [ref=e263]
+            - link "UGC Videos UGC Videos" [ref=e266] [cursor=pointer]:
+              - /url: /categories/video-animation/ugc-videos
+              - heading "UGC Videos" [level=3] [ref=e267]
+              - img "UGC Videos" [ref=e269]
+            - link "Voice Over Voice Over" [ref=e272] [cursor=pointer]:
+              - /url: /categories/music-audio/voice-overs
+              - heading "Voice Over" [level=3] [ref=e273]
+              - img "Voice Over" [ref=e275]
+            - link "Social Media Marketing Social Media Marketing" [ref=e278] [cursor=pointer]:
+              - /url: /categories/online-marketing/social-marketing
+              - heading "Social Media Marketing" [level=3] [ref=e279]
+              - img "Social Media Marketing" [ref=e281]
+            - link "AI Development AI Development" [ref=e284] [cursor=pointer]:
+              - /url: /categories/programming-tech/ai-coding
+              - heading "AI Development" [level=3] [ref=e285]
+              - img "AI Development" [ref=e287]
+            - link "Logo Design Logo Design" [ref=e290] [cursor=pointer]:
+              - /url: /categories/graphics-design/creative-logo-design
+              - heading "Logo Design" [level=3] [ref=e291]
+              - img "Logo Design" [ref=e293]
+            - link "Website Design Website Design" [ref=e296] [cursor=pointer]:
+              - /url: /categories/graphics-design/website-design
+              - heading "Website Design" [level=3] [ref=e297]
+              - img "Website Design" [ref=e299]
+  - contentinfo [ref=e303]:
+    - generic [ref=e304]:
+      - generic [ref=e305]:
+        - generic [ref=e306]:
+          - paragraph [ref=e307]: Categories
+          - list [ref=e308]:
+            - listitem [ref=e309]:
+              - link "Graphics & Design" [ref=e310] [cursor=pointer]:
+                - /url: /categories/graphics-design
+            - listitem [ref=e311]:
+              - link "Digital Marketing" [ref=e312] [cursor=pointer]:
+                - /url: /categories/online-marketing
+            - listitem [ref=e313]:
+              - link "Writing & Translation" [ref=e314] [cursor=pointer]:
+                - /url: /categories/writing-translation
+            - listitem [ref=e315]:
+              - link "Video & Animation" [ref=e316] [cursor=pointer]:
+                - /url: /categories/video-animation
+            - listitem [ref=e317]:
+              - link "Music & Audio" [ref=e318] [cursor=pointer]:
+                - /url: /categories/music-audio
+            - listitem [ref=e319]:
+              - link "Programming & Tech" [ref=e320] [cursor=pointer]:
+                - /url: /categories/programming-tech
+            - listitem [ref=e321]:
+              - link "AI Services" [ref=e322] [cursor=pointer]:
+                - /url: /categories/ai-services
+            - listitem [ref=e323]:
+              - link "Consulting" [ref=e324] [cursor=pointer]:
+                - /url: /categories/consulting-services
+            - listitem [ref=e325]:
+              - link "Data" [ref=e326] [cursor=pointer]:
+                - /url: /categories/data
+            - listitem [ref=e327]:
+              - link "Business" [ref=e328] [cursor=pointer]:
+                - /url: /categories/business
+            - listitem [ref=e329]:
+              - link "Personal Growth & Hobbies" [ref=e330] [cursor=pointer]:
+                - /url: /categories/lifestyle
+            - listitem [ref=e331]:
+              - link "Photography" [ref=e332] [cursor=pointer]:
+                - /url: /categories/photography
+            - listitem [ref=e333]:
+              - link "Finance" [ref=e334] [cursor=pointer]:
+                - /url: /categories/finance
+            - listitem [ref=e335]:
+              - link "End-to-End Projects" [ref=e336] [cursor=pointer]:
+                - /url: /categories/end-to-end-projects
+            - listitem [ref=e337]:
+              - link "Service Catalog" [ref=e338] [cursor=pointer]:
+                - /url: /categories
+        - generic [ref=e339]:
+          - paragraph [ref=e340]: For Clients
+          - list [ref=e341]:
+            - listitem [ref=e342]:
+              - link "How Fiverr Works" [ref=e343] [cursor=pointer]:
+                - /url: /cp/how-fiverr-works?show_join=true&source=footer
+            - listitem [ref=e344]:
+              - link "Customer Success Stories" [ref=e345] [cursor=pointer]:
+                - /url: /cp/success-spotlights?source=footer
+            - listitem [ref=e346]:
+              - link "Quality Guide" [ref=e347] [cursor=pointer]:
+                - /url: https://help.fiverr.com/hc/en-us/articles/25616781230481-Fiverr-s-guide-to-quality-and-trust
+            - listitem [ref=e348]:
+              - link "Fiverr Guides" [ref=e349] [cursor=pointer]:
+                - /url: /resources/guides?source=footer
+            - listitem [ref=e350]:
+              - link "Fiverr Answers" [ref=e351] [cursor=pointer]:
+                - /url: https://answers.fiverr.com/
+            - listitem [ref=e352]:
+              - link "Browse Freelance By Skill" [ref=e353] [cursor=pointer]:
+                - /url: /hire?source=footer
+        - generic [ref=e354]:
+          - paragraph [ref=e355]: For Freelancers
+          - list [ref=e356]:
+            - listitem [ref=e357]:
+              - link "Become a Fiverr Freelancer" [ref=e358] [cursor=pointer]:
+                - /url: /start_selling?source=footer
+            - listitem [ref=e359]:
+              - link "Become an Agency" [ref=e360] [cursor=pointer]:
+                - /url: /cp/apply-fiverr-agencies?source=footer
+            - listitem [ref=e361]:
+              - link "Community Hub" [ref=e362] [cursor=pointer]:
+                - /url: https://community.fiverr.com/home
+            - listitem [ref=e363]:
+              - link "Forum" [ref=e364] [cursor=pointer]:
+                - /url: https://community.fiverr.com/home/forum
+            - listitem [ref=e365]:
+              - link "Events" [ref=e366] [cursor=pointer]:
+                - /url: https://community.fiverr.com/home/events
+        - generic [ref=e367]:
+          - paragraph [ref=e368]: Business Solutions
+          - list [ref=e369]:
+            - listitem [ref=e370]:
+              - link "Fiverr Pro" [ref=e371] [cursor=pointer]:
+                - /url: https://pro.fiverr.com?source=footer
+            - listitem [ref=e372]:
+              - link "Project Management Service" [ref=e373] [cursor=pointer]:
+                - /url: https://pro.fiverr.com/cp/project-management?source=footer
+            - listitem [ref=e374]:
+              - link "Expert Sourcing Service" [ref=e375] [cursor=pointer]:
+                - /url: https://pro.fiverr.com/pro-solutions/expert-sourcing-services?source=footer
+            - listitem [ref=e376]:
+              - link "ClearVoice - Content Marketing" [ref=e377] [cursor=pointer]:
+                - /url: https://www.clearvoice.com?source=footer
+            - listitem [ref=e378]:
+              - link "AutoDS - Dropshipping Tool" [ref=e379] [cursor=pointer]:
+                - /url: https://www.autods.com/?source=footer
+            - listitem [ref=e380]:
+              - link "Digis - Software Development" [ref=e381] [cursor=pointer]:
+                - /url: https://digiscorp.com/?source=footer
+            - listitem [ref=e382]:
+              - link "AI store builder" [ref=e383] [cursor=pointer]:
+                - /url: /ai-store-builder/shopify?source=footer
+            - listitem [ref=e384]:
+              - link "Fiverr Logo Maker" [ref=e385] [cursor=pointer]:
+                - /url: /logo-maker?source=footer
+            - listitem [ref=e386]:
+              - link "Contact Sales" [ref=e387] [cursor=pointer]:
+                - /url: /fbs-contact-us?source=footer
+        - generic [ref=e388]:
+          - paragraph [ref=e389]: Company
+          - list [ref=e390]:
+            - listitem [ref=e391]:
+              - link "About Fiverr" [ref=e392] [cursor=pointer]:
+                - /url: /about-us?source=footer
+            - listitem [ref=e393]:
+              - link "Help Center" [ref=e394] [cursor=pointer]:
+                - /url: https://help.fiverr.com/hc/en-us
+            - listitem [ref=e395]:
+              - link "Trust & Safety" [ref=e396] [cursor=pointer]:
+                - /url: https://help.fiverr.com/hc/en-us/sections/37332641985809-Trust-Safety
+            - listitem [ref=e397]:
+              - link "Social Impact" [ref=e398] [cursor=pointer]:
+                - /url: /social-impact?source=footer
+            - listitem [ref=e399]:
+              - link "Careers" [ref=e400] [cursor=pointer]:
+                - /url: /jobs?source=footer
+            - listitem [ref=e401]:
+              - link "Terms of Service" [ref=e402] [cursor=pointer]:
+                - /url: /legal-portal?source=footer
+            - listitem [ref=e403]:
+              - link "Privacy Policy" [ref=e404] [cursor=pointer]:
+                - /url: /legal-portal/privacy/privacy-policy?source=footer
+            - listitem [ref=e405]:
+              - link "Do not sell or share my personal information" [ref=e406] [cursor=pointer]:
+                - /url: https://www.fiverr.com/legal-portal/privacy/do-not-sell-my-personal-information
+            - listitem [ref=e407]:
+              - link "Partnerships" [ref=e408] [cursor=pointer]:
+                - /url: /partnerships?source=footer
+            - listitem [ref=e409]:
+              - link "Creator Network" [ref=e410] [cursor=pointer]:
+                - /url: /partnerships/creators
+            - listitem [ref=e411]:
+              - link "Affiliates" [ref=e412] [cursor=pointer]:
+                - /url: /partnerships/affiliates
+            - listitem [ref=e413]:
+              - link "Invite a Friend" [ref=e414] [cursor=pointer]:
+                - /url: /referral_program?source=footer
+            - listitem [ref=e415]:
+              - link "Press & News" [ref=e416] [cursor=pointer]:
+                - /url: /news/press-releases?source=footer
+            - listitem [ref=e417]:
+              - link "Investor Relations" [ref=e418] [cursor=pointer]:
+                - /url: https://investors.fiverr.com
+      - generic [ref=e419]:
+        - generic [ref=e420]:
+          - img [ref=e421]
+          - paragraph [ref=e425]: © Fiverr International Ltd. 2026
+        - generic [ref=e426]:
+          - list [ref=e427]:
+            - listitem [ref=e428]:
+              - link "Fiverr on TikTok" [ref=e429] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@fiverr
+                - img [ref=e430]
+            - listitem [ref=e432]:
+              - link "Fiverr on Instagram" [ref=e433] [cursor=pointer]:
+                - /url: https://www.instagram.com/fiverr/
+                - img [ref=e434]
+            - listitem [ref=e436]:
+              - link "Fiverr on LinkedIn" [ref=e437] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/fiverr-com
+                - img [ref=e438]
+            - listitem [ref=e440]:
+              - link "Fiverr on Facebook" [ref=e441] [cursor=pointer]:
+                - /url: https://www.facebook.com/Fiverr/
+                - img [ref=e442]
+            - listitem [ref=e444]:
+              - link "Fiverr on Pinterest" [ref=e445] [cursor=pointer]:
+                - /url: https://www.pinterest.com/fiverr/
+                - img [ref=e446]
+            - listitem [ref=e448]:
+              - link "Fiverr on Twitter" [ref=e449] [cursor=pointer]:
+                - /url: https://twitter.com/fiverr
+                - img [ref=e450]
+          - generic [ref=e453]:
+            - button "English" [ref=e455] [cursor=pointer]:
+              - img [ref=e457]
+              - text: English
+            - button "PKR" [ref=e460] [cursor=pointer]
+            - button "Open accessibility menu" [ref=e461] [cursor=pointer]:
+              - img [ref=e462]

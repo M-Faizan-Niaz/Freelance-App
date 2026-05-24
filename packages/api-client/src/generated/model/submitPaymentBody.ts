@@ -8,22 +8,28 @@
 export type SubmitPaymentBody = {
   /**
    * Booking ID to pay for
-   * @nullable
+   * @minimum 0
+   * @exclusiveMinimum
    */
-  bookingId: number | null;
+  bookingId: number;
   /**
    * Payment amount
-   * @nullable
+   * @minimum 0
+   * @exclusiveMinimum
    */
-  amount: number | null;
+  amount: number;
   /**
    * Payment method ID (jazzcash, easypaisa, etc.)
-   * @nullable
+   * @minimum 0
+   * @exclusiveMinimum
    */
-  paymentMethodId: number | null;
+  paymentMethodId: number;
   /** Screenshot or receipt of the payment (image/*, max 10 MB) */
   proofImage?: Blob;
-  /** Transaction reference number from payment app */
+  /**
+   * Transaction reference number from payment app
+   * @maxLength 255
+   */
   transactionReference?: string;
   /** Optional notes for the admin */
   notes?: string;

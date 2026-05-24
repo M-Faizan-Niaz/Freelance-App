@@ -79,15 +79,9 @@ export const submitPayment = (
 ) => {
       
       const formData = new FormData();
-if(submitPaymentBody.bookingId !== null) {
- formData.append(`bookingId`, submitPaymentBody.bookingId.toString())
- }
-if(submitPaymentBody.amount !== null) {
- formData.append(`amount`, submitPaymentBody.amount.toString())
- }
-if(submitPaymentBody.paymentMethodId !== null) {
- formData.append(`paymentMethodId`, submitPaymentBody.paymentMethodId.toString())
- }
+formData.append(`bookingId`, submitPaymentBody.bookingId.toString())
+formData.append(`amount`, submitPaymentBody.amount.toString())
+formData.append(`paymentMethodId`, submitPaymentBody.paymentMethodId.toString())
 if(submitPaymentBody.proofImage !== undefined) {
  formData.append(`proofImage`, submitPaymentBody.proofImage)
  }

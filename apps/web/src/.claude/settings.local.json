@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "mcp__playwright__browser_navigate",
-      "WebFetch(domain:www.taskrabbit.com)"
+      "WebFetch(domain:www.taskrabbit.com)",
+      "Bash(npx shadcn@latest add badge avatar card dialog dropdown-menu select textarea skeleton tabs table separator sheet scroll-area --yes)",
+      "Bash(grep -E \"\\\\.\\(ts|tsx\\)$\")",
+      "PowerShell(Get-Process *)",
+      "PowerShell(node -e \"import\\('D:/Freelance-App/node_modules/concurrently/dist/bin/concurrently.js'\\).then\\(\\(\\) => console.log\\('OK'\\)\\).catch\\(e => console.log\\('FAIL:', e.message\\)\\)\" 2>&1)"
     ]
   },
   "enableAllProjectMcpServers": true,
