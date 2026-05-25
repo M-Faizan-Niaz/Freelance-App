@@ -73,4 +73,8 @@ await seeds.cities(db);
 await resetSequence(db, 'cities');
 console.log('\n--- Cities seeded ---\n');
 
+await seeds.serviceProviders(db);
+await resetSequence(db, 'service_providers');
+console.log('\n--- Service providers seeded ---\n');
+
 await db.$client.end();

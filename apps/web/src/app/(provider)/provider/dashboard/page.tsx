@@ -8,11 +8,14 @@ import { PageHeader } from '@/components/shared/page-header'
 import { BookingCard } from '@/components/cards/booking-card'
 import { EmptyState } from '@/components/shared/empty-state'
 import { Button } from '@/components/ui/button'
-import { useListBookings, useGetMe } from '@repo/api-client'
+import { useListBookings, useGetMe, useGetMyProviderProfile } from '@repo/api-client'
 
 export default function ProviderDashboardPage() {
   const { data: meData } = useGetMe()
   const firstName = meData?.data?.fullName?.split(' ')[0] ?? 'there'
+
+  const { data: profileData } = useGetMyProviderProfile()
+  const isIncomplete = profileData?.data !== undefined && profileData.data.bio === null
 
   const { data: bookingsData, isLoading } = useListBookings()
   const allBookings = bookingsData?.data ?? []
@@ -31,6 +34,21 @@ export default function ProviderDashboardPage() {
         title="Provider Dashboard"
         description={`Welcome back, ${firstName}. Here's your activity today.`}
       />
+
+      {/* Profile incomplete banner */}
+      {isIncomplete && (
+        <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <p className="font-medium text-amber-800 text-sm">Your profile is incomplete</p>
+            <p className="text-xs text-amber-600 mt-0.5">
+              Complete your profile to appear in search results and start receiving bookings.
+            </p>
+          </div>
+          <Button asChild size="sm" className="shrink-0 bg-amber-600 hover:bg-amber-700 text-white">
+            <Link href="/provider/onboarding">Complete Profile →</Link>
+          </Button>
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">

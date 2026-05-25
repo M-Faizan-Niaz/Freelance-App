@@ -409,6 +409,9 @@ importers:
 
   packages/api:
     dependencies:
+      '@better-auth/utils':
+        specifier: ^0.4.0
+        version: 0.4.0
       '@faker-js/faker':
         specifier: ^10.4.0
         version: 10.4.0

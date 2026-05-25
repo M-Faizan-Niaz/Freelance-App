@@ -10,6 +10,7 @@ import {
   User,
   FileText,
   Images,
+  ClipboardList,
   ChevronRight,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -17,6 +18,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 
 const navItems = [
   { href: '/provider/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+  { href: '/provider/onboarding', icon: ClipboardList, label: 'Complete Profile' },
   { href: '/provider/bookings', icon: BookOpen, label: 'My Jobs' },
   { href: '/provider/messages', icon: MessageSquare, label: 'Messages' },
   { href: '/provider/notifications', icon: Bell, label: 'Notifications' },

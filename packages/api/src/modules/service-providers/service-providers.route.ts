@@ -3,18 +3,69 @@ import { createRoute, z } from '@hono/zod-openapi';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 import { commonErrorResponses, jsonContent, jsonContentRequired } from '@/lib/openapi/helpers';
 import { createSuccessResponseSchema, idParams } from '@/lib/openapi/schemas';
+import { createSuccessResponseSchemaWithPagination } from '@/lib/openapi/schemas/create-api-response';
 
 import {
   deletePortfolioRequestSchema,
   deletePortfolioResponseSchema,
+  listProvidersQuerySchema,
+  myProviderProfileResponseSchema,
   portfolioImageSchema,
   portfolioUploadResultSchema,
+  publicProviderDetailSchema,
+  updateProviderProfileSchema,
   uploadDocumentsRequestSchema,
   uploadDocumentsResultSchema,
   uploadPortfolioRequestSchema,
 } from './service-providers.schema';
 
 const tags = ['Service Providers'];
+
+export const getMyProfile = createRoute({
+  operationId: 'getMyProviderProfile',
+  path: '/service-providers/me',
+  method: 'get',
+  tags,
+  summary: 'Get own provider profile',
+  description: 'Returns the authenticated provider\'s full profile including mutable fields.',
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      createSuccessResponseSchema(myProviderProfileResponseSchema, 'Profile retrieved successfully'),
+      'Own provider profile',
+    ),
+    ...commonErrorResponses(
+      [HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      myProviderProfileResponseSchema,
+    ),
+  },
+});
+
+export const updateMyProfile = createRoute({
+  operationId: 'updateMyProviderProfile',
+  path: '/service-providers/me',
+  method: 'patch',
+  tags,
+  summary: 'Update own provider profile',
+  description: 'Update bio, hourly rate, coverage radius, and selected service category IDs.',
+  request: {
+    body: jsonContentRequired(updateProviderProfileSchema, 'Profile fields to update'),
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      createSuccessResponseSchema(myProviderProfileResponseSchema, 'Profile updated successfully'),
+      'Updated provider profile',
+    ),
+    ...commonErrorResponses(
+      [
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.UNPROCESSABLE_ENTITY,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
+      updateProviderProfileSchema,
+    ),
+  },
+});
 
 export const uploadDocuments = createRoute({
   operationId: 'uploadServiceProviderDocuments',
@@ -139,6 +190,57 @@ export const deletePortfolio = createRoute({
   },
 });
 
+
+
+
+export const listProviders = createRoute({
+  operationId: 'listServiceProviders',
+  path: '/service-providers',
+  method: 'get',
+  tags,
+  summary: 'List approved providers',
+  description: 'Returns a paginated list of approved service providers. Optionally filter by city.',
+  request: {
+    query: listProvidersQuerySchema,
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      createSuccessResponseSchemaWithPagination(
+        z.array(publicProviderDetailSchema),
+        'Providers retrieved successfully',
+      ),
+      'Paginated list of providers',
+    ),
+    ...commonErrorResponses([HttpStatusCodes.INTERNAL_SERVER_ERROR], publicProviderDetailSchema),
+  },
+});
+
+export const getProviderById = createRoute({
+  operationId: 'getServiceProviderById',
+  path: '/service-providers/{id}',
+  method: 'get',
+  tags,
+  summary: 'Get public provider profile',
+  description: 'Returns the public profile of an approved service provider by their numeric ID.',
+  request: {
+    params: idParams,
+  },
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      createSuccessResponseSchema(publicProviderDetailSchema, 'Provider profile retrieved successfully'),
+      'Provider public profile',
+    ),
+    ...commonErrorResponses(
+      [HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      publicProviderDetailSchema,
+    ),
+  },
+});
+
+export type GetMyProfileRoute = typeof getMyProfile;
+export type UpdateMyProfileRoute = typeof updateMyProfile;
+export type ListProvidersRoute = typeof listProviders;
+export type GetProviderByIdRoute = typeof getProviderById;
 export type UploadDocumentsRoute = typeof uploadDocuments;
 export type ListPortfolioRoute = typeof listPortfolio;
 export type UploadPortfolioRoute = typeof uploadPortfolio;

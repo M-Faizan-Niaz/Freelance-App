@@ -30,9 +30,25 @@ import type {
   DeletePortfolioImages404,
   DeletePortfolioImages500,
   DeletePortfolioImagesBody,
+  GetMyProviderProfile200,
+  GetMyProviderProfile401,
+  GetMyProviderProfile404,
+  GetMyProviderProfile500,
+  GetServiceProviderById200,
+  GetServiceProviderById404,
+  GetServiceProviderById500,
   ListServiceProviderPortfolio200,
   ListServiceProviderPortfolio404,
   ListServiceProviderPortfolio500,
+  ListServiceProviders200,
+  ListServiceProviders500,
+  ListServiceProvidersParams,
+  UpdateMyProviderProfile200,
+  UpdateMyProviderProfile401,
+  UpdateMyProviderProfile404,
+  UpdateMyProviderProfile422,
+  UpdateMyProviderProfile500,
+  UpdateMyProviderProfileBody,
   UploadPortfolioImages200,
   UploadPortfolioImages400,
   UploadPortfolioImages401,
@@ -55,78 +71,193 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 /**
- * Upload CNIC front and back images. Send as multipart/form-data with fields "cnicFront" and "cnicBack" (jpeg, png, webp, pdf — max 10 MB each).
- * @summary Upload CNIC verification documents
+ * Returns a paginated list of approved service providers. Optionally filter by city.
+ * @summary List approved providers
  */
-export const uploadServiceProviderDocuments = (
-    uploadServiceProviderDocumentsBody: UploadServiceProviderDocumentsBody,
+export const listServiceProviders = (
+    params?: ListServiceProvidersParams,
  options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
 ) => {
       
-      const formData = new FormData();
-if(uploadServiceProviderDocumentsBody.cnicFront !== undefined) {
- formData.append(`cnicFront`, uploadServiceProviderDocumentsBody.cnicFront)
- }
-if(uploadServiceProviderDocumentsBody.cnicBack !== undefined) {
- formData.append(`cnicBack`, uploadServiceProviderDocumentsBody.cnicBack)
- }
-
-      return customFetch<UploadServiceProviderDocuments200>(
-      {url: `/v1/api/service-providers/me/documents`, method: 'POST',
-      headers: {'Content-Type': 'multipart/form-data', },
-       data: formData, signal
+      
+      return customFetch<ListServiceProviders200>(
+      {url: `/v1/api/service-providers`, method: 'GET',
+        params, signal
     },
       options);
     }
   
 
 
-export const getUploadServiceProviderDocumentsMutationOptions = <TError = UploadServiceProviderDocuments400 | UploadServiceProviderDocuments401 | UploadServiceProviderDocuments404 | UploadServiceProviderDocuments500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>, TError,{data: UploadServiceProviderDocumentsBody}, TContext>, request?: SecondParameter<typeof customFetch>}
-): UseMutationOptions<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>, TError,{data: UploadServiceProviderDocumentsBody}, TContext> => {
 
-const mutationKey = ['uploadServiceProviderDocuments'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
+export const getListServiceProvidersQueryKey = (params?: ListServiceProvidersParams,) => {
+    return [
+    `/v1/api/service-providers`, ...(params ? [params]: [])
+    ] as const;
+    }
+
+    
+export const getListServiceProvidersQueryOptions = <TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListServiceProvidersQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listServiceProviders>>> = ({ signal }) => listServiceProviders(params, requestOptions, signal);
 
       
 
+      
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>, {data: UploadServiceProviderDocumentsBody}> = (props) => {
-          const {data} = props ?? {};
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
 
-          return  uploadServiceProviderDocuments(data,requestOptions)
-        }
-
-        
+export type ListServiceProvidersQueryResult = NonNullable<Awaited<ReturnType<typeof listServiceProviders>>>
+export type ListServiceProvidersQueryError = ListServiceProviders500
 
 
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UploadServiceProviderDocumentsMutationResult = NonNullable<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>>
-    export type UploadServiceProviderDocumentsMutationBody = UploadServiceProviderDocumentsBody
-    export type UploadServiceProviderDocumentsMutationError = UploadServiceProviderDocuments400 | UploadServiceProviderDocuments401 | UploadServiceProviderDocuments404 | UploadServiceProviderDocuments500
-
-    /**
- * @summary Upload CNIC verification documents
+export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
+ params: undefined |  ListServiceProvidersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listServiceProviders>>,
+          TError,
+          Awaited<ReturnType<typeof listServiceProviders>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
+ params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listServiceProviders>>,
+          TError,
+          Awaited<ReturnType<typeof listServiceProviders>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
+ params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary List approved providers
  */
-export const useUploadServiceProviderDocuments = <TError = UploadServiceProviderDocuments400 | UploadServiceProviderDocuments401 | UploadServiceProviderDocuments404 | UploadServiceProviderDocuments500,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>, TError,{data: UploadServiceProviderDocumentsBody}, TContext>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof uploadServiceProviderDocuments>>,
-        TError,
-        {data: UploadServiceProviderDocumentsBody},
-        TContext
-      > => {
 
-      const mutationOptions = getUploadServiceProviderDocumentsMutationOptions(options);
+export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
+ params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-      return useMutation(mutationOptions, queryClient);
+  const queryOptions = getListServiceProvidersQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Returns the public profile of an approved service provider by their numeric ID.
+ * @summary Get public provider profile
+ */
+export const getServiceProviderById = (
+    id: number | null,
+ options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return customFetch<GetServiceProviderById200>(
+      {url: `/v1/api/service-providers/${id}`, method: 'GET', signal
+    },
+      options);
     }
-    /**
+  
+
+
+
+export const getGetServiceProviderByIdQueryKey = (id?: number | null,) => {
+    return [
+    `/v1/api/service-providers/${id}`
+    ] as const;
+    }
+
+    
+export const getGetServiceProviderByIdQueryOptions = <TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetServiceProviderByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getServiceProviderById>>> = ({ signal }) => getServiceProviderById(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetServiceProviderByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getServiceProviderById>>>
+export type GetServiceProviderByIdQueryError = GetServiceProviderById404 | GetServiceProviderById500
+
+
+export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
+ id: number | null, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getServiceProviderById>>,
+          TError,
+          Awaited<ReturnType<typeof getServiceProviderById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getServiceProviderById>>,
+          TError,
+          Awaited<ReturnType<typeof getServiceProviderById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get public provider profile
+ */
+
+export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetServiceProviderByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
  * Returns all portfolio images for the given service provider.
  * @summary List portfolio images
  */
@@ -220,6 +351,235 @@ export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeo
 
 
 /**
+ * Returns the authenticated provider's full profile including mutable fields.
+ * @summary Get own provider profile
+ */
+export const getMyProviderProfile = (
+    
+ options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return customFetch<GetMyProviderProfile200>(
+      {url: `/v1/api/service-providers/me`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getGetMyProviderProfileQueryKey = () => {
+    return [
+    `/v1/api/service-providers/me`
+    ] as const;
+    }
+
+    
+export const getGetMyProviderProfileQueryOptions = <TData = Awaited<ReturnType<typeof getMyProviderProfile>>, TError = GetMyProviderProfile401 | GetMyProviderProfile404 | GetMyProviderProfile500>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyProviderProfile>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetMyProviderProfileQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getMyProviderProfile>>> = ({ signal }) => getMyProviderProfile(requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getMyProviderProfile>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetMyProviderProfileQueryResult = NonNullable<Awaited<ReturnType<typeof getMyProviderProfile>>>
+export type GetMyProviderProfileQueryError = GetMyProviderProfile401 | GetMyProviderProfile404 | GetMyProviderProfile500
+
+
+export function useGetMyProviderProfile<TData = Awaited<ReturnType<typeof getMyProviderProfile>>, TError = GetMyProviderProfile401 | GetMyProviderProfile404 | GetMyProviderProfile500>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyProviderProfile>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getMyProviderProfile>>,
+          TError,
+          Awaited<ReturnType<typeof getMyProviderProfile>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetMyProviderProfile<TData = Awaited<ReturnType<typeof getMyProviderProfile>>, TError = GetMyProviderProfile401 | GetMyProviderProfile404 | GetMyProviderProfile500>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyProviderProfile>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getMyProviderProfile>>,
+          TError,
+          Awaited<ReturnType<typeof getMyProviderProfile>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetMyProviderProfile<TData = Awaited<ReturnType<typeof getMyProviderProfile>>, TError = GetMyProviderProfile401 | GetMyProviderProfile404 | GetMyProviderProfile500>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyProviderProfile>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get own provider profile
+ */
+
+export function useGetMyProviderProfile<TData = Awaited<ReturnType<typeof getMyProviderProfile>>, TError = GetMyProviderProfile401 | GetMyProviderProfile404 | GetMyProviderProfile500>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getMyProviderProfile>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetMyProviderProfileQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Update bio, hourly rate, coverage radius, and selected service category IDs.
+ * @summary Update own provider profile
+ */
+export const updateMyProviderProfile = (
+    updateMyProviderProfileBody: UpdateMyProviderProfileBody,
+ options?: SecondParameter<typeof customFetch>,) => {
+      
+      
+      return customFetch<UpdateMyProviderProfile200>(
+      {url: `/v1/api/service-providers/me`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: updateMyProviderProfileBody
+    },
+      options);
+    }
+  
+
+
+export const getUpdateMyProviderProfileMutationOptions = <TError = UpdateMyProviderProfile401 | UpdateMyProviderProfile404 | UpdateMyProviderProfile422 | UpdateMyProviderProfile500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyProviderProfile>>, TError,{data: UpdateMyProviderProfileBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateMyProviderProfile>>, TError,{data: UpdateMyProviderProfileBody}, TContext> => {
+
+const mutationKey = ['updateMyProviderProfile'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateMyProviderProfile>>, {data: UpdateMyProviderProfileBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateMyProviderProfile(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateMyProviderProfileMutationResult = NonNullable<Awaited<ReturnType<typeof updateMyProviderProfile>>>
+    export type UpdateMyProviderProfileMutationBody = UpdateMyProviderProfileBody
+    export type UpdateMyProviderProfileMutationError = UpdateMyProviderProfile401 | UpdateMyProviderProfile404 | UpdateMyProviderProfile422 | UpdateMyProviderProfile500
+
+    /**
+ * @summary Update own provider profile
+ */
+export const useUpdateMyProviderProfile = <TError = UpdateMyProviderProfile401 | UpdateMyProviderProfile404 | UpdateMyProviderProfile422 | UpdateMyProviderProfile500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateMyProviderProfile>>, TError,{data: UpdateMyProviderProfileBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateMyProviderProfile>>,
+        TError,
+        {data: UpdateMyProviderProfileBody},
+        TContext
+      > => {
+
+      const mutationOptions = getUpdateMyProviderProfileMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * Upload CNIC front and back images. Send as multipart/form-data with fields "cnicFront" and "cnicBack" (jpeg, png, webp, pdf — max 10 MB each).
+ * @summary Upload CNIC verification documents
+ */
+export const uploadServiceProviderDocuments = (
+    uploadServiceProviderDocumentsBody: UploadServiceProviderDocumentsBody,
+ options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
+) => {
+      
+      const formData = new FormData();
+if(uploadServiceProviderDocumentsBody.cnicFront !== undefined) {
+ formData.append(`cnicFront`, uploadServiceProviderDocumentsBody.cnicFront)
+ }
+if(uploadServiceProviderDocumentsBody.cnicBack !== undefined) {
+ formData.append(`cnicBack`, uploadServiceProviderDocumentsBody.cnicBack)
+ }
+
+      return customFetch<UploadServiceProviderDocuments200>(
+      {url: `/v1/api/service-providers/me/documents`, method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data', },
+       data: formData, signal
+    },
+      options);
+    }
+  
+
+
+export const getUploadServiceProviderDocumentsMutationOptions = <TError = UploadServiceProviderDocuments400 | UploadServiceProviderDocuments401 | UploadServiceProviderDocuments404 | UploadServiceProviderDocuments500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>, TError,{data: UploadServiceProviderDocumentsBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>, TError,{data: UploadServiceProviderDocumentsBody}, TContext> => {
+
+const mutationKey = ['uploadServiceProviderDocuments'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>, {data: UploadServiceProviderDocumentsBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  uploadServiceProviderDocuments(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UploadServiceProviderDocumentsMutationResult = NonNullable<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>>
+    export type UploadServiceProviderDocumentsMutationBody = UploadServiceProviderDocumentsBody
+    export type UploadServiceProviderDocumentsMutationError = UploadServiceProviderDocuments400 | UploadServiceProviderDocuments401 | UploadServiceProviderDocuments404 | UploadServiceProviderDocuments500
+
+    /**
+ * @summary Upload CNIC verification documents
+ */
+export const useUploadServiceProviderDocuments = <TError = UploadServiceProviderDocuments400 | UploadServiceProviderDocuments401 | UploadServiceProviderDocuments404 | UploadServiceProviderDocuments500,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof uploadServiceProviderDocuments>>, TError,{data: UploadServiceProviderDocumentsBody}, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof uploadServiceProviderDocuments>>,
+        TError,
+        {data: UploadServiceProviderDocumentsBody},
+        TContext
+      > => {
+
+      const mutationOptions = getUploadServiceProviderDocumentsMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
  * Upload up to 10 portfolio images total. Send as multipart/form-data with field "images" (jpeg, png, webp, gif — max 5 MB each, 10 images max across all uploads).
  * @summary Upload portfolio images
  */

@@ -362,6 +362,7 @@ CREATE TABLE "service_providers" (
 	"coverage_radius_km" numeric(6, 2),
 	"city" varchar(100),
 	"verification_status" varchar(20) DEFAULT 'pending' NOT NULL,
+	"category_ids" integer[] DEFAULT '{}'::integer[] NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"is_deleted" boolean DEFAULT false NOT NULL,

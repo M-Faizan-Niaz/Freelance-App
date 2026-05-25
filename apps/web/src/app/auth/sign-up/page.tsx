@@ -32,12 +32,32 @@ export default function SignUpPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
+    if (!/^\+\d{7,15}$/.test(phone)) {
+      toast.error('Phone must start with + followed by digits only, e.g. +923001234567')
+      return
+    }
     if (password !== confirm) {
       toast.error('Passwords do not match')
       return
     }
     if (password.length < 8) {
       toast.error('Password must be at least 8 characters')
+      return
+    }
+    if (!/[A-Z]/.test(password)) {
+      toast.error('Password must contain at least one uppercase letter')
+      return
+    }
+    if (!/[a-z]/.test(password)) {
+      toast.error('Password must contain at least one lowercase letter')
+      return
+    }
+    if (!/\d/.test(password)) {
+      toast.error('Password must contain at least one number')
+      return
+    }
+    if (!/[^A-Za-z0-9]/.test(password)) {
+      toast.error('Password must contain at least one special character')
       return
     }
     if (role === 'provider' && !/^\d{5}-\d{7}-\d$/.test(cnic)) {
@@ -188,11 +208,12 @@ export default function SignUpPage() {
             <Input
               id="phone"
               type="tel"
-              placeholder="+92 3XX XXXXXXX"
+              placeholder="+923001234567"
               required
               value={phone}
               onChange={e => setPhone(e.target.value)}
             />
+            <p className="text-xs text-muted-foreground">International format, no spaces (e.g. +923001234567)</p>
           </div>
 
           {role === 'provider' && (
@@ -233,6 +254,7 @@ export default function SignUpPage() {
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
+            <p className="text-xs text-muted-foreground">Must include uppercase, lowercase, number, and special character</p>
           </div>
 
           <div className="space-y-1">

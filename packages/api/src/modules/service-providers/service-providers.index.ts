@@ -6,9 +6,15 @@ import * as routes from './service-providers.route';
 
 const router = createRouter();
 
-// Portfolio list is public; write routes require authentication (enforced in handlers)
-router.openapi(routes.uploadDocuments, handlers.uploadDocuments);
+// Public routes
+router.openapi(routes.listProviders, handlers.listProviders);
+router.openapi(routes.getProviderById, handlers.getProviderById);
 router.openapi(routes.listPortfolio, handlers.listPortfolio);
+
+// Authenticated provider routes (auth enforced in handlers)
+router.openapi(routes.getMyProfile, handlers.getMyProfile);
+router.openapi(routes.updateMyProfile, handlers.updateMyProfile);
+router.openapi(routes.uploadDocuments, handlers.uploadDocuments);
 router.openapi(routes.uploadPortfolio, handlers.uploadPortfolio);
 router.openapi(routes.deletePortfolio, handlers.deletePortfolio);
 

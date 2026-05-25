@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Badge } from '@/components/ui/badge'
 import { useSession } from '@/hooks/use-session'
-import { useGetMe } from '@repo/api-client'
+import { useGetMe, useListNotifications } from '@repo/api-client'
 import { authClient } from '@/lib/auth-client'
 import { cn } from '@/lib/utils'
 
@@ -38,6 +38,12 @@ export function Navbar() {
   const roleId = meData?.data?.roleId
   const isProvider = roleId === ROLE_PROVIDER
   const isCustomer = roleId === ROLE_CUSTOMER
+
+  const { data: notifData } = useListNotifications(
+    undefined,
+    { query: { enabled: !!user } },
+  )
+  const unreadCount = notifData?.data?.filter((n) => !n.isRead).length ?? 0
 
   async function handleSignOut() {
     await authClient.signOut()
@@ -90,9 +96,14 @@ export function Navbar() {
                 )}
 
                 {/* Notification bell */}
-                <Button variant="ghost" size="icon" asChild>
-                  <Link href="/notifications" className="relative">
+                <Button variant="ghost" size="icon" className="relative" asChild>
+                  <Link href="/notifications">
                     <Bell className="h-5 w-5" />
+                    {unreadCount > 0 && (
+                      <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-destructive text-white text-[10px] font-bold flex items-center justify-center leading-none">
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </span>
+                    )}
                   </Link>
                 </Button>
 

@@ -48,14 +48,22 @@ export const customFetch = async <T>(
     if (qs) fullUrl += `?${qs}`;
   }
 
+  // FormData must be passed as-is so the browser can set the correct
+  // multipart/form-data boundary. For everything else, JSON-encode the body.
+  const isFormData = data instanceof FormData;
+
   const res = await fetch(fullUrl, {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(headers as Record<string, string> | undefined),
-    },
+    // Let the browser auto-set Content-Type (with boundary) for FormData;
+    // use application/json for all other requests.
+    headers: isFormData
+      ? undefined
+      : {
+          'Content-Type': 'application/json',
+          ...(headers as Record<string, string> | undefined),
+        },
     credentials: 'include',
-    body: data !== undefined ? JSON.stringify(data) : undefined,
+    body: isFormData ? data : data !== undefined ? JSON.stringify(data) : undefined,
     signal,
   });
 

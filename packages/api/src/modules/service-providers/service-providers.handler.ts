@@ -1,12 +1,17 @@
 import type {
   DeletePortfolioRoute,
+  GetMyProfileRoute,
+  GetProviderByIdRoute,
   ListPortfolioRoute,
+  ListProvidersRoute,
+  UpdateMyProfileRoute,
   UploadDocumentsRoute,
   UploadPortfolioRoute,
 } from './service-providers.route';
 import type { AppRouteHandler } from '@/lib/types';
 
 import { AppError, UnauthorizedError } from '@/core/errors';
+import { successResponseWithPagination } from '@/lib/api-response';
 import { storageService } from '@/common/services/storage.service';
 import {
   generateUniqueFileName,
@@ -29,6 +34,19 @@ async function requireUserId(headers: Headers): Promise<string> {
   }
   return session.user.id;
 }
+
+export const getMyProfile: AppRouteHandler<GetMyProfileRoute> = async (c) => {
+  const userId = await requireUserId(c.req.raw.headers);
+  const profile = await service.getMyProfile(userId);
+  return c.json(successResponse(profile, 'Profile retrieved successfully'), HttpStatusCodes.OK);
+};
+
+export const updateMyProfile: AppRouteHandler<UpdateMyProfileRoute> = async (c) => {
+  const userId = await requireUserId(c.req.raw.headers);
+  const body = c.req.valid('json');
+  const profile = await service.updateMyProfile(userId, body);
+  return c.json(successResponse(profile, 'Profile updated successfully'), HttpStatusCodes.OK);
+};
 
 export const uploadDocuments: AppRouteHandler<UploadDocumentsRoute> = async (c) => {
   const userId = await requireUserId(c.req.raw.headers);
@@ -72,6 +90,21 @@ export const uploadDocuments: AppRouteHandler<UploadDocumentsRoute> = async (c) 
     successResponse({ cnicFrontUrl, cnicBackUrl }, 'Documents uploaded successfully'),
     HttpStatusCodes.OK,
   );
+};
+
+export const listProviders: AppRouteHandler<ListProvidersRoute> = async (c) => {
+  const { page, limit, city } = c.req.valid('query');
+  const { data, pagination } = await service.listProviders({ page, limit, city });
+  return c.json(
+    successResponseWithPagination(data, pagination, [], 'Providers retrieved successfully'),
+    HttpStatusCodes.OK,
+  );
+};
+
+export const getProviderById: AppRouteHandler<GetProviderByIdRoute> = async (c) => {
+  const { id } = c.req.valid('param');
+  const provider = await service.getProviderById(id);
+  return c.json(successResponse(provider, 'Provider profile retrieved successfully'), HttpStatusCodes.OK);
 };
 
 export const listPortfolio: AppRouteHandler<ListPortfolioRoute> = async (c) => {

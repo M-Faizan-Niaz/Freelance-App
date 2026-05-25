@@ -1,6 +1,9 @@
+import type { UpdateProviderProfileRequest } from './service-providers.schema';
+
 import { AppError, NotFoundError } from '@/core/errors';
 import db from '@/db';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
+import { createPagination } from '@/lib/searching-sorting';
 
 import { ServiceProvidersRepository } from './service-providers.repository';
 
@@ -11,6 +14,21 @@ export class ServiceProvidersService {
 
   constructor() {
     this.repo = new ServiceProvidersRepository();
+  }
+
+  async getMyProfile(userId: string) {
+    await this.requireServiceProvider(userId);
+    const profile = await this.repo.getFullProfileByUserId(userId);
+    if (!profile) throw new NotFoundError('Service provider profile not found');
+    return profile;
+  }
+
+  async updateMyProfile(userId: string, data: UpdateProviderProfileRequest) {
+    const sp = await this.requireServiceProvider(userId);
+    const updated = await this.repo.updateProfile(sp.id, data);
+    const profile = await this.repo.getFullProfileByUserId(userId);
+    if (!profile) throw new NotFoundError('Service provider profile not found');
+    return profile;
   }
 
   async requireServiceProvider(userId: string) {
@@ -36,6 +54,17 @@ export class ServiceProvidersService {
     });
 
     return { ...data, oldUrls };
+  }
+
+  async listProviders(params: { page: number; limit: number; city?: string }) {
+    const { data, total } = await this.repo.listApprovedProviders(params);
+    return { data, pagination: createPagination(total, params.page, params.limit) };
+  }
+
+  async getProviderById(id: number) {
+    const provider = await this.repo.getPublicProviderById(id);
+    if (!provider) throw new NotFoundError('Service provider not found');
+    return provider;
   }
 
   async listPortfolioImages(serviceProviderId: number) {

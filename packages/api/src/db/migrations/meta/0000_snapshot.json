@@ -1,5 +1,5 @@
 {
-  "id": "b8056854-3b14-4ab9-a408-86fdbf0cde98",
+  "id": "3a27e9f9-7444-4c46-86cc-475a66d65f0c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -2372,6 +2372,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": "'pending'"
+        },
+        "category_ids": {
+          "name": "category_ids",
+          "type": "integer[]",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::integer[]"
         },
         "created_at": {
           "name": "created_at",

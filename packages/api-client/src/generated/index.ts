@@ -1,5 +1,6 @@
 // Re-export all generated hooks, query key helpers, and model types.
 // Add a new export line here when a new API tag is added.
+export { customFetch, type ApiError } from '../mutator/custom-fetch';
 export * from './colors/colors';
 export * from './model';
 export * from './bookings/bookings';

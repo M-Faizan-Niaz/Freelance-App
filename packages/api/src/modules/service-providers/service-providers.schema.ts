@@ -1,5 +1,59 @@
 import { z } from '@hono/zod-openapi';
 
+export const myProviderProfileResponseSchema = z.object({
+  id: z.number(),
+  fullName: z.string(),
+  bio: z.string().nullable(),
+  hourlyRate: z.string(),
+  coverageRadiusKm: z.string().nullable(),
+  city: z.string().nullable(),
+  cnicFrontUrl: z.string().nullable(),
+  cnicBackUrl: z.string().nullable(),
+  isCnicVerified: z.boolean(),
+  verificationStatus: z.string(),
+  isOnline: z.boolean(),
+  totalJobsCompleted: z.number(),
+  averageRating: z.string().nullable(),
+  categoryIds: z.array(z.number()),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+export type MyProviderProfileResponse = z.infer<typeof myProviderProfileResponseSchema>;
+
+export const updateProviderProfileSchema = z.object({
+  bio: z.string().max(500).optional(),
+  hourlyRate: z.number().positive().optional(),
+  coverageRadiusKm: z.number().positive().optional(),
+  categoryIds: z.array(z.number().int().positive()).optional(),
+});
+export type UpdateProviderProfileRequest = z.infer<typeof updateProviderProfileSchema>;
+
+export const listProvidersQuerySchema = z.object({
+  page: z.coerce.number().int().positive().optional().default(1),
+  limit: z.coerce.number().int().positive().max(100).optional().default(20),
+  city: z.string().optional(),
+});
+export type ListProvidersQuery = z.infer<typeof listProvidersQuerySchema>;
+
+export const publicProviderDetailSchema = z.object({
+  id: z.number(),
+  fullName: z.string(),
+  verificationStatus: z.string(),
+  isCnicVerified: z.boolean(),
+  hourlyRate: z.string(),
+  tierId: z.number(),
+  tierName: z.string(),
+  isOnline: z.boolean(),
+  totalJobsCompleted: z.number(),
+  averageRating: z.string().nullable(),
+  bio: z.string().nullable(),
+  city: z.string().nullable(),
+  coverageRadiusKm: z.string().nullable(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+export type PublicProviderDetail = z.infer<typeof publicProviderDetailSchema>;
+
 export const portfolioImageSchema = z.object({
   id: z.number(),
   serviceProviderId: z.number(),

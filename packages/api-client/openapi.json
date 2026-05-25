@@ -4780,39 +4780,50 @@
         }
       }
     },
-    "/v1/api/service-providers/me/documents": {
-      "post": {
-        "operationId": "uploadServiceProviderDocuments",
+    "/v1/api/service-providers": {
+      "get": {
+        "operationId": "listServiceProviders",
         "tags": [
           "Service Providers"
         ],
-        "summary": "Upload CNIC verification documents",
-        "description": "Upload CNIC front and back images. Send as multipart/form-data with fields \"cnicFront\" and \"cnicBack\" (jpeg, png, webp, pdf — max 10 MB each).",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "cnicFront": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "CNIC front (image or PDF, max 10 MB)"
-                  },
-                  "cnicBack": {
-                    "type": "string",
-                    "format": "binary",
-                    "description": "CNIC back (image or PDF, max 10 MB)"
-                  }
-                }
-              }
-            }
+        "summary": "List approved providers",
+        "description": "Returns a paginated list of approved service providers. Optionally filter by city.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "default": 1
+            },
+            "required": false,
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "maximum": 100,
+              "default": 20
+            },
+            "required": false,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "city",
+            "in": "query"
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "Documents uploaded successfully",
+            "description": "Providers retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -4825,21 +4836,302 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Documents uploaded successfully"
+                      "example": "Providers retrieved successfully"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "fullName": {
+                            "type": "string"
+                          },
+                          "verificationStatus": {
+                            "type": "string"
+                          },
+                          "isCnicVerified": {
+                            "type": "boolean"
+                          },
+                          "hourlyRate": {
+                            "type": "string"
+                          },
+                          "tierId": {
+                            "type": "number"
+                          },
+                          "tierName": {
+                            "type": "string"
+                          },
+                          "isOnline": {
+                            "type": "boolean"
+                          },
+                          "totalJobsCompleted": {
+                            "type": "number"
+                          },
+                          "averageRating": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "bio": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "city": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "coverageRadiusKm": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "createdAt": {
+                            "type": "string"
+                          },
+                          "updatedAt": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "fullName",
+                          "verificationStatus",
+                          "isCnicVerified",
+                          "hourlyRate",
+                          "tierId",
+                          "tierName",
+                          "isOnline",
+                          "totalJobsCompleted",
+                          "averageRating",
+                          "bio",
+                          "city",
+                          "coverageRadiusKm",
+                          "createdAt",
+                          "updatedAt"
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "number"
+                            },
+                            "page": {
+                              "type": "number"
+                            },
+                            "limit": {
+                              "type": "number"
+                            },
+                            "totalPages": {
+                              "type": "number"
+                            },
+                            "hasNextPage": {
+                              "type": "boolean"
+                            },
+                            "hasPreviousPage": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "total",
+                            "page",
+                            "limit",
+                            "totalPages",
+                            "hasNextPage",
+                            "hasPreviousPage"
+                          ]
+                        },
+                        "searchableFields": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "field1",
+                            "field2"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "pagination"
+                      ],
+                      "additionalProperties": {
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data",
+                    "meta"
+                  ],
+                  "description": "Providers retrieved successfully"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 500
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Internal server error"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/service-providers/{id}": {
+      "get": {
+        "operationId": "getServiceProviderById",
+        "tags": [
+          "Service Providers"
+        ],
+        "summary": "Get public provider profile",
+        "description": "Returns the public profile of an approved service provider by their numeric ID.",
+        "parameters": [
+          {
+            "schema": {
+              "type": "number",
+              "nullable": true,
+              "required": [
+                "id"
+              ]
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Provider profile retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": true,
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Provider profile retrieved successfully"
                     },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "cnicFrontUrl": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "fullName": {
                           "type": "string"
                         },
-                        "cnicBackUrl": {
+                        "verificationStatus": {
+                          "type": "string"
+                        },
+                        "isCnicVerified": {
+                          "type": "boolean"
+                        },
+                        "hourlyRate": {
+                          "type": "string"
+                        },
+                        "tierId": {
+                          "type": "number"
+                        },
+                        "tierName": {
+                          "type": "string"
+                        },
+                        "isOnline": {
+                          "type": "boolean"
+                        },
+                        "totalJobsCompleted": {
+                          "type": "number"
+                        },
+                        "averageRating": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "bio": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "coverageRadiusKm": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
                           "type": "string"
                         }
                       },
                       "required": [
-                        "cnicFrontUrl",
-                        "cnicBackUrl"
+                        "id",
+                        "fullName",
+                        "verificationStatus",
+                        "isCnicVerified",
+                        "hourlyRate",
+                        "tierId",
+                        "tierName",
+                        "isOnline",
+                        "totalJobsCompleted",
+                        "averageRating",
+                        "bio",
+                        "city",
+                        "coverageRadiusKm",
+                        "createdAt",
+                        "updatedAt"
                       ]
                     },
                     "meta": {
@@ -4886,99 +5178,7 @@
                     "message",
                     "data"
                   ],
-                  "description": "Documents uploaded successfully"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "default": false,
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Bad request"
-                    },
-                    "error": {
-                      "type": "object",
-                      "properties": {
-                        "code": {
-                          "type": "number",
-                          "example": 400
-                        },
-                        "message": {
-                          "type": "string",
-                          "example": "Bad request"
-                        },
-                        "details": {
-                          "nullable": true
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "message"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "message",
-                    "error"
-                  ],
-                  "description": "Bad request"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized access",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean",
-                      "default": false,
-                      "example": false
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Unauthorized access"
-                    },
-                    "error": {
-                      "type": "object",
-                      "properties": {
-                        "code": {
-                          "type": "number",
-                          "example": 401
-                        },
-                        "message": {
-                          "type": "string",
-                          "example": "Unauthorized access"
-                        },
-                        "details": {
-                          "nullable": true
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "message"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "message",
-                    "error"
-                  ],
-                  "description": "Unauthorized access"
+                  "description": "Provider profile retrieved successfully"
                 }
               }
             }
@@ -5192,6 +5392,1018 @@
                     "data"
                   ],
                   "description": "Portfolio images retrieved successfully"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Resource not found"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 404
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Resource not found"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 500
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Internal server error"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/service-providers/me": {
+      "get": {
+        "operationId": "getMyProviderProfile",
+        "tags": [
+          "Service Providers"
+        ],
+        "summary": "Get own provider profile",
+        "description": "Returns the authenticated provider's full profile including mutable fields.",
+        "responses": {
+          "200": {
+            "description": "Profile retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": true,
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Profile retrieved successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "fullName": {
+                          "type": "string"
+                        },
+                        "bio": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "hourlyRate": {
+                          "type": "string"
+                        },
+                        "coverageRadiusKm": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "cnicFrontUrl": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "cnicBackUrl": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "isCnicVerified": {
+                          "type": "boolean"
+                        },
+                        "verificationStatus": {
+                          "type": "string"
+                        },
+                        "isOnline": {
+                          "type": "boolean"
+                        },
+                        "totalJobsCompleted": {
+                          "type": "number"
+                        },
+                        "averageRating": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "categoryIds": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "fullName",
+                        "bio",
+                        "hourlyRate",
+                        "coverageRadiusKm",
+                        "city",
+                        "cnicFrontUrl",
+                        "cnicBackUrl",
+                        "isCnicVerified",
+                        "verificationStatus",
+                        "isOnline",
+                        "totalJobsCompleted",
+                        "averageRating",
+                        "categoryIds",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "number"
+                            },
+                            "page": {
+                              "type": "number"
+                            },
+                            "limit": {
+                              "type": "number"
+                            },
+                            "totalPages": {
+                              "type": "number"
+                            },
+                            "hasNextPage": {
+                              "type": "boolean"
+                            },
+                            "hasPreviousPage": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "total",
+                            "page",
+                            "limit",
+                            "totalPages",
+                            "hasNextPage",
+                            "hasPreviousPage"
+                          ]
+                        }
+                      },
+                      "additionalProperties": {
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "description": "Profile retrieved successfully"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized access"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 401
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Unauthorized access"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Unauthorized access"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Resource not found"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 404
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Resource not found"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 500
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Internal server error"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateMyProviderProfile",
+        "tags": [
+          "Service Providers"
+        ],
+        "summary": "Update own provider profile",
+        "description": "Update bio, hourly rate, coverage radius, and selected service category IDs.",
+        "requestBody": {
+          "description": "Profile fields to update",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bio": {
+                    "type": "string",
+                    "maxLength": 500
+                  },
+                  "hourlyRate": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMinimum": true
+                  },
+                  "coverageRadiusKm": {
+                    "type": "number",
+                    "minimum": 0,
+                    "exclusiveMinimum": true
+                  },
+                  "categoryIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "exclusiveMinimum": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": true,
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Profile updated successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "fullName": {
+                          "type": "string"
+                        },
+                        "bio": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "hourlyRate": {
+                          "type": "string"
+                        },
+                        "coverageRadiusKm": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "city": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "cnicFrontUrl": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "cnicBackUrl": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "isCnicVerified": {
+                          "type": "boolean"
+                        },
+                        "verificationStatus": {
+                          "type": "string"
+                        },
+                        "isOnline": {
+                          "type": "boolean"
+                        },
+                        "totalJobsCompleted": {
+                          "type": "number"
+                        },
+                        "averageRating": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "categoryIds": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "createdAt": {
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "fullName",
+                        "bio",
+                        "hourlyRate",
+                        "coverageRadiusKm",
+                        "city",
+                        "cnicFrontUrl",
+                        "cnicBackUrl",
+                        "isCnicVerified",
+                        "verificationStatus",
+                        "isOnline",
+                        "totalJobsCompleted",
+                        "averageRating",
+                        "categoryIds",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "number"
+                            },
+                            "page": {
+                              "type": "number"
+                            },
+                            "limit": {
+                              "type": "number"
+                            },
+                            "totalPages": {
+                              "type": "number"
+                            },
+                            "hasNextPage": {
+                              "type": "boolean"
+                            },
+                            "hasPreviousPage": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "total",
+                            "page",
+                            "limit",
+                            "totalPages",
+                            "hasNextPage",
+                            "hasPreviousPage"
+                          ]
+                        }
+                      },
+                      "additionalProperties": {
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "description": "Profile updated successfully"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized access"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 401
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Unauthorized access"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Unauthorized access"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Resource not found"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 404
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Resource not found"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Resource not found"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Validation error"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 422
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Validation error"
+                        },
+                        "details": {
+                          "type": "object",
+                          "properties": {
+                            "issues": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "code": {
+                                    "type": "string"
+                                  },
+                                  "path": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "message": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "code",
+                                  "path"
+                                ]
+                              }
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "issues",
+                            "name"
+                          ],
+                          "example": {
+                            "name": "ZodError",
+                            "message": "[\n  {\n    \"expected\": \"object\",\n    \"code\": \"invalid_type\",\n    \"path\": [],\n    \"message\": \"Invalid input: expected object, received undefined\"\n  }\n]"
+                          }
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message",
+                        "details"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Validation error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 500
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Internal server error"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/service-providers/me/documents": {
+      "post": {
+        "operationId": "uploadServiceProviderDocuments",
+        "tags": [
+          "Service Providers"
+        ],
+        "summary": "Upload CNIC verification documents",
+        "description": "Upload CNIC front and back images. Send as multipart/form-data with fields \"cnicFront\" and \"cnicBack\" (jpeg, png, webp, pdf — max 10 MB each).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cnicFront": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "CNIC front (image or PDF, max 10 MB)"
+                  },
+                  "cnicBack": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "CNIC back (image or PDF, max 10 MB)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Documents uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": true,
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Documents uploaded successfully"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "cnicFrontUrl": {
+                          "type": "string"
+                        },
+                        "cnicBackUrl": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "cnicFrontUrl",
+                        "cnicBackUrl"
+                      ]
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "number"
+                            },
+                            "page": {
+                              "type": "number"
+                            },
+                            "limit": {
+                              "type": "number"
+                            },
+                            "totalPages": {
+                              "type": "number"
+                            },
+                            "hasNextPage": {
+                              "type": "boolean"
+                            },
+                            "hasPreviousPage": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "total",
+                            "page",
+                            "limit",
+                            "totalPages",
+                            "hasNextPage",
+                            "hasPreviousPage"
+                          ]
+                        }
+                      },
+                      "additionalProperties": {
+                        "nullable": true
+                      }
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "data"
+                  ],
+                  "description": "Documents uploaded successfully"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Bad request"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 400
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Bad request"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Bad request"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": false,
+                      "example": false
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthorized access"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "number",
+                          "example": 401
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "Unauthorized access"
+                        },
+                        "details": {
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "message"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "error"
+                  ],
+                  "description": "Unauthorized access"
                 }
               }
             }
