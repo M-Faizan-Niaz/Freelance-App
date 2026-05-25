@@ -49,6 +49,7 @@ export class ServiceProvidersRepository {
     if (data.bio !== undefined) patch.bio = data.bio;
     if (data.hourlyRate !== undefined) patch.hourlyRate = String(data.hourlyRate);
     if (data.coverageRadiusKm !== undefined) patch.coverageRadiusKm = String(data.coverageRadiusKm);
+    if (data.city !== undefined) patch.city = data.city;
     if (data.categoryIds !== undefined) patch.categoryIds = data.categoryIds;
 
     const [row] = await db

@@ -6,20 +6,24 @@ import { useMutation } from '@tanstack/react-query'
 import {
   ArrowLeft,
   ArrowRight,
+  Camera,
   CheckCircle,
   FileText,
   Images,
   Loader2,
   Upload,
+  User,
   X,
 } from 'lucide-react'
 import {
+  customFetch,
   useListServiceCategories,
+  useUpdateMe,
   useUpdateMyProviderProfile,
+  useUploadProfilePhoto,
   useUploadServiceProviderDocuments,
   type ListServiceCategories200DataItem,
 } from '@repo/api-client'
-import { customFetch } from '@repo/api-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
@@ -30,13 +34,11 @@ function apiMsg(error: unknown, fallback: string) {
   return (error as { data?: { message?: string } })?.data?.message ?? fallback
 }
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 type Category = ListServiceCategories200DataItem
 
 // ─── Step bar ─────────────────────────────────────────────────────────────────
 
-const STEPS = ['Profile', 'Documents', 'Portfolio', 'Done']
+const STEPS = ['Personal', 'Services', 'Documents', 'Portfolio', 'Done']
 
 function StepBar({ current }: { current: number }) {
   return (
@@ -67,7 +69,7 @@ function StepBar({ current }: { current: number }) {
               </span>
             </div>
             {i < STEPS.length - 1 && (
-              <div className={`h-px w-8 sm:w-12 ${done ? 'bg-primary' : 'bg-border'}`} />
+              <div className={`h-px w-6 sm:w-10 ${done ? 'bg-primary' : 'bg-border'}`} />
             )}
           </div>
         )
@@ -150,17 +152,24 @@ export default function ProviderOnboardingPage() {
   const router = useRouter()
   const [step, setStep] = useState(0)
 
-  // Step 0 — Profile
+  // Step 0 — Personal
+  const [photoFile, setPhotoFile] = useState<File | null>(null)
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null)
+  const [phone, setPhone] = useState('')
+  const photoInputRef = useRef<HTMLInputElement>(null)
+
+  // Step 1 — Services
   const [bio, setBio] = useState('')
   const [hourlyRate, setHourlyRate] = useState('')
+  const [city, setCity] = useState('')
   const [coverageRadius, setCoverageRadius] = useState('')
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([])
 
-  // Step 1 — Documents
+  // Step 2 — Documents
   const [cnicFront, setCnicFront] = useState<File | null>(null)
   const [cnicBack, setCnicBack] = useState<File | null>(null)
 
-  // Step 2 — Portfolio
+  // Step 3 — Portfolio
   const [portfolioFiles, setPortfolioFiles] = useState<File[]>([])
   const portfolioRef = useRef<HTMLInputElement>(null)
 
@@ -168,16 +177,38 @@ export default function ProviderOnboardingPage() {
   const { data: categoriesData, isLoading: categoriesLoading } = useListServiceCategories()
   const categories: Category[] = (categoriesData?.data ?? []).filter((c) => c.isActive)
 
-  // ── Mutations ─────────────────────────────────────────────────────────────────
+  // ── Mutations ──────────────────────────────────────────────────────────────
+
+  const { mutate: uploadPhoto, isPending: photoPending } = useUploadProfilePhoto({
+    mutation: {
+      onSuccess: () => {
+        toast.success('Photo uploaded')
+      },
+      onError: (error) => {
+        toast.error(apiMsg(error, 'Failed to upload photo'))
+      },
+    },
+  })
+
+  const { mutate: updateMe, isPending: mePending } = useUpdateMe({
+    mutation: {
+      onSuccess: () => {
+        setStep(1)
+      },
+      onError: (error) => {
+        toast.error(apiMsg(error, 'Failed to save personal info'))
+      },
+    },
+  })
 
   const { mutate: updateProfile, isPending: profilePending } = useUpdateMyProviderProfile({
     mutation: {
       onSuccess: () => {
-        toast.success('Profile saved')
-        setStep(1)
+        toast.success('Services saved')
+        setStep(2)
       },
       onError: (error) => {
-        toast.error(apiMsg(error, 'Failed to save profile'))
+        toast.error(apiMsg(error, 'Failed to save services'))
       },
     },
   })
@@ -186,7 +217,7 @@ export default function ProviderOnboardingPage() {
     mutation: {
       onSuccess: () => {
         toast.success('Documents uploaded')
-        setStep(2)
+        setStep(3)
       },
       onError: (error) => {
         toast.error(apiMsg(error, 'Failed to upload documents'))
@@ -194,26 +225,36 @@ export default function ProviderOnboardingPage() {
     },
   })
 
-  // Portfolio uses multiple files — orval's generated hook only supports one
-  // image field, so we build the FormData manually and call customFetch directly.
   const { mutate: uploadPortfolio, isPending: portfolioPending } = useMutation({
     mutationFn: async (files: File[]) => {
       const form = new FormData()
-      for (const file of files) {
-        form.append('images', file)
-      }
+      for (const file of files) form.append('images', file)
       return customFetch<unknown>({ url: '/v1/api/service-providers/me/portfolio', method: 'POST', data: form })
     },
     onSuccess: () => {
       toast.success('Portfolio uploaded')
-      setStep(3)
+      setStep(4)
     },
     onError: (error) => {
       toast.error(apiMsg(error, 'Failed to upload portfolio'))
     },
   })
 
-  // ── Handlers ──────────────────────────────────────────────────────────────────
+  // ── Handlers ──────────────────────────────────────────────────────────────
+
+  function handlePhotoSelect(file: File) {
+    setPhotoFile(file)
+    setPhotoPreview(URL.createObjectURL(file))
+    uploadPhoto({ data: { photo: file } })
+  }
+
+  function handlePersonalNext() {
+    if (!phone.trim()) {
+      toast.error('Please enter your phone number')
+      return
+    }
+    updateMe({ data: { phoneNumber: phone.trim() } })
+  }
 
   function toggleCategory(id: number) {
     setSelectedCategoryIds((prev) =>
@@ -221,7 +262,7 @@ export default function ProviderOnboardingPage() {
     )
   }
 
-  function handleProfileNext() {
+  function handleServicesNext() {
     if (!hourlyRate || Number(hourlyRate) <= 0) {
       toast.error('Please enter a valid hourly rate')
       return
@@ -234,6 +275,7 @@ export default function ProviderOnboardingPage() {
       data: {
         bio: bio.trim() || undefined,
         hourlyRate: Number(hourlyRate),
+        city: city.trim() || undefined,
         coverageRadiusKm: coverageRadius ? Number(coverageRadius) : undefined,
         categoryIds: selectedCategoryIds,
       },
@@ -242,7 +284,7 @@ export default function ProviderOnboardingPage() {
 
   function handleDocumentsNext() {
     if (!cnicFront || !cnicBack) {
-      toast.error('Please upload both CNIC front and back photos')
+      toast.error('Please upload both CNIC front and back')
       return
     }
     uploadDocuments({ data: { cnicFront, cnicBack } })
@@ -265,13 +307,15 @@ export default function ProviderOnboardingPage() {
     setPortfolioFiles((prev) => prev.filter((_, i) => i !== index))
   }
 
-  // ── Render ────────────────────────────────────────────────────────────────────
+  const personalPending = photoPending || mePending
+
+  // ── Render ────────────────────────────────────────────────────────────────
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
       {/* Header */}
       <div className="mb-6">
-        {step > 0 && step < 3 && (
+        {step > 0 && step < 4 && (
           <button
             onClick={() => setStep(step - 1)}
             className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-4"
@@ -281,17 +325,82 @@ export default function ProviderOnboardingPage() {
         )}
         <h1 className="text-2xl font-bold">Complete your provider profile</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          {step === 0 && 'Tell customers about yourself and your services.'}
-          {step === 1 && 'Upload your CNIC for identity verification.'}
-          {step === 2 && 'Show your best work to attract more customers.'}
-          {step === 3 && "You're all set — we'll review and approve your profile shortly."}
+          {step === 0 && 'Start with a photo and your contact info.'}
+          {step === 1 && 'Tell customers about your services and pricing.'}
+          {step === 2 && 'Upload your CNIC for identity verification.'}
+          {step === 3 && 'Show your best work to attract more customers.'}
+          {step === 4 && "You're all set — we'll review and approve your profile shortly."}
         </p>
       </div>
 
       <StepBar current={step} />
 
-      {/* ── Step 0: Profile ──────────────────────────────────────────────────── */}
+      {/* ── Step 0: Personal ─────────────────────────────────────────────────── */}
       {step === 0 && (
+        <div className="space-y-6">
+          {/* Avatar upload */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="relative">
+              <div className="w-24 h-24 rounded-full overflow-hidden bg-muted border-2 border-border flex items-center justify-center">
+                {photoPreview ? (
+                  <img src={photoPreview} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <User className="h-10 w-10 text-muted-foreground" />
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={() => photoInputRef.current?.click()}
+                disabled={photoPending}
+                className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shadow hover:bg-primary/90 transition-colors disabled:opacity-60"
+              >
+                {photoPending ? (
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                ) : (
+                  <Camera className="h-3.5 w-3.5" />
+                )}
+              </button>
+              <input
+                ref={photoInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0]
+                  if (f) handlePhotoSelect(f)
+                  e.target.value = ''
+                }}
+              />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {photoFile ? photoFile.name : 'Tap to add a profile photo'}
+            </p>
+          </div>
+
+          {/* Phone number */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-medium">Phone Number *</label>
+            <Input
+              type="tel"
+              placeholder="e.g. 03001234567"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <p className="text-xs text-muted-foreground">Customers use this to reach you.</p>
+          </div>
+
+          <Button className="w-full" size="lg" onClick={handlePersonalNext} disabled={personalPending}>
+            {mePending ? (
+              <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Saving…</>
+            ) : (
+              <>Next — Your Services <ArrowRight className="h-4 w-4 ml-2" /></>
+            )}
+          </Button>
+        </div>
+      )}
+
+      {/* ── Step 1: Services ─────────────────────────────────────────────────── */}
+      {step === 1 && (
         <div className="space-y-6">
           {/* Bio */}
           <div className="space-y-1.5">
@@ -306,7 +415,7 @@ export default function ProviderOnboardingPage() {
             <p className="text-xs text-muted-foreground text-right">{bio.length}/500</p>
           </div>
 
-          {/* Rate + Coverage */}
+          {/* Rate + City */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-sm font-medium">Hourly Rate (Rs) *</label>
@@ -319,15 +428,27 @@ export default function ProviderOnboardingPage() {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-sm font-medium">Coverage Radius (km)</label>
+              <label className="text-sm font-medium">City</label>
               <Input
-                type="number"
-                min={1}
-                placeholder="e.g. 15"
-                value={coverageRadius}
-                onChange={(e) => setCoverageRadius(e.target.value)}
+                type="text"
+                placeholder="e.g. Karachi"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
               />
             </div>
+          </div>
+
+          {/* Coverage radius */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-medium">Coverage Radius (km)</label>
+            <Input
+              type="number"
+              min={1}
+              placeholder="e.g. 15"
+              value={coverageRadius}
+              onChange={(e) => setCoverageRadius(e.target.value)}
+            />
+            <p className="text-xs text-muted-foreground">How far are you willing to travel for a job?</p>
           </div>
 
           {/* Service categories */}
@@ -366,7 +487,7 @@ export default function ProviderOnboardingPage() {
             )}
           </div>
 
-          <Button className="w-full" size="lg" onClick={handleProfileNext} disabled={profilePending}>
+          <Button className="w-full" size="lg" onClick={handleServicesNext} disabled={profilePending}>
             {profilePending ? (
               <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Saving…</>
             ) : (
@@ -376,8 +497,8 @@ export default function ProviderOnboardingPage() {
         </div>
       )}
 
-      {/* ── Step 1: Documents ────────────────────────────────────────────────── */}
-      {step === 1 && (
+      {/* ── Step 2: Documents ───────────────────────────────────────────────── */}
+      {step === 2 && (
         <div className="space-y-5">
           <FileZone
             label="CNIC Front *"
@@ -408,8 +529,8 @@ export default function ProviderOnboardingPage() {
         </div>
       )}
 
-      {/* ── Step 2: Portfolio ────────────────────────────────────────────────── */}
-      {step === 2 && (
+      {/* ── Step 3: Portfolio ───────────────────────────────────────────────── */}
+      {step === 3 && (
         <div className="space-y-5">
           <input
             ref={portfolioRef}
@@ -423,7 +544,6 @@ export default function ProviderOnboardingPage() {
             }}
           />
 
-          {/* Drop zone */}
           <button
             type="button"
             onClick={() => portfolioRef.current?.click()}
@@ -440,7 +560,6 @@ export default function ProviderOnboardingPage() {
             )}
           </button>
 
-          {/* Preview grid */}
           {portfolioFiles.length > 0 && (
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
               {portfolioFiles.map((file, i) => (
@@ -466,7 +585,7 @@ export default function ProviderOnboardingPage() {
             <Button
               variant="outline"
               className="flex-1"
-              onClick={() => setStep(3)}
+              onClick={() => setStep(4)}
               disabled={portfolioPending}
             >
               Skip for now
@@ -486,8 +605,8 @@ export default function ProviderOnboardingPage() {
         </div>
       )}
 
-      {/* ── Step 3: Done ─────────────────────────────────────────────────────── */}
-      {step === 3 && (
+      {/* ── Step 4: Done ────────────────────────────────────────────────────── */}
+      {step === 4 && (
         <div className="text-center py-12 space-y-4">
           <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
             <CheckCircle className="h-8 w-8 text-primary" />
@@ -501,7 +620,8 @@ export default function ProviderOnboardingPage() {
           <Card className="max-w-sm mx-auto text-left">
             <CardContent className="p-4 space-y-2.5">
               {[
-                'Profile details & categories saved',
+                'Personal info & photo saved',
+                'Services & pricing configured',
                 'CNIC documents uploaded',
                 'Portfolio photos added',
               ].map((item) => (

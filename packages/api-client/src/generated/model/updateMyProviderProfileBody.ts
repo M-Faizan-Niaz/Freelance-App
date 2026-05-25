@@ -18,5 +18,7 @@ export type UpdateMyProviderProfileBody = {
    * @exclusiveMinimum
    */
   coverageRadiusKm?: number;
+  /** @maxLength 100 */
+  city?: string;
   categoryIds?: number[];
 };

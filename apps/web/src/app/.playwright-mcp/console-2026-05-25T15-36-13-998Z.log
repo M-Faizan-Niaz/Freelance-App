@@ -1,0 +1,64 @@
+[     124ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     717ms] [LOG] [Fast Refresh] done in 704ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     797ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     840ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  119126ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-in?callbackUrl=%2Fprofile:0
+[  122428ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  122450ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  122901ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  122921ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  123434ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  123460ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  125363ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  125382ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  135865ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  135883ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  135960ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[  136977ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[  589399ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  589478ms] [LOG] [Fast Refresh] done in 183ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  589606ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  589828ms] [ERROR] Access to fetch at 'https://api.viteplusmono.test/v1/api/users/me' from origin 'https://web.viteplusmono.test' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.viteplusmono.test/provider/dashboard:0
+[  589829ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.viteplusmono.test/v1/api/users/me:0
+[  589829ms] [ERROR] Access to fetch at 'https://api.viteplusmono.test/v1/api/notifications' from origin 'https://web.viteplusmono.test' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.viteplusmono.test/provider/dashboard:0
+[  589829ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.viteplusmono.test/v1/api/notifications:0
+[  589829ms] [ERROR] Access to fetch at 'https://api.viteplusmono.test/v1/api/service-providers/me' from origin 'https://web.viteplusmono.test' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.viteplusmono.test/provider/dashboard:0
+[  589830ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.viteplusmono.test/v1/api/service-providers/me:0
+[  589830ms] [ERROR] Access to fetch at 'https://api.viteplusmono.test/v1/api/bookings' from origin 'https://web.viteplusmono.test' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.viteplusmono.test/provider/dashboard:0
+[  589830ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.viteplusmono.test/v1/api/bookings:0
+[  589831ms] [LOG] [Fast Refresh] done in 281ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  590847ms] [ERROR] Access to fetch at 'https://api.viteplusmono.test/v1/api/users/me' from origin 'https://web.viteplusmono.test' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.viteplusmono.test/provider/dashboard:0
+[  590847ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.viteplusmono.test/v1/api/users/me:0
+[  590849ms] [ERROR] Access to fetch at 'https://api.viteplusmono.test/v1/api/notifications' from origin 'https://web.viteplusmono.test' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.viteplusmono.test/provider/dashboard:0
+[  590849ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.viteplusmono.test/v1/api/notifications:0
+[  590849ms] [ERROR] Access to fetch at 'https://api.viteplusmono.test/v1/api/service-providers/me' from origin 'https://web.viteplusmono.test' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.viteplusmono.test/provider/dashboard:0
+[  590849ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.viteplusmono.test/v1/api/service-providers/me:0
+[  590850ms] [ERROR] Access to fetch at 'https://api.viteplusmono.test/v1/api/bookings' from origin 'https://web.viteplusmono.test' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.viteplusmono.test/provider/dashboard:0
+[  590850ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://api.viteplusmono.test/v1/api/bookings:0
+[  643988ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  644999ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  646013ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  647031ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  648050ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  653075ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  658097ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  663145ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  668181ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  673253ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  678369ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  683541ms] [ERROR] WebSocket connection to 'wss://web.viteplusmono.test/_next/webpack-hmr?id=MIpsk274b3_EtFHq4w9mg' failed: Error in connection establishment: net::ERR_NAME_NOT_RESOLVED @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_client_0_ias.5._.js:13299
+[  683551ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://web.viteplusmono.test/provider/dashboard:0
+[ 2210614ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 2210685ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 2210777ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[ 2211803ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[ 2223914ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[ 2223918ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/service-providers/me:0
+[ 2223920ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[ 2224933ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[ 2224935ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/service-providers/me:0
+[ 2224936ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[ 2238928ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 2238955ms] [LOG] [Fast Refresh] done in 139ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 2426497ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 2427245ms] [LOG] [Fast Refresh] done in 854ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431

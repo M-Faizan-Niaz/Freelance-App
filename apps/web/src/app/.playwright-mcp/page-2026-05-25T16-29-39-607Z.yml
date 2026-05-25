@@ -1,0 +1,168 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link "Switch to Customer" [ref=e83] [cursor=pointer]:
+            - /url: /dashboard
+          - link [ref=e84] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e85]
+          - button "A Ahmed Khan" [ref=e88]:
+            - generic [ref=e90]: A
+            - generic [ref=e91]: Ahmed Khan
+            - img [ref=e92]
+    - generic [ref=e14]:
+      - complementary [ref=e15]:
+        - paragraph [ref=e17]: Provider Mode
+        - navigation [ref=e21]:
+          - link "Dashboard" [ref=e22] [cursor=pointer]:
+            - /url: /provider/dashboard
+            - img [ref=e23]
+            - generic [ref=e28]: Dashboard
+          - link "Complete Profile" [ref=e29] [cursor=pointer]:
+            - /url: /provider/onboarding
+            - img [ref=e30]
+            - generic [ref=e33]: Complete Profile
+          - link "My Jobs" [ref=e34] [cursor=pointer]:
+            - /url: /provider/bookings
+            - img [ref=e35]
+            - generic [ref=e37]: My Jobs
+          - link "Messages" [ref=e38] [cursor=pointer]:
+            - /url: /provider/messages
+            - img [ref=e39]
+            - generic [ref=e41]: Messages
+          - link "Notifications" [ref=e42] [cursor=pointer]:
+            - /url: /provider/notifications
+            - img [ref=e43]
+            - generic [ref=e46]: Notifications
+          - link "Profile" [ref=e47] [cursor=pointer]:
+            - /url: /provider/profile
+            - img [ref=e48]
+            - generic [ref=e51]: Profile
+            - img [ref=e52]
+          - link "Verification" [ref=e54] [cursor=pointer]:
+            - /url: /provider/documents
+            - img [ref=e55]
+            - generic [ref=e58]: Verification
+          - link "Portfolio" [ref=e59] [cursor=pointer]:
+            - /url: /provider/portfolio
+            - img [ref=e60]
+            - generic [ref=e65]: Portfolio
+      - main [ref=e66]:
+        - generic [ref=e67]:
+          - generic [ref=e94]:
+            - heading "My Profile" [level=1] [ref=e95]
+            - paragraph [ref=e96]: This is how customers see you — keep it complete to get more jobs.
+          - generic [ref=e69]:
+            - generic [ref=e100]:
+              - generic [ref=e101]:
+                - generic [ref=e102]:
+                  - generic [ref=e104]: A
+                  - button "Change photo" [ref=e105]:
+                    - img [ref=e106]
+                - heading "Ahmed Khan" [level=2] [ref=e109]
+                - paragraph [ref=e110]: ahmed.khan@serveease.test
+                - generic [ref=e111]: Verified
+              - generic [ref=e112]:
+                - generic [ref=e113]:
+                  - paragraph [ref=e114]: "87"
+                  - paragraph [ref=e115]: Jobs Done
+                - generic [ref=e116]:
+                  - generic [ref=e117]:
+                    - img [ref=e118]
+                    - paragraph [ref=e120]: "4.6"
+                  - paragraph [ref=e121]: Rating
+              - generic [ref=e122]:
+                - generic [ref=e123]:
+                  - img [ref=e124]
+                  - generic [ref=e127]: Karachi
+                - generic [ref=e128]:
+                  - img [ref=e129]
+                  - generic [ref=e132]: Rs 1,200 / hr
+                - generic [ref=e133]:
+                  - img [ref=e134]
+                  - generic [ref=e137]: Member since 2026
+                - generic [ref=e138]:
+                  - img [ref=e139]
+                  - generic [ref=e141]: CNIC Verified
+              - generic [ref=e142]:
+                - link "Verification Docs" [ref=e143] [cursor=pointer]:
+                  - /url: /provider/documents
+                  - generic [ref=e144]:
+                    - img [ref=e145]
+                    - text: Verification Docs
+                  - img [ref=e147]
+                - link "Portfolio Photos" [ref=e149] [cursor=pointer]:
+                  - /url: /provider/portfolio
+                  - generic [ref=e150]:
+                    - img [ref=e151]
+                    - text: Portfolio Photos
+                  - img [ref=e154]
+            - generic [ref=e71]:
+              - generic [ref=e157]:
+                - heading "Personal Information" [level=3] [ref=e158]
+                - generic [ref=e159]:
+                  - generic [ref=e160]:
+                    - generic [ref=e161]: Full Name
+                    - textbox "Your full name" [ref=e162]: Ahmed Khan
+                  - generic [ref=e163]:
+                    - generic [ref=e164]: Email
+                    - textbox [disabled] [ref=e165]: ahmed.khan@serveease.test
+                  - generic [ref=e166]:
+                    - generic [ref=e167]: Phone Number
+                    - textbox "+92 3XX XXXXXXX" [ref=e168]: "+923001234567"
+                  - button "Save Personal Info" [ref=e169]
+              - generic [ref=e171]:
+                - heading "Professional Details" [level=3] [ref=e172]
+                - generic [ref=e173]:
+                  - generic [ref=e174]:
+                    - generic [ref=e175]: About You
+                    - textbox "Describe your experience, skills, and what sets you apart…" [ref=e176]: Certified electrician with 6 years of residential and commercial wiring experience.
+                    - paragraph [ref=e177]: 83/500
+                  - generic [ref=e178]:
+                    - generic [ref=e179]:
+                      - generic [ref=e180]: Hourly Rate (Rs)
+                      - generic [ref=e181]:
+                        - generic [ref=e182]: Rs
+                        - spinbutton [ref=e183]: "1200.00"
+                    - generic [ref=e184]:
+                      - generic [ref=e185]: City
+                      - textbox "e.g. Karachi" [ref=e186]: Karachi
+                  - generic [ref=e187]:
+                    - generic [ref=e188]: Coverage Radius
+                    - generic [ref=e189]:
+                      - spinbutton [ref=e190]: "15.00"
+                      - generic [ref=e191]: km
+                    - paragraph [ref=e192]: Maximum distance you're willing to travel for a job.
+                  - button "Save Professional Details" [ref=e193]
+              - generic [ref=e195]:
+                - heading "Services You Offer" [level=3] [ref=e197]
+                - paragraph [ref=e198]: Select every service you can provide — customers search by category.
+                - generic [ref=e199]:
+                  - button "AC Repair" [ref=e200]
+                  - button "Carpenter" [ref=e201]
+                  - button "CCTV Installation" [ref=e202]
+                  - button "Electrician" [ref=e203]
+                  - button "Gardening" [ref=e204]
+                  - button "House Cleaning" [ref=e205]
+                  - button "Locksmith" [ref=e206]
+                  - button "Mason" [ref=e207]
+                  - button "Painter" [ref=e208]
+                  - button "Pest Control" [ref=e209]
+                  - button "Plumber" [ref=e210]
+                  - button "Solar Panel" [ref=e211]
+                - button "Save Categories" [ref=e212]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e79] [cursor=pointer]:
+    - img [ref=e80]
+  - alert [ref=e213]

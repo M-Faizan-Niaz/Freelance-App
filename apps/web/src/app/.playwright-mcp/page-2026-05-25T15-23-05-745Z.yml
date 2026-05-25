@@ -1,0 +1,49 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - button "Back" [ref=e35]:
+        - img [ref=e36]
+        - text: Back
+      - heading "Provider account" [level=1] [ref=e38]
+      - paragraph [ref=e39]: Offer your skills to customers.
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - text: Full Name
+        - textbox "Full Name" [ref=e42]:
+          - /placeholder: Jane Doe
+      - generic [ref=e43]:
+        - text: Email
+        - textbox "Email" [ref=e44]:
+          - /placeholder: jane@example.com
+      - generic [ref=e45]:
+        - text: Phone Number
+        - textbox "Phone Number" [ref=e46]:
+          - /placeholder: "+923001234567"
+        - paragraph [ref=e47]: International format, no spaces (e.g. +923001234567)
+      - generic [ref=e48]:
+        - text: CNIC Number
+        - textbox "CNIC Number" [ref=e49]:
+          - /placeholder: XXXXX-XXXXXXX-X
+        - paragraph [ref=e50]: "Format: 42101-1234567-8"
+      - generic [ref=e51]:
+        - text: City
+        - textbox "City" [ref=e52]:
+          - /placeholder: Karachi
+      - generic [ref=e53]:
+        - text: Password
+        - textbox "Password" [ref=e54]:
+          - /placeholder: Min. 8 characters
+        - paragraph [ref=e55]: Must include uppercase, lowercase, number, and special character
+      - generic [ref=e56]:
+        - text: Confirm Password
+        - textbox "Confirm Password" [ref=e57]:
+          - /placeholder: ••••••••
+      - button "Create account" [ref=e58]
+    - paragraph [ref=e23]:
+      - text: Already have an account?
+      - link "Sign in" [ref=e24] [cursor=pointer]:
+        - /url: /auth/sign-in
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e30] [cursor=pointer]:
+    - img [ref=e31]
+  - alert [ref=e34]

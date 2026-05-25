@@ -24,6 +24,7 @@ export const updateProviderProfileSchema = z.object({
   bio: z.string().max(500).optional(),
   hourlyRate: z.number().positive().optional(),
   coverageRadiusKm: z.number().positive().optional(),
+  city: z.string().max(100).optional(),
   categoryIds: z.array(z.number().int().positive()).optional(),
 });
 export type UpdateProviderProfileRequest = z.infer<typeof updateProviderProfileSchema>;

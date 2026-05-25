@@ -71,286 +71,6 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 /**
- * Returns a paginated list of approved service providers. Optionally filter by city.
- * @summary List approved providers
- */
-export const listServiceProviders = (
-    params?: ListServiceProvidersParams,
- options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
-) => {
-      
-      
-      return customFetch<ListServiceProviders200>(
-      {url: `/v1/api/service-providers`, method: 'GET',
-        params, signal
-    },
-      options);
-    }
-  
-
-
-
-export const getListServiceProvidersQueryKey = (params?: ListServiceProvidersParams,) => {
-    return [
-    `/v1/api/service-providers`, ...(params ? [params]: [])
-    ] as const;
-    }
-
-    
-export const getListServiceProvidersQueryOptions = <TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getListServiceProvidersQueryKey(params);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listServiceProviders>>> = ({ signal }) => listServiceProviders(params, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ListServiceProvidersQueryResult = NonNullable<Awaited<ReturnType<typeof listServiceProviders>>>
-export type ListServiceProvidersQueryError = ListServiceProviders500
-
-
-export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
- params: undefined |  ListServiceProvidersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listServiceProviders>>,
-          TError,
-          Awaited<ReturnType<typeof listServiceProviders>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
- params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listServiceProviders>>,
-          TError,
-          Awaited<ReturnType<typeof listServiceProviders>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
- params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary List approved providers
- */
-
-export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
- params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient 
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getListServiceProvidersQueryOptions(params,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-
-/**
- * Returns the public profile of an approved service provider by their numeric ID.
- * @summary Get public provider profile
- */
-export const getServiceProviderById = (
-    id: number | null,
- options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
-) => {
-      
-      
-      return customFetch<GetServiceProviderById200>(
-      {url: `/v1/api/service-providers/${id}`, method: 'GET', signal
-    },
-      options);
-    }
-  
-
-
-
-export const getGetServiceProviderByIdQueryKey = (id?: number | null,) => {
-    return [
-    `/v1/api/service-providers/${id}`
-    ] as const;
-    }
-
-    
-export const getGetServiceProviderByIdQueryOptions = <TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetServiceProviderByIdQueryKey(id);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getServiceProviderById>>> = ({ signal }) => getServiceProviderById(id, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetServiceProviderByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getServiceProviderById>>>
-export type GetServiceProviderByIdQueryError = GetServiceProviderById404 | GetServiceProviderById500
-
-
-export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
- id: number | null, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getServiceProviderById>>,
-          TError,
-          Awaited<ReturnType<typeof getServiceProviderById>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
- id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getServiceProviderById>>,
-          TError,
-          Awaited<ReturnType<typeof getServiceProviderById>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
- id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Get public provider profile
- */
-
-export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
- id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient 
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getGetServiceProviderByIdQueryOptions(id,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-
-/**
- * Returns all portfolio images for the given service provider.
- * @summary List portfolio images
- */
-export const listServiceProviderPortfolio = (
-    id: number | null,
- options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
-) => {
-      
-      
-      return customFetch<ListServiceProviderPortfolio200>(
-      {url: `/v1/api/service-providers/${id}/portfolio`, method: 'GET', signal
-    },
-      options);
-    }
-  
-
-
-
-export const getListServiceProviderPortfolioQueryKey = (id?: number | null,) => {
-    return [
-    `/v1/api/service-providers/${id}/portfolio`
-    ] as const;
-    }
-
-    
-export const getListServiceProviderPortfolioQueryOptions = <TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getListServiceProviderPortfolioQueryKey(id);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof listServiceProviderPortfolio>>> = ({ signal }) => listServiceProviderPortfolio(id, requestOptions, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type ListServiceProviderPortfolioQueryResult = NonNullable<Awaited<ReturnType<typeof listServiceProviderPortfolio>>>
-export type ListServiceProviderPortfolioQueryError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500
-
-
-export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(
- id: number | null, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listServiceProviderPortfolio>>,
-          TError,
-          Awaited<ReturnType<typeof listServiceProviderPortfolio>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(
- id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof listServiceProviderPortfolio>>,
-          TError,
-          Awaited<ReturnType<typeof listServiceProviderPortfolio>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(
- id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary List portfolio images
- */
-
-export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(
- id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
- , queryClient?: QueryClient 
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getListServiceProviderPortfolioQueryOptions(id,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-
-/**
  * Returns the authenticated provider's full profile including mutable fields.
  * @summary Get own provider profile
  */
@@ -712,4 +432,283 @@ export const useDeletePortfolioImages = <TError = DeletePortfolioImages400 | Del
 
       return useMutation(mutationOptions, queryClient);
     }
+    /**
+ * Returns a paginated list of approved service providers. Optionally filter by city.
+ * @summary List approved providers
+ */
+export const listServiceProviders = (
+    params?: ListServiceProvidersParams,
+ options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return customFetch<ListServiceProviders200>(
+      {url: `/v1/api/service-providers`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
+  
+
+
+
+export const getListServiceProvidersQueryKey = (params?: ListServiceProvidersParams,) => {
+    return [
+    `/v1/api/service-providers`, ...(params ? [params]: [])
+    ] as const;
+    }
+
     
+export const getListServiceProvidersQueryOptions = <TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListServiceProvidersQueryKey(params);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listServiceProviders>>> = ({ signal }) => listServiceProviders(params, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ListServiceProvidersQueryResult = NonNullable<Awaited<ReturnType<typeof listServiceProviders>>>
+export type ListServiceProvidersQueryError = ListServiceProviders500
+
+
+export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
+ params: undefined |  ListServiceProvidersParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listServiceProviders>>,
+          TError,
+          Awaited<ReturnType<typeof listServiceProviders>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
+ params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listServiceProviders>>,
+          TError,
+          Awaited<ReturnType<typeof listServiceProviders>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
+ params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary List approved providers
+ */
+
+export function useListServiceProviders<TData = Awaited<ReturnType<typeof listServiceProviders>>, TError = ListServiceProviders500>(
+ params?: ListServiceProvidersParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviders>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getListServiceProvidersQueryOptions(params,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Returns all portfolio images for the given service provider.
+ * @summary List portfolio images
+ */
+export const listServiceProviderPortfolio = (
+    id: number | null,
+ options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return customFetch<ListServiceProviderPortfolio200>(
+      {url: `/v1/api/service-providers/${id}/portfolio`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getListServiceProviderPortfolioQueryKey = (id?: number | null,) => {
+    return [
+    `/v1/api/service-providers/${id}/portfolio`
+    ] as const;
+    }
+
+    
+export const getListServiceProviderPortfolioQueryOptions = <TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListServiceProviderPortfolioQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listServiceProviderPortfolio>>> = ({ signal }) => listServiceProviderPortfolio(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ListServiceProviderPortfolioQueryResult = NonNullable<Awaited<ReturnType<typeof listServiceProviderPortfolio>>>
+export type ListServiceProviderPortfolioQueryError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500
+
+
+export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(
+ id: number | null, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listServiceProviderPortfolio>>,
+          TError,
+          Awaited<ReturnType<typeof listServiceProviderPortfolio>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listServiceProviderPortfolio>>,
+          TError,
+          Awaited<ReturnType<typeof listServiceProviderPortfolio>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary List portfolio images
+ */
+
+export function useListServiceProviderPortfolio<TData = Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError = ListServiceProviderPortfolio404 | ListServiceProviderPortfolio500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listServiceProviderPortfolio>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getListServiceProviderPortfolioQueryOptions(id,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * Returns the public profile of an approved service provider by their numeric ID.
+ * @summary Get public provider profile
+ */
+export const getServiceProviderById = (
+    id: number | null,
+ options?: SecondParameter<typeof customFetch>,signal?: AbortSignal
+) => {
+      
+      
+      return customFetch<GetServiceProviderById200>(
+      {url: `/v1/api/service-providers/${id}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getGetServiceProviderByIdQueryKey = (id?: number | null,) => {
+    return [
+    `/v1/api/service-providers/${id}`
+    ] as const;
+    }
+
+    
+export const getGetServiceProviderByIdQueryOptions = <TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetServiceProviderByIdQueryKey(id);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getServiceProviderById>>> = ({ signal }) => getServiceProviderById(id, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(id), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetServiceProviderByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getServiceProviderById>>>
+export type GetServiceProviderByIdQueryError = GetServiceProviderById404 | GetServiceProviderById500
+
+
+export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
+ id: number | null, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getServiceProviderById>>,
+          TError,
+          Awaited<ReturnType<typeof getServiceProviderById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getServiceProviderById>>,
+          TError,
+          Awaited<ReturnType<typeof getServiceProviderById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Get public provider profile
+ */
+
+export function useGetServiceProviderById<TData = Awaited<ReturnType<typeof getServiceProviderById>>, TError = GetServiceProviderById404 | GetServiceProviderById500>(
+ id: number | null, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getServiceProviderById>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetServiceProviderByIdQueryOptions(id,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+

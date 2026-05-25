@@ -1,0 +1,152 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link "Sign In" [ref=e12] [cursor=pointer]:
+            - /url: /auth/sign-in
+          - link "Join Free" [ref=e13] [cursor=pointer]:
+            - /url: /auth/sign-up
+    - generic [ref=e14]:
+      - complementary [ref=e15]:
+        - paragraph [ref=e17]: Provider Mode
+        - navigation [ref=e21]:
+          - link "Dashboard" [ref=e22] [cursor=pointer]:
+            - /url: /provider/dashboard
+            - img [ref=e23]
+            - generic [ref=e28]: Dashboard
+          - link "Complete Profile" [ref=e29] [cursor=pointer]:
+            - /url: /provider/onboarding
+            - img [ref=e30]
+            - generic [ref=e33]: Complete Profile
+          - link "My Jobs" [ref=e34] [cursor=pointer]:
+            - /url: /provider/bookings
+            - img [ref=e35]
+            - generic [ref=e37]: My Jobs
+          - link "Messages" [ref=e38] [cursor=pointer]:
+            - /url: /provider/messages
+            - img [ref=e39]
+            - generic [ref=e41]: Messages
+          - link "Notifications" [ref=e42] [cursor=pointer]:
+            - /url: /provider/notifications
+            - img [ref=e43]
+            - generic [ref=e46]: Notifications
+          - link "Profile" [ref=e47] [cursor=pointer]:
+            - /url: /provider/profile
+            - img [ref=e48]
+            - generic [ref=e51]: Profile
+            - img [ref=e52]
+          - link "Verification" [ref=e54] [cursor=pointer]:
+            - /url: /provider/documents
+            - img [ref=e55]
+            - generic [ref=e58]: Verification
+          - link "Portfolio" [ref=e59] [cursor=pointer]:
+            - /url: /provider/portfolio
+            - img [ref=e60]
+            - generic [ref=e65]: Portfolio
+      - main [ref=e66]:
+        - generic [ref=e67]:
+          - generic [ref=e83]:
+            - heading "My Profile" [level=1] [ref=e84]
+            - paragraph [ref=e85]: This is how customers see you — keep it complete to get more jobs.
+          - generic [ref=e69]:
+            - generic [ref=e89]:
+              - generic [ref=e90]:
+                - generic [ref=e91]:
+                  - generic [ref=e93]: P
+                  - button "Change photo" [ref=e94]:
+                    - img [ref=e95]
+                - heading [level=2]
+                - paragraph
+              - generic [ref=e98]:
+                - generic [ref=e99]:
+                  - paragraph [ref=e100]: "0"
+                  - paragraph [ref=e101]: Jobs Done
+                - generic [ref=e102]:
+                  - generic [ref=e103]:
+                    - img [ref=e104]
+                    - paragraph [ref=e106]: —
+                  - paragraph [ref=e107]: Rating
+              - generic [ref=e109]:
+                - img [ref=e110]
+                - generic [ref=e113]: Member since 2026
+              - generic [ref=e114]:
+                - link "Verification Docs" [ref=e115] [cursor=pointer]:
+                  - /url: /provider/documents
+                  - generic [ref=e116]:
+                    - img [ref=e117]
+                    - text: Verification Docs
+                  - img [ref=e119]
+                - link "Portfolio Photos" [ref=e121] [cursor=pointer]:
+                  - /url: /provider/portfolio
+                  - generic [ref=e122]:
+                    - img [ref=e123]
+                    - text: Portfolio Photos
+                  - img [ref=e126]
+            - generic [ref=e71]:
+              - generic [ref=e129]:
+                - heading "Personal Information" [level=3] [ref=e130]
+                - generic [ref=e131]:
+                  - generic [ref=e132]:
+                    - generic [ref=e133]: Full Name
+                    - textbox "Your full name" [ref=e134]
+                  - generic [ref=e135]:
+                    - generic [ref=e136]: Email
+                    - textbox [disabled] [ref=e137]
+                  - generic [ref=e138]:
+                    - generic [ref=e139]: Phone Number
+                    - textbox "+92 3XX XXXXXXX" [ref=e140]
+                  - button "Save Personal Info" [ref=e141]
+              - generic [ref=e143]:
+                - heading "Professional Details" [level=3] [ref=e144]
+                - generic [ref=e145]:
+                  - generic [ref=e146]:
+                    - generic [ref=e147]: About You
+                    - textbox "Describe your experience, skills, and what sets you apart…" [ref=e148]
+                    - paragraph [ref=e149]: 0/500
+                  - generic [ref=e150]:
+                    - generic [ref=e151]:
+                      - generic [ref=e152]: Hourly Rate (Rs)
+                      - generic [ref=e153]:
+                        - generic [ref=e154]: Rs
+                        - spinbutton [ref=e155]
+                    - generic [ref=e156]:
+                      - generic [ref=e157]: City
+                      - textbox "e.g. Karachi" [ref=e158]
+                  - generic [ref=e159]:
+                    - generic [ref=e160]: Coverage Radius
+                    - generic [ref=e161]:
+                      - spinbutton [ref=e162]
+                      - generic [ref=e163]: km
+                    - paragraph [ref=e164]: Maximum distance you're willing to travel for a job.
+                  - button "Save Professional Details" [ref=e165]
+              - generic [ref=e167]:
+                - heading "Services You Offer" [level=3] [ref=e169]
+                - paragraph [ref=e170]: Select every service you can provide — customers search by category.
+                - generic [ref=e171]:
+                  - button "AC Repair" [ref=e172]
+                  - button "Carpenter" [ref=e173]
+                  - button "CCTV Installation" [ref=e174]
+                  - button "Electrician" [ref=e175]
+                  - button "Gardening" [ref=e176]
+                  - button "House Cleaning" [ref=e177]
+                  - button "Locksmith" [ref=e178]
+                  - button "Mason" [ref=e179]
+                  - button "Painter" [ref=e180]
+                  - button "Pest Control" [ref=e181]
+                  - button "Plumber" [ref=e182]
+                  - button "Solar Panel" [ref=e183]
+                - button "Save Categories" [ref=e184]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e79] [cursor=pointer]:
+    - img [ref=e80]
+  - alert [ref=e185]

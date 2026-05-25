@@ -1,0 +1,81 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link "Sign In" [ref=e12] [cursor=pointer]:
+            - /url: /auth/sign-in
+          - link "Join Free" [ref=e13] [cursor=pointer]:
+            - /url: /auth/sign-up
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e17]:
+          - heading "Find Providers" [level=1] [ref=e18]
+          - paragraph [ref=e19]: Browse verified service professionals in your city.
+        - generic [ref=e20]:
+          - img [ref=e21]
+          - textbox "Search providers or services..." [ref=e24]
+        - generic [ref=e25]:
+          - img [ref=e27]
+          - heading "No providers found" [level=3] [ref=e32]
+          - paragraph [ref=e33]: Verified providers will be listed here. Try a different search.
+    - contentinfo [ref=e34]:
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - link "S ServeEase" [ref=e38] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e39]: S
+              - text: ServeEase
+            - paragraph [ref=e40]: Pakistan's trusted platform for on-demand home services. Verified providers, secure payments.
+          - generic [ref=e41]:
+            - heading "Services" [level=3] [ref=e42]
+            - list [ref=e43]:
+              - listitem [ref=e44]:
+                - link "Browse Services" [ref=e45] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e46]:
+                - link "Find Providers" [ref=e47] [cursor=pointer]:
+                  - /url: /providers
+              - listitem [ref=e48]:
+                - link "How It Works" [ref=e49] [cursor=pointer]:
+                  - /url: /#how-it-works
+          - generic [ref=e50]:
+            - heading "For Providers" [level=3] [ref=e51]
+            - list [ref=e52]:
+              - listitem [ref=e53]:
+                - link "Become a Provider" [ref=e54] [cursor=pointer]:
+                  - /url: /auth/sign-up
+              - listitem [ref=e55]:
+                - link "Provider Dashboard" [ref=e56] [cursor=pointer]:
+                  - /url: /provider/dashboard
+              - listitem [ref=e57]:
+                - link "Upload Portfolio" [ref=e58] [cursor=pointer]:
+                  - /url: /provider/portfolio
+          - generic [ref=e59]:
+            - heading "Support" [level=3] [ref=e60]
+            - list [ref=e61]:
+              - listitem [ref=e62]:
+                - link "Help Center" [ref=e63] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e64]:
+                - link "Contact Us" [ref=e65] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e66]:
+                - link "Privacy Policy" [ref=e67] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=e68]:
+          - paragraph [ref=e69]: © 2026 ServeEase. All rights reserved.
+          - paragraph [ref=e70]: Made with ♥ in Pakistan
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e76] [cursor=pointer]:
+    - img [ref=e77]
