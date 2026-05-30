@@ -24,13 +24,14 @@ import {
   useRescheduleBooking,
 } from '@repo/api-client'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
+import { StatusBadge } from '@/components/shared/status-badge'
 import { toast } from 'sonner'
 
-// ─── Status config ─────────────────────────────────────────────────────────────
+// ─── Status steps ──────────────────────────────────────────────────────────────
 
 const STATUS_STEPS = [
   { key: 'pending', label: 'Pending' },
@@ -40,26 +41,6 @@ const STATUS_STEPS = [
   { key: 'in_progress', label: 'In Progress' },
   { key: 'completed', label: 'Completed' },
 ]
-
-const STATUS_BADGE: Record<string, { label: string; class: string }> = {
-  pending: { label: 'Pending', class: 'bg-yellow-100 text-yellow-800' },
-  accepted: { label: 'Accepted', class: 'bg-blue-100 text-blue-800' },
-  travelling: { label: 'On the Way', class: 'bg-indigo-100 text-indigo-800' },
-  arrived: { label: 'Arrived', class: 'bg-purple-100 text-purple-800' },
-  in_progress: { label: 'In Progress', class: 'bg-orange-100 text-orange-800' },
-  completed: { label: 'Completed', class: 'bg-green-100 text-green-800' },
-  cancelled: { label: 'Cancelled', class: 'bg-red-100 text-red-800' },
-  disputed: { label: 'Disputed', class: 'bg-gray-100 text-gray-800' },
-}
-
-function StatusBadge({ status }: { status: string }) {
-  const cfg = STATUS_BADGE[status] ?? { label: status, class: 'bg-muted text-foreground' }
-  return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${cfg.class}`}>
-      {cfg.label}
-    </span>
-  )
-}
 
 // ─── Progress bar ──────────────────────────────────────────────────────────────
 

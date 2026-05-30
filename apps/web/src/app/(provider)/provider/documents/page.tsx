@@ -8,10 +8,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { PageHeader } from '@/components/shared/page-header'
 import { toast } from 'sonner'
-
-function apiMsg(error: unknown, fallback: string) {
-  return (error as { data?: { message?: string } })?.data?.message ?? fallback
-}
+import { getApiError } from '@/lib/error'
 
 // ─── File upload zone ─────────────────────────────────────────────────────────
 
@@ -110,7 +107,7 @@ export default function ProviderDocumentsPage() {
         refetch()
       },
       onError: (error) => {
-        toast.error(apiMsg(error, 'Failed to upload documents'))
+        toast.error(getApiError(error, 'Failed to upload documents'))
       },
     },
   })

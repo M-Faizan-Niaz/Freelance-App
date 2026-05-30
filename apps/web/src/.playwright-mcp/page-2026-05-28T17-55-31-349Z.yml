@@ -1,0 +1,26 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - heading "Sign in" [level=1] [ref=e5]
+      - paragraph [ref=e6]: Enter your email and password
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - text: Email
+        - textbox "Email" [active] [ref=e9]:
+          - /placeholder: jane@example.com
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]: Password
+          - link "Forgot password?" [ref=e13] [cursor=pointer]:
+            - /url: /auth/forgot-password
+        - textbox "Password" [ref=e14]:
+          - /placeholder: ••••••••
+      - button "Sign in" [ref=e15]
+    - paragraph [ref=e16]:
+      - text: Don't have an account?
+      - link "Create one" [ref=e17] [cursor=pointer]:
+        - /url: /auth/sign-up
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e23] [cursor=pointer]:
+    - img [ref=e24]
+  - alert [ref=e27]

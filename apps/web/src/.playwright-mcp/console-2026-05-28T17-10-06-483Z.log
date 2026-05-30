@@ -1,0 +1,10 @@
+[     229ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     287ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    8423ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    8433ms] [LOG] [Fast Refresh] done in 121ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   16072ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "new-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-up:0
+[   16072ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "new-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-up:0
+[   47012ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   47014ms] [LOG] [Fast Refresh] done in 111ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  154435ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  154436ms] [LOG] [Fast Refresh] done in 101ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431

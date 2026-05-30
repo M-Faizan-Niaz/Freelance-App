@@ -3,20 +3,11 @@ import type { CreateRoute, ListRoute, PatchRoute, RemoveRoute } from './todos.ro
 
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 import { successResponse } from '@/lib/api-response';
-import { auth } from '@/lib/auth';
-import { UnauthorizedError } from '@/core/errors';
+import { requireUserId } from '@/lib/require-auth';
 
 import { TodosService } from './todos.service';
 
 const todosService = new TodosService();
-
-async function requireUserId(headers: Headers): Promise<string> {
-  const session = await auth.api.getSession({ headers });
-  if (!session?.user?.id) {
-    throw new UnauthorizedError('You must be signed in to access todos');
-  }
-  return session.user.id;
-}
 
 export const list: AppRouteHandler<ListRoute> = async (c) => {
   const userId = await requireUserId(c.req.raw.headers);

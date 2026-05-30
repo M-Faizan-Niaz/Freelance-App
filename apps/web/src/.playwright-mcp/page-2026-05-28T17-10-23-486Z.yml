@@ -1,0 +1,40 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - button "Back" [ref=e35]:
+        - img [ref=e36]
+        - text: Back
+      - heading "Customer account" [level=1] [ref=e38]
+      - paragraph [ref=e39]: Book trusted home services.
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - text: Full Name
+        - textbox "Full Name" [ref=e42]:
+          - /placeholder: Jane Doe
+      - generic [ref=e43]:
+        - text: Email
+        - textbox "Email" [ref=e44]:
+          - /placeholder: jane@example.com
+      - generic [ref=e45]:
+        - text: Phone Number
+        - textbox "Phone Number" [ref=e46]:
+          - /placeholder: "+923001234567"
+        - paragraph [ref=e47]: International format, no spaces (e.g. +923001234567)
+      - generic [ref=e48]:
+        - text: Password
+        - textbox "Password" [ref=e49]:
+          - /placeholder: Min. 8 characters
+        - paragraph [ref=e50]: Must include uppercase, lowercase, number, and special character
+      - generic [ref=e51]:
+        - text: Confirm Password
+        - textbox "Confirm Password" [ref=e52]:
+          - /placeholder: ••••••••
+      - button "Create account" [ref=e53]
+    - paragraph [ref=e23]:
+      - text: Already have an account?
+      - link "Sign in" [ref=e24] [cursor=pointer]:
+        - /url: /auth/sign-in
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e30] [cursor=pointer]:
+    - img [ref=e31]
+  - alert [ref=e34]

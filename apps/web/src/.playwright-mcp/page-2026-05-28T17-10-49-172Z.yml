@@ -1,0 +1,21 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e55]:
+    - generic [ref=e56]: 📬
+    - heading "Check your inbox" [level=1] [ref=e57]
+    - paragraph [ref=e58]:
+      - text: We sent a verification link to your email address. Click it to activate your account — the link expires in
+      - strong [ref=e59]: 24 hours
+      - text: .
+    - paragraph [ref=e60]:
+      - text: Didn't receive it? Check your spam folder or
+      - link "try again" [ref=e61] [cursor=pointer]:
+        - /url: /auth/sign-up
+      - text: .
+  - region "Notifications alt+T":
+    - list:
+      - listitem [ref=e62]:
+        - img [ref=e64]
+        - generic [ref=e68]: Account created! Please verify your email.
+  - button "Open Next.js Dev Tools" [ref=e30] [cursor=pointer]:
+    - img [ref=e31]
+  - alert [ref=e34]

@@ -27,14 +27,21 @@ export const getMyProfile = createRoute({
   method: 'get',
   tags,
   summary: 'Get own provider profile',
-  description: 'Returns the authenticated provider\'s full profile including mutable fields.',
+  description: "Returns the authenticated provider's full profile including mutable fields.",
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(myProviderProfileResponseSchema, 'Profile retrieved successfully'),
+      createSuccessResponseSchema(
+        myProviderProfileResponseSchema,
+        'Profile retrieved successfully',
+      ),
       'Own provider profile',
     ),
     ...commonErrorResponses(
-      [HttpStatusCodes.UNAUTHORIZED, HttpStatusCodes.NOT_FOUND, HttpStatusCodes.INTERNAL_SERVER_ERROR],
+      [
+        HttpStatusCodes.UNAUTHORIZED,
+        HttpStatusCodes.NOT_FOUND,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      ],
       myProviderProfileResponseSchema,
     ),
   },
@@ -190,9 +197,6 @@ export const deletePortfolio = createRoute({
   },
 });
 
-
-
-
 export const listProviders = createRoute({
   operationId: 'listServiceProviders',
   path: '/service-providers',
@@ -227,7 +231,10 @@ export const getProviderById = createRoute({
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      createSuccessResponseSchema(publicProviderDetailSchema, 'Provider profile retrieved successfully'),
+      createSuccessResponseSchema(
+        publicProviderDetailSchema,
+        'Provider profile retrieved successfully',
+      ),
       'Provider public profile',
     ),
     ...commonErrorResponses(

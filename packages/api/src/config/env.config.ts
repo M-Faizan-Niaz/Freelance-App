@@ -59,6 +59,8 @@ const EnvSchema = z
     BETTER_AUTH_SECRET: z.string(),
     BETTER_AUTH_URL: z.string(),
     ADMIN_URL: z.string(),
+    WEB_URL: z.string(),
+    COOKIE_DOMAIN: z.string().optional(),
     ALLOWED_ORIGINS: z
       .string()
       .optional()

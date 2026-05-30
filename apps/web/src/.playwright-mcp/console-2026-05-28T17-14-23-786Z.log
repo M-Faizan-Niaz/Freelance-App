@@ -1,0 +1,11 @@
+[     105ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-in:0
+[     149ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     200ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   18706ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   18737ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   19025ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-in?callbackUrl=%2Fdashboard:0
+[   23951ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   24002ms] [LOG] [Fast Refresh] done in 159ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   79973ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   80011ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   80255ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-in?callbackUrl=%2Fdashboard:0

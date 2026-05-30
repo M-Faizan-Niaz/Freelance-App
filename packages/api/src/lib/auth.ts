@@ -284,7 +284,7 @@ export const auth = betterAuth({
       // Send a frontend URL so the verify-email page handles the token,
       // instead of emailing the raw backend endpoint which would verify
       // server-side and redirect with no token visible to the frontend page.
-      const frontendUrl = new URL('/auth/verify-email', env.ADMIN_URL);
+      const frontendUrl = new URL('/auth/verify-email', env.WEB_URL);
       frontendUrl.searchParams.set('token', token!);
       await AuthService.sendVerificationEmail(user, frontendUrl.toString());
     },

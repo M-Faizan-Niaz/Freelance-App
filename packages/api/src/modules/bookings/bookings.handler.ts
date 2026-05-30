@@ -9,24 +9,16 @@ import type {
 } from './bookings.route';
 import type { AppRouteHandler } from '@/lib/types';
 
-import { AppError, UnauthorizedError } from '@/core/errors';
+import { AppError } from '@/core/errors';
 import { storageService } from '@/common/services/storage.service';
 import { generateUniqueFileName, validateFileSize, validateImageFile } from '@/common/upload-helpers';
 import { successResponse, successResponseWithPagination } from '@/lib/api-response';
-import { auth } from '@/lib/auth';
+import { requireUserId } from '@/lib/require-auth';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 
 import { BookingsService } from './bookings.service';
 
 const service = new BookingsService();
-
-async function requireUserId(headers: Headers): Promise<string> {
-  const session = await auth.api.getSession({ headers });
-  if (!session?.user?.id) {
-    throw new UnauthorizedError('Authentication required');
-  }
-  return session.user.id;
-}
 
 export const createBooking: AppRouteHandler<CreateBookingRoute> = async (c) => {
   const userId = await requireUserId(c.req.raw.headers);

@@ -1,0 +1,153 @@
+- generic:
+  - generic:
+    - banner:
+      - generic:
+        - generic:
+          - link:
+            - /url: /
+            - generic: S
+            - text: ServeEase
+          - navigation:
+            - link:
+              - /url: /services
+              - text: Browse Services
+            - link:
+              - /url: /providers
+              - text: Find Providers
+          - generic:
+            - link:
+              - /url: /dashboard
+              - text: Switch to Customer
+            - link:
+              - /url: /notifications
+              - img
+            - button [expanded]:
+              - generic:
+                - generic: A
+              - generic: Ahmed Khan
+              - img
+    - generic:
+      - complementary:
+        - generic:
+          - generic:
+            - generic:
+              - navigation:
+                - link:
+                  - /url: /dashboard
+                  - img
+                  - generic: Dashboard
+                - link:
+                  - /url: /bookings
+                  - img
+                  - generic: My Bookings
+                - link:
+                  - /url: /messages
+                  - img
+                  - generic: Messages
+                - link:
+                  - /url: /notifications
+                  - img
+                  - generic: Notifications
+                - link:
+                  - /url: /profile
+                  - img
+                  - generic: Profile
+                  - img
+                - link:
+                  - /url: /profile/addresses
+                  - img
+                  - generic: Addresses
+      - main:
+        - generic:
+          - generic:
+            - generic:
+              - heading [level=1]: My Profile
+              - paragraph: Manage your personal information and activity.
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: A
+                  - button:
+                    - img
+                - generic:
+                  - generic:
+                    - heading [level=2]: Ahmed Khan
+                    - generic: active
+                  - paragraph: ahmed.khan@serveease.test
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - paragraph: "0"
+                    - paragraph: Total Bookings
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - paragraph: PKR 0
+                    - paragraph: Total Spent
+          - generic:
+            - generic:
+              - generic:
+                - generic: Personal Information
+              - generic:
+                - generic:
+                  - generic: Full Name
+                  - textbox:
+                    - /placeholder: Your full name
+                    - text: Ahmed Khan
+                - generic:
+                  - generic: Email
+                  - textbox [disabled]: ahmed.khan@serveease.test
+                - generic:
+                  - generic: Phone Number
+                  - textbox:
+                    - /placeholder: +92 3XX XXXXXXX
+                    - text: "+923001234567"
+                - button: Save Changes
+            - generic:
+              - generic:
+                - generic: Recent Bookings
+                - link:
+                  - /url: /bookings
+                  - text: View All
+                  - img
+              - generic:
+                - generic:
+                  - img
+                  - paragraph: No bookings yet
+                  - link:
+                    - /url: /services
+                    - text: Browse Services
+          - generic:
+            - generic:
+              - generic: Saved Addresses
+              - link:
+                - /url: /profile/addresses
+                - text: Manage
+                - img
+            - generic:
+              - generic:
+                - img
+                - paragraph: No saved addresses yet
+                - link:
+                  - /url: /profile/addresses
+                  - text: Add Address
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e135] [cursor=pointer]:
+    - img [ref=e136]
+  - alert
+  - menu "A Ahmed Khan" [active] [ref=e222]:
+    - menuitem "Profile" [ref=e223]:
+      - img
+      - text: Profile
+    - menuitem "My Bookings" [ref=e224]:
+      - img
+      - text: My Bookings
+    - separator [ref=e225]
+    - menuitem "Sign Out" [ref=e226]:
+      - img
+      - text: Sign Out

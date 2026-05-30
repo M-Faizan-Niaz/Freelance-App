@@ -1,0 +1,120 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link "Switch to Customer" [ref=e12] [cursor=pointer]:
+            - /url: /dashboard
+          - link [ref=e13] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e14]
+          - button "A Ahmed Khan" [active] [ref=e17]:
+            - generic [ref=e19]: A
+            - generic [ref=e20]: Ahmed Khan
+            - img [ref=e21]
+    - generic [ref=e23]:
+      - complementary [ref=e24]:
+        - navigation [ref=e28]:
+          - link "Dashboard" [ref=e29] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e30]
+            - generic [ref=e35]: Dashboard
+          - link "My Bookings" [ref=e38] [cursor=pointer]:
+            - /url: /bookings
+            - img [ref=e39]
+            - generic [ref=e41]: My Bookings
+          - link "Messages" [ref=e42] [cursor=pointer]:
+            - /url: /messages
+            - img [ref=e43]
+            - generic [ref=e45]: Messages
+          - link "Notifications" [ref=e46] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e47]
+            - generic [ref=e50]: Notifications
+          - link "Profile" [ref=e51] [cursor=pointer]:
+            - /url: /profile
+            - img [ref=e52]
+            - generic [ref=e55]: Profile
+            - img [ref=e145]
+          - link "Addresses" [ref=e56] [cursor=pointer]:
+            - /url: /profile/addresses
+            - img [ref=e57]
+            - generic [ref=e60]: Addresses
+      - main [ref=e61]:
+        - generic [ref=e147]:
+          - generic [ref=e149]:
+            - heading "My Profile" [level=1] [ref=e150]
+            - paragraph [ref=e151]: Manage your personal information and activity.
+          - generic [ref=e153]:
+            - generic [ref=e154]:
+              - generic [ref=e155]:
+                - generic [ref=e157]: A
+                - button "Change photo" [ref=e158]:
+                  - img [ref=e159]
+              - generic [ref=e162]:
+                - generic [ref=e163]:
+                  - heading "Ahmed Khan" [level=2] [ref=e164]
+                  - generic [ref=e165]: active
+                - paragraph [ref=e166]: ahmed.khan@serveease.test
+            - generic [ref=e167]:
+              - generic [ref=e168]:
+                - img [ref=e170]
+                - generic [ref=e172]:
+                  - paragraph [ref=e173]: "0"
+                  - paragraph [ref=e174]: Total Bookings
+              - generic [ref=e175]:
+                - img [ref=e177]
+                - generic [ref=e179]:
+                  - paragraph [ref=e180]: PKR 0
+                  - paragraph [ref=e181]: Total Spent
+          - generic [ref=e182]:
+            - generic [ref=e183]:
+              - generic [ref=e185]: Personal Information
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - generic [ref=e188]: Full Name
+                  - textbox "Your full name" [ref=e189]: Ahmed Khan
+                - generic [ref=e190]:
+                  - generic [ref=e191]: Email
+                  - textbox [disabled] [ref=e192]: ahmed.khan@serveease.test
+                - generic [ref=e193]:
+                  - generic [ref=e194]: Phone Number
+                  - textbox "+92 3XX XXXXXXX" [ref=e195]: "+923001234567"
+                - button "Save Changes" [ref=e196]
+            - generic [ref=e197]:
+              - generic [ref=e198]:
+                - generic [ref=e199]: Recent Bookings
+                - link "View All" [ref=e200] [cursor=pointer]:
+                  - /url: /bookings
+                  - text: View All
+                  - img [ref=e201]
+              - generic [ref=e204]:
+                - img [ref=e205]
+                - paragraph [ref=e207]: No bookings yet
+                - link "Browse Services" [ref=e208] [cursor=pointer]:
+                  - /url: /services
+          - generic [ref=e209]:
+            - generic [ref=e210]:
+              - generic [ref=e211]: Saved Addresses
+              - link "Manage" [ref=e212] [cursor=pointer]:
+                - /url: /profile/addresses
+                - text: Manage
+                - img [ref=e213]
+            - generic [ref=e216]:
+              - img [ref=e217]
+              - paragraph [ref=e220]: No saved addresses yet
+              - link "Add Address" [ref=e221] [cursor=pointer]:
+                - /url: /profile/addresses
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e135] [cursor=pointer]:
+    - img [ref=e136]
+  - alert [ref=e139]

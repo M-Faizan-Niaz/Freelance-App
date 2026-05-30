@@ -29,12 +29,9 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Separator } from '@/components/ui/separator'
 import { toast } from 'sonner'
 import Link from 'next/link'
+import { getApiError } from '@/lib/error'
 
 type Category = ListServiceCategories200DataItem
-
-function apiMsg(error: unknown, fallback: string) {
-  return (error as { data?: { message?: string } })?.data?.message ?? fallback
-}
 
 function statusBadge(status: string) {
   if (status === 'approved')
@@ -89,21 +86,21 @@ export default function ProviderProfilePage() {
   const { mutate: uploadPhoto, isPending: photoPending } = useUploadProfilePhoto({
     mutation: {
       onSuccess: () => { toast.success('Profile photo updated'); refetchMe() },
-      onError: (e) => toast.error(apiMsg(e, 'Failed to upload photo')),
+      onError: (e) => toast.error(getApiError(e, 'Failed to upload photo')),
     },
   })
 
   const { mutate: updateMe, isPending: mePending } = useUpdateMe({
     mutation: {
       onSuccess: () => { toast.success('Personal info saved'); refetchMe() },
-      onError: (e) => toast.error(apiMsg(e, 'Failed to save personal info')),
+      onError: (e) => toast.error(getApiError(e, 'Failed to save personal info')),
     },
   })
 
   const { mutate: updateProfile, isPending: profilePending } = useUpdateMyProviderProfile({
     mutation: {
       onSuccess: () => { toast.success('Profile updated'); refetchSp() },
-      onError: (e) => toast.error(apiMsg(e, 'Failed to update profile')),
+      onError: (e) => toast.error(getApiError(e, 'Failed to update profile')),
     },
   })
 

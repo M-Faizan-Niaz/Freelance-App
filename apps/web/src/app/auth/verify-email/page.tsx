@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 import { CheckCircle, Loader2, XCircle } from 'lucide-react'
-import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
 
 function VerifyEmailContent() {
@@ -20,23 +19,17 @@ function VerifyEmailContent() {
 
     setStatus('loading')
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/v1/api/auth/verify-email`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ token }),
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/v1/api/auth/verify-email?token=${encodeURIComponent(token)}`,
+      { method: 'GET', credentials: 'include' },
+    )
       .then(async (res) => {
         const json = await res.json().catch(() => ({}))
         if (!res.ok) throw new Error(json?.message ?? 'Verification failed. The link may have expired.')
         setStatus('success')
-        const session = await authClient.getSession()
-        const roleId = (session?.data?.user as { roleId?: number } | null)?.roleId
         setTimeout(() => {
-          if (roleId === 2) router.push('/provider/onboarding')
-          else if (roleId === 1) router.push('/dashboard')
-          else router.push('/auth/sign-in')
-        }, 1500)
+          router.push('/auth/sign-in')
+        }, 2000)
       })
       .catch((err: Error) => {
         setStatus('error')
@@ -64,7 +57,7 @@ function VerifyEmailContent() {
         <div className="w-full max-w-sm space-y-4 text-center">
           <CheckCircle className="h-12 w-12 text-green-500 mx-auto" />
           <h1 className="text-xl font-semibold">Email verified!</h1>
-          <p className="text-sm text-muted-foreground">Redirecting you to complete your profile…</p>
+          <p className="text-sm text-muted-foreground">Your email has been verified. Redirecting you to sign in…</p>
         </div>
       </div>
     )

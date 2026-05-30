@@ -1,0 +1,5 @@
+[     161ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     214ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     458ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-in?callbackUrl=%2Fdashboard:0
+[    5545ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    5580ms] [LOG] [Fast Refresh] done in 138ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431

@@ -29,10 +29,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
-
-function apiMsg(error: unknown, fallback: string) {
-  return (error as { data?: { message?: string } })?.data?.message ?? fallback
-}
+import { getApiError } from '@/lib/error'
 
 type Category = ListServiceCategories200DataItem
 
@@ -185,7 +182,7 @@ export default function ProviderOnboardingPage() {
         toast.success('Photo uploaded')
       },
       onError: (error) => {
-        toast.error(apiMsg(error, 'Failed to upload photo'))
+        toast.error(getApiError(error, 'Failed to upload photo'))
       },
     },
   })
@@ -196,7 +193,7 @@ export default function ProviderOnboardingPage() {
         setStep(1)
       },
       onError: (error) => {
-        toast.error(apiMsg(error, 'Failed to save personal info'))
+        toast.error(getApiError(error, 'Failed to save personal info'))
       },
     },
   })
@@ -208,7 +205,7 @@ export default function ProviderOnboardingPage() {
         setStep(2)
       },
       onError: (error) => {
-        toast.error(apiMsg(error, 'Failed to save services'))
+        toast.error(getApiError(error, 'Failed to save services'))
       },
     },
   })
@@ -220,7 +217,7 @@ export default function ProviderOnboardingPage() {
         setStep(3)
       },
       onError: (error) => {
-        toast.error(apiMsg(error, 'Failed to upload documents'))
+        toast.error(getApiError(error, 'Failed to upload documents'))
       },
     },
   })
@@ -236,7 +233,7 @@ export default function ProviderOnboardingPage() {
       setStep(4)
     },
     onError: (error) => {
-      toast.error(apiMsg(error, 'Failed to upload portfolio'))
+      toast.error(getApiError(error, 'Failed to upload portfolio'))
     },
   })
 

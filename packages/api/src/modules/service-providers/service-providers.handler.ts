@@ -10,8 +10,8 @@ import type {
 } from './service-providers.route';
 import type { AppRouteHandler } from '@/lib/types';
 
-import { AppError, UnauthorizedError } from '@/core/errors';
-import { successResponseWithPagination } from '@/lib/api-response';
+import { AppError } from '@/core/errors';
+import { successResponse, successResponseWithPagination } from '@/lib/api-response';
 import { storageService } from '@/common/services/storage.service';
 import {
   generateUniqueFileName,
@@ -19,21 +19,12 @@ import {
   validateFileSize,
   validateImageFile,
 } from '@/common/upload-helpers';
-import { successResponse } from '@/lib/api-response';
-import { auth } from '@/lib/auth';
+import { requireUserId } from '@/lib/require-auth';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 
 import { ServiceProvidersService } from './service-providers.service';
 
 const service = new ServiceProvidersService();
-
-async function requireUserId(headers: Headers): Promise<string> {
-  const session = await auth.api.getSession({ headers });
-  if (!session?.user?.id) {
-    throw new UnauthorizedError('Authentication required');
-  }
-  return session.user.id;
-}
 
 export const getMyProfile: AppRouteHandler<GetMyProfileRoute> = async (c) => {
   const userId = await requireUserId(c.req.raw.headers);

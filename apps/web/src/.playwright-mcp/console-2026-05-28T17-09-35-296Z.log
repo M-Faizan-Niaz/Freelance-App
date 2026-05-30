@@ -1,0 +1,9 @@
+[     122ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     417ms] [LOG] [Fast Refresh] done in 399ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     481ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     586ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     732ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     735ms] [LOG] [Fast Refresh] done in 118ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     935ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-in?callbackUrl=%2Fbookings:0
+[    9792ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    9804ms] [LOG] [Fast Refresh] done in 121ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431

@@ -1,0 +1,20 @@
+[      87ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[     198ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     271ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     553ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[    1569ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[    4570ms] [WARNING] The resource https://web.viteplusmono.test/_next/static/media/83afe278b6a6bb3c-s.p.0q-301v4kxxnr.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://web.viteplusmono.test/provider/onboarding:0
+[    9165ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    9205ms] [LOG] [Fast Refresh] done in 149ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1912672ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1912712ms] [LOG] [Fast Refresh] done in 147ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1919026ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1919209ms] [LOG] [Fast Refresh] done in 295ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1951661ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1951724ms] [LOG] [Fast Refresh] done in 166ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1960129ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1960192ms] [LOG] [Fast Refresh] done in 168ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1967968ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1968013ms] [LOG] [Fast Refresh] done in 156ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1968531ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[ 1968547ms] [LOG] [Fast Refresh] done in 122ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431

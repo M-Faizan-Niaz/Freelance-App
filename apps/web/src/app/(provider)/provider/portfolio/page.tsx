@@ -16,10 +16,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { PageHeader } from '@/components/shared/page-header'
 import { EmptyState } from '@/components/shared/empty-state'
 import { toast } from 'sonner'
-
-function apiMsg(error: unknown, fallback: string) {
-  return (error as { data?: { message?: string } })?.data?.message ?? fallback
-}
+import { getApiError } from '@/lib/error'
 
 const MAX_PHOTOS = 10
 
@@ -61,7 +58,7 @@ export default function PortfolioPage() {
       refetch()
     },
     onError: (error) => {
-      toast.error(apiMsg(error, 'Failed to upload photos'))
+      toast.error(getApiError(error, 'Failed to upload photos'))
     },
   })
 
@@ -80,7 +77,7 @@ export default function PortfolioPage() {
         refetch()
       },
       onError: (error) => {
-        toast.error(apiMsg(error, 'Failed to delete photo'))
+        toast.error(getApiError(error, 'Failed to delete photo'))
         setDeletingFileNames(new Set())
       },
     },

@@ -1,0 +1,146 @@
+- generic:
+  - generic:
+    - banner:
+      - generic:
+        - generic:
+          - link:
+            - /url: /
+            - generic: S
+            - text: ServeEase
+          - navigation:
+            - link:
+              - /url: /services
+              - text: Browse Services
+            - link:
+              - /url: /providers
+              - text: Find Providers
+          - generic:
+            - link:
+              - /url: /dashboard
+              - text: Switch to Customer
+            - link:
+              - /url: /notifications
+              - img
+            - button [expanded]:
+              - generic:
+                - generic: A
+              - generic: Ahmed Khan
+              - img
+    - generic:
+      - complementary:
+        - generic:
+          - generic:
+            - generic:
+              - navigation:
+                - link:
+                  - /url: /dashboard
+                  - img
+                  - generic: Dashboard
+                  - img
+                - link:
+                  - /url: /bookings
+                  - img
+                  - generic: My Bookings
+                - link:
+                  - /url: /messages
+                  - img
+                  - generic: Messages
+                - link:
+                  - /url: /notifications
+                  - img
+                  - generic: Notifications
+                - link:
+                  - /url: /profile
+                  - img
+                  - generic: Profile
+                - link:
+                  - /url: /profile/addresses
+                  - img
+                  - generic: Addresses
+      - main:
+        - generic:
+          - generic:
+            - generic:
+              - heading [level=1]: Welcome back, Ahmed 👋
+              - paragraph: Here's what's happening with your bookings today.
+            - generic:
+              - link:
+                - /url: /services
+                - img
+                - text: Book a Service
+          - generic:
+            - link:
+              - /url: /bookings
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - paragraph: "0"
+                      - paragraph: Total Bookings
+            - link:
+              - /url: /bookings?status=confirmed
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - paragraph: "0"
+                      - paragraph: Active Bookings
+            - link:
+              - /url: /bookings?status=completed
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                    - generic:
+                      - paragraph: "0"
+                      - paragraph: Completed
+          - generic:
+            - generic:
+              - heading [level=2]: Recent Bookings
+              - link:
+                - /url: /bookings
+                - text: View All
+                - img
+            - generic:
+              - generic:
+                - img
+              - heading [level=3]: No bookings yet
+              - paragraph: Browse our services and book your first appointment.
+              - link:
+                - /url: /services
+                - text: Browse Services
+          - generic:
+            - heading [level=2]: Quick Actions
+            - generic:
+              - link:
+                - /url: /services
+                - img
+                - generic: Browse Services
+              - link:
+                - /url: /bookings
+                - img
+                - generic: My Bookings
+              - link:
+                - /url: /messages
+                - img
+                - generic: Messages
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e135] [cursor=pointer]:
+    - img [ref=e136]
+  - alert
+  - menu "A Ahmed Khan" [active] [ref=e140]:
+    - menuitem "Profile" [ref=e141]:
+      - img
+      - text: Profile
+    - menuitem "My Bookings" [ref=e142]:
+      - img
+      - text: My Bookings
+    - separator [ref=e143]
+    - menuitem "Sign Out" [ref=e144]:
+      - img
+      - text: Sign Out
