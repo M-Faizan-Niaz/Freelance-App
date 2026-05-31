@@ -2,21 +2,36 @@
 
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { authClient } from '@/lib/auth-client';
+import { useSession } from '@/hooks/use-session';
 
 function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/';
+  const session = useSession();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  // Holds the destination URL while we wait for the session atom to update
+  const [pendingNav, setPendingNav] = useState<string | null>(null);
+
+  // Navigate only after the session atom has been populated post-sign-in.
+  // Without this guard, router.push fires before better-auth's 10 ms internal
+  // setTimeout flips the session signal, causing AuthGuard to see stale
+  // { data: null, isPending: false } and redirect back to sign-in.
+  useEffect(() => {
+    if (pendingNav && session.data) {
+      setPendingNav(null);
+      router.push(pendingNav);
+    }
+  }, [pendingNav, session.data, router]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -42,7 +57,8 @@ function SignInForm() {
       return;
     }
 
-    router.push(callbackUrl);
+    // Wait for session atom to confirm the new session before navigating.
+    setPendingNav(callbackUrl);
   }
 
   return (
@@ -92,8 +108,8 @@ function SignInForm() {
 
           {error && <p className="text-sm text-destructive">{error}</p>}
 
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? 'Signing in…' : 'Sign in'}
+          <Button type="submit" className="w-full" disabled={loading || !!pendingNav}>
+            {loading || pendingNav ? 'Signing in…' : 'Sign in'}
           </Button>
         </form>
 

@@ -1,0 +1,220 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link "Sign In" [ref=e12] [cursor=pointer]:
+            - /url: /auth/sign-in
+          - link "Join Free" [ref=e13] [cursor=pointer]:
+            - /url: /auth/sign-up
+    - generic [ref=e15]:
+      - heading "Book trusted services near you" [level=1] [ref=e16]
+      - paragraph [ref=e17]: From cleaning to plumbing, electricians to carpenters — find verified professionals in your city, available today.
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - img [ref=e20]
+          - textbox "What service do you need?" [ref=e23]
+        - link "Search" [ref=e24] [cursor=pointer]:
+          - /url: /services
+      - generic [ref=e25]:
+        - link "Browse All Services" [ref=e26] [cursor=pointer]:
+          - /url: /services
+        - link "Become a Provider" [ref=e27] [cursor=pointer]:
+          - /url: /auth/sign-up
+          - text: Become a Provider
+          - img [ref=e28]
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - paragraph [ref=e33]: 5,000+
+        - paragraph [ref=e34]: Verified Providers
+      - generic [ref=e35]:
+        - paragraph [ref=e36]: 50,000+
+        - paragraph [ref=e37]: Jobs Completed
+      - generic [ref=e38]:
+        - paragraph [ref=e39]: 4.8★
+        - paragraph [ref=e40]: Average Rating
+      - generic [ref=e41]:
+        - paragraph [ref=e42]: 98%
+        - paragraph [ref=e43]: Satisfaction Rate
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - heading "Popular Services" [level=2] [ref=e47]
+        - paragraph [ref=e48]: Browse our most booked service categories
+      - generic [ref=e49]:
+        - link "A AC Repair Air conditioner servicing, repair, and installation" [ref=e50] [cursor=pointer]:
+          - /url: /services/3
+          - generic [ref=e52]: A
+          - generic [ref=e53]:
+            - paragraph [ref=e54]: AC Repair
+            - paragraph [ref=e55]: Air conditioner servicing, repair, and installation
+        - link "C Carpenter Furniture, woodwork, and carpentry services" [ref=e56] [cursor=pointer]:
+          - /url: /services/5
+          - generic [ref=e58]: C
+          - generic [ref=e59]:
+            - paragraph [ref=e60]: Carpenter
+            - paragraph [ref=e61]: Furniture, woodwork, and carpentry services
+        - link "C CCTV Installation Security camera installation and maintenance" [ref=e62] [cursor=pointer]:
+          - /url: /services/8
+          - generic [ref=e64]: C
+          - generic [ref=e65]:
+            - paragraph [ref=e66]: CCTV Installation
+            - paragraph [ref=e67]: Security camera installation and maintenance
+        - link "E Electrician Electrical wiring, repairs, and installations" [ref=e68] [cursor=pointer]:
+          - /url: /services/1
+          - generic [ref=e70]: E
+          - generic [ref=e71]:
+            - paragraph [ref=e72]: Electrician
+            - paragraph [ref=e73]: Electrical wiring, repairs, and installations
+        - link "G Gardening Garden maintenance, landscaping, and planting" [ref=e74] [cursor=pointer]:
+          - /url: /services/10
+          - generic [ref=e76]: G
+          - generic [ref=e77]:
+            - paragraph [ref=e78]: Gardening
+            - paragraph [ref=e79]: Garden maintenance, landscaping, and planting
+        - link "H House Cleaning Residential cleaning and sanitation services" [ref=e80] [cursor=pointer]:
+          - /url: /services/6
+          - generic [ref=e82]: H
+          - generic [ref=e83]:
+            - paragraph [ref=e84]: House Cleaning
+            - paragraph [ref=e85]: Residential cleaning and sanitation services
+        - link "L Locksmith Lock repair, replacement, and key duplication" [ref=e86] [cursor=pointer]:
+          - /url: /services/12
+          - generic [ref=e88]: L
+          - generic [ref=e89]:
+            - paragraph [ref=e90]: Locksmith
+            - paragraph [ref=e91]: Lock repair, replacement, and key duplication
+        - link "M Mason Brickwork, tiling, and construction services" [ref=e92] [cursor=pointer]:
+          - /url: /services/7
+          - generic [ref=e94]: M
+          - generic [ref=e95]:
+            - paragraph [ref=e96]: Mason
+            - paragraph [ref=e97]: Brickwork, tiling, and construction services
+        - link "P Painter Interior and exterior painting services" [ref=e98] [cursor=pointer]:
+          - /url: /services/4
+          - generic [ref=e100]: P
+          - generic [ref=e101]:
+            - paragraph [ref=e102]: Painter
+            - paragraph [ref=e103]: Interior and exterior painting services
+        - link "P Pest Control Pest extermination and prevention services" [ref=e104] [cursor=pointer]:
+          - /url: /services/11
+          - generic [ref=e106]: P
+          - generic [ref=e107]:
+            - paragraph [ref=e108]: Pest Control
+            - paragraph [ref=e109]: Pest extermination and prevention services
+        - link "P Plumber Plumbing repairs, installation, and maintenance" [ref=e110] [cursor=pointer]:
+          - /url: /services/2
+          - generic [ref=e112]: P
+          - generic [ref=e113]:
+            - paragraph [ref=e114]: Plumber
+            - paragraph [ref=e115]: Plumbing repairs, installation, and maintenance
+        - link "S Solar Panel Solar panel installation and maintenance" [ref=e116] [cursor=pointer]:
+          - /url: /services/9
+          - generic [ref=e118]: S
+          - generic [ref=e119]:
+            - paragraph [ref=e120]: Solar Panel
+            - paragraph [ref=e121]: Solar panel installation and maintenance
+      - link "View All Services" [ref=e123] [cursor=pointer]:
+        - /url: /services
+        - text: View All Services
+        - img [ref=e124]
+    - generic [ref=e127]:
+      - generic [ref=e128]:
+        - heading "How It Works" [level=2] [ref=e129]
+        - paragraph [ref=e130]: Get any service done in 3 simple steps
+      - generic [ref=e131]:
+        - generic [ref=e132]:
+          - img [ref=e134]
+          - generic [ref=e137]: STEP 01
+          - heading "Browse Services" [level=3] [ref=e138]
+          - paragraph [ref=e139]: Search from 50+ service categories. Find verified professionals near you.
+        - generic [ref=e140]:
+          - img [ref=e142]
+          - generic [ref=e145]: STEP 02
+          - heading "Book Instantly" [level=3] [ref=e146]
+          - paragraph [ref=e147]: Choose your provider, pick a time slot, and confirm your booking in minutes.
+        - generic [ref=e148]:
+          - img [ref=e150]
+          - generic [ref=e153]: STEP 03
+          - heading "Service Done" [level=3] [ref=e154]
+          - paragraph [ref=e155]: Your provider arrives on time. Pay securely after the job is complete.
+    - generic [ref=e157]:
+      - heading "Why Choose ServeEase?" [level=2] [ref=e158]
+      - generic [ref=e159]:
+        - generic [ref=e160]:
+          - img [ref=e162]
+          - heading "Verified Providers" [level=3] [ref=e164]
+          - paragraph [ref=e165]: Every provider is CNIC-verified and background checked before joining.
+        - generic [ref=e166]:
+          - img [ref=e168]
+          - heading "Rated & Reviewed" [level=3] [ref=e170]
+          - paragraph [ref=e171]: Read real reviews from real customers before booking.
+        - generic [ref=e172]:
+          - img [ref=e174]
+          - heading "Secure Payments" [level=3] [ref=e177]
+          - paragraph [ref=e178]: Your payment is safe. Only released after you confirm job completion.
+    - generic [ref=e180]:
+      - heading "Ready to earn on your own terms?" [level=2] [ref=e181]
+      - paragraph [ref=e182]: Join thousands of verified service providers and start receiving jobs in your city today.
+      - link "Become a Provider — It's Free" [ref=e183] [cursor=pointer]:
+        - /url: /auth/sign-up
+    - contentinfo [ref=e184]:
+      - generic [ref=e185]:
+        - generic [ref=e186]:
+          - generic [ref=e187]:
+            - link "S ServeEase" [ref=e188] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e189]: S
+              - text: ServeEase
+            - paragraph [ref=e190]: Pakistan's trusted platform for on-demand home services. Verified providers, secure payments.
+          - generic [ref=e191]:
+            - heading "Services" [level=3] [ref=e192]
+            - list [ref=e193]:
+              - listitem [ref=e194]:
+                - link "Browse Services" [ref=e195] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e196]:
+                - link "Find Providers" [ref=e197] [cursor=pointer]:
+                  - /url: /providers
+              - listitem [ref=e198]:
+                - link "How It Works" [ref=e199] [cursor=pointer]:
+                  - /url: /#how-it-works
+          - generic [ref=e200]:
+            - heading "For Providers" [level=3] [ref=e201]
+            - list [ref=e202]:
+              - listitem [ref=e203]:
+                - link "Become a Provider" [ref=e204] [cursor=pointer]:
+                  - /url: /auth/sign-up
+              - listitem [ref=e205]:
+                - link "Provider Dashboard" [ref=e206] [cursor=pointer]:
+                  - /url: /provider/dashboard
+              - listitem [ref=e207]:
+                - link "Upload Portfolio" [ref=e208] [cursor=pointer]:
+                  - /url: /provider/portfolio
+          - generic [ref=e209]:
+            - heading "Support" [level=3] [ref=e210]
+            - list [ref=e211]:
+              - listitem [ref=e212]:
+                - link "Help Center" [ref=e213] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e214]:
+                - link "Contact Us" [ref=e215] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e216]:
+                - link "Privacy Policy" [ref=e217] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=e218]:
+          - paragraph [ref=e219]: © 2026 ServeEase. All rights reserved.
+          - paragraph [ref=e220]: Made with ♥ in Pakistan
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e226] [cursor=pointer]:
+    - img [ref=e227]
+  - alert [ref=e230]

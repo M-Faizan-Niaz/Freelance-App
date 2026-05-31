@@ -1,0 +1,57 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link [ref=e12] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e13]
+          - button "A Ahmed Khan" [ref=e16]:
+            - generic [ref=e18]: A
+            - generic [ref=e19]: Ahmed Khan
+            - img [ref=e20]
+    - generic [ref=e22]:
+      - complementary [ref=e23]:
+        - navigation [ref=e27]:
+          - link "Dashboard" [ref=e28] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e29]
+            - generic [ref=e34]: Dashboard
+          - link "My Bookings" [ref=e35] [cursor=pointer]:
+            - /url: /bookings
+            - img [ref=e36]
+            - generic [ref=e38]: My Bookings
+          - link "Messages" [ref=e39] [cursor=pointer]:
+            - /url: /messages
+            - img [ref=e40]
+            - generic [ref=e42]: Messages
+          - link "Notifications" [ref=e43] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e44]
+            - generic [ref=e47]: Notifications
+          - link "Profile" [ref=e48] [cursor=pointer]:
+            - /url: /profile
+            - img [ref=e49]
+            - generic [ref=e52]: Profile
+            - img [ref=e53]
+          - link "Addresses" [ref=e55] [cursor=pointer]:
+            - /url: /profile/addresses
+            - img [ref=e56]
+            - generic [ref=e59]: Addresses
+      - main [ref=e60]:
+        - generic [ref=e63]:
+          - heading "My Profile" [level=1] [ref=e64]
+          - paragraph [ref=e65]: Manage your account.
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e77] [cursor=pointer]:
+    - img [ref=e78]
+  - alert [ref=e81]

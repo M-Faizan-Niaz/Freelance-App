@@ -1,0 +1,11 @@
+[     115ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://web.viteplusmono.test/auth/sign-in?callbackUrl=%2Fprofile:0
+[     148ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     180ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    9607ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    9749ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me:0
+[    9753ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[    9768ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me/addresses:0
+[    9892ms] [LOG] [Fast Refresh] done in 391ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   10776ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me:0
+[   10820ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   10821ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me/addresses:0
