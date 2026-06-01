@@ -3,7 +3,7 @@
 import { Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { BookOpen } from 'lucide-react'
-import { useListBookings } from '@repo/api-client'
+import { useListBookings, useListServiceCategories, ListBookingsRole } from '@repo/api-client'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Skeleton } from '@/components/ui/skeleton'
 import { PageHeader } from '@/components/shared/page-header'
@@ -13,7 +13,7 @@ import { EmptyState } from '@/components/shared/empty-state'
 const tabs = [
   { value: '', label: 'All' },
   { value: 'pending', label: 'Pending' },
-  { value: 'confirmed', label: 'Confirmed' },
+  { value: 'accepted', label: 'Accepted' },
   { value: 'in_progress', label: 'In Progress' },
   { value: 'completed', label: 'Completed' },
   { value: 'cancelled', label: 'Cancelled' },
@@ -24,9 +24,16 @@ function BookingsContent() {
   const router = useRouter()
   const status = searchParams.get('status') ?? ''
 
-  const { data, isLoading } = useListBookings()
+  const { data, isLoading } = useListBookings({ role: ListBookingsRole.customer })
+  const { data: categoriesData } = useListServiceCategories()
+  const categories = categoriesData?.data ?? []
+
   const allBookings = data?.data ?? []
   const bookings = status ? allBookings.filter(b => b.statusName === status) : allBookings
+
+  function getCategoryName(id: number) {
+    return categories.find(c => c.id === id)?.name ?? `Service #${id}`
+  }
 
   function handleTabChange(value: string) {
     const params = new URLSearchParams()
@@ -68,7 +75,7 @@ function BookingsContent() {
             <BookingCard
               key={b.id}
               id={String(b.id)}
-              categoryName={b.categoryId ? `Service #${b.categoryId}` : 'Service'}
+              categoryName={getCategoryName(b.categoryId)}
               scheduledAt={b.scheduledAt}
               address={b.customerAddress}
               status={b.statusName ?? 'pending'}

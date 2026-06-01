@@ -1,0 +1,96 @@
+- generic:
+  - generic:
+    - banner:
+      - generic:
+        - generic:
+          - link:
+            - /url: /
+            - generic: S
+            - text: ServeEase
+          - navigation:
+            - link:
+              - /url: /services
+              - text: Browse Services
+            - link:
+              - /url: /providers
+              - text: Find Providers
+          - generic:
+            - link:
+              - /url: /dashboard
+              - text: Switch to Customer
+            - link:
+              - /url: /notifications
+              - img
+            - button [expanded]:
+              - generic:
+                - generic: A
+              - generic: Ahmed Khan
+              - img
+    - generic:
+      - complementary:
+        - generic:
+          - paragraph: Provider Mode
+        - generic:
+          - generic:
+            - generic:
+              - navigation:
+                - generic:
+                  - button:
+                    - text: Main
+                    - img
+                  - generic:
+                    - link:
+                      - /url: /provider/dashboard
+                      - img
+                      - generic: Dashboard
+                    - link:
+                      - /url: /provider/bookings
+                      - img
+                      - generic: My Jobs
+                      - img
+                    - link:
+                      - /url: /provider/messages
+                      - img
+                      - generic: Messages
+                    - link:
+                      - /url: /provider/notifications
+                      - img
+                      - generic: Notifications
+                - generic:
+                  - button:
+                    - text: Profile
+                    - img
+      - main:
+        - generic:
+          - generic:
+            - generic:
+              - heading [level=1]: My Jobs
+              - paragraph: Manage all your service jobs.
+          - generic:
+            - tablist:
+              - tab [selected]: All
+              - tab: Pending
+              - tab: Accepted
+              - tab: In Progress
+              - tab: Completed
+              - tab: Cancelled
+          - generic:
+            - generic:
+              - img
+            - heading [level=3]: No jobs found
+            - paragraph: New booking requests will appear here once customers start booking you.
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e85] [cursor=pointer]:
+    - img [ref=e86]
+  - alert
+  - menu "A Ahmed Khan" [active] [ref=e97]:
+    - menuitem "Profile" [ref=e98]:
+      - img
+      - text: Profile
+    - menuitem "My Bookings" [ref=e99]:
+      - img
+      - text: My Bookings
+    - separator [ref=e100]
+    - menuitem "Sign Out" [ref=e101]:
+      - img
+      - text: Sign Out

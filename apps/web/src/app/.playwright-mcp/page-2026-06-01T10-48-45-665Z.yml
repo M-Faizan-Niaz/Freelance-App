@@ -1,0 +1,66 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link [ref=e12] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e13]
+          - button "A Ahmed Khan" [ref=e16]:
+            - generic [ref=e18]: A
+            - generic [ref=e19]: Ahmed Khan
+            - img [ref=e20]
+    - generic [ref=e22]:
+      - complementary [ref=e23]:
+        - paragraph [ref=e25]: Provider Mode
+        - navigation [ref=e29]:
+          - generic [ref=e30]:
+            - button "Main" [ref=e31]:
+              - text: Main
+              - img [ref=e32]
+            - generic [ref=e34]:
+              - link "Dashboard" [ref=e35] [cursor=pointer]:
+                - /url: /provider/dashboard
+                - img [ref=e36]
+                - generic [ref=e41]: Dashboard
+              - link "My Jobs" [ref=e42] [cursor=pointer]:
+                - /url: /provider/bookings
+                - img [ref=e43]
+                - generic [ref=e45]: My Jobs
+                - img [ref=e46]
+              - link "Messages" [ref=e48] [cursor=pointer]:
+                - /url: /provider/messages
+                - img [ref=e49]
+                - generic [ref=e51]: Messages
+              - link "Notifications" [ref=e52] [cursor=pointer]:
+                - /url: /provider/notifications
+                - img [ref=e53]
+                - generic [ref=e56]: Notifications
+          - button "Profile" [ref=e58]:
+            - text: Profile
+            - img [ref=e59]
+      - main [ref=e61]:
+        - generic [ref=e62]:
+          - generic [ref=e64]:
+            - heading "My Jobs" [level=1] [ref=e65]
+            - paragraph [ref=e66]: Manage all your service jobs.
+          - tablist [ref=e68]:
+            - tab "All" [selected] [ref=e69]
+            - tab "Pending" [ref=e70]
+            - tab "Accepted" [ref=e71]
+            - tab "In Progress" [ref=e72]
+            - tab "Completed" [ref=e73]
+            - tab "Cancelled" [ref=e74]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e85] [cursor=pointer]:
+    - img [ref=e86]
+  - alert [ref=e89]

@@ -1,0 +1,24 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - heading "Create an account" [level=1] [ref=e5]
+      - paragraph [ref=e6]: How will you use ServeEase?
+    - generic [ref=e7]:
+      - button "I'm a Customer Book home services" [ref=e8]:
+        - img [ref=e10]
+        - generic [ref=e13]:
+          - paragraph [ref=e14]: I'm a Customer
+          - paragraph [ref=e15]: Book home services
+      - button "I'm a Provider Offer your services" [ref=e16]:
+        - img [ref=e18]
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: I'm a Provider
+          - paragraph [ref=e22]: Offer your services
+    - paragraph [ref=e23]:
+      - text: Already have an account?
+      - link "Sign in" [ref=e24] [cursor=pointer]:
+        - /url: /auth/sign-in
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e30] [cursor=pointer]:
+    - img [ref=e31]
+  - alert [ref=e34]
