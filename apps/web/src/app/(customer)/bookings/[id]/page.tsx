@@ -16,6 +16,7 @@ import {
   Loader2,
   AlertTriangle,
   MessageSquare,
+  CreditCard,
 } from 'lucide-react'
 import {
   useGetBooking,
@@ -24,6 +25,7 @@ import {
   useCancelBooking,
   useRescheduleBooking,
   useCreateOrGetConversation,
+  useGetPaymentByBooking,
 } from '@repo/api-client'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -49,6 +51,14 @@ export default function BookingDetailPage() {
 
   const { data: bookingData, isLoading, refetch } = useGetBooking(bookingId)
   const booking = bookingData?.data
+
+  const { data: paymentData, isError: paymentNotFound } = useGetPaymentByBooking(bookingId, {
+    query: {
+      enabled: !!booking && booking.statusName === 'completed',
+      retry: false,
+    },
+  })
+  const existingPayment = paymentData?.data
 
   const { data: providerData } = useGetServiceProviderById(booking?.providerId ?? null, {
     query: { enabled: !!booking?.providerId },
@@ -373,6 +383,62 @@ export default function BookingDetailPage() {
             </div>
           </CardContent>
         </Card>
+      )}
+
+      {/* Payment section — shown only when booking is completed */}
+      {isCompleted && (
+        existingPayment ? (
+          <Card>
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                  Payment
+                </p>
+                <Badge
+                  variant="outline"
+                  className={
+                    existingPayment.paymentStatusName === 'completed'
+                      ? 'bg-green-100 text-green-800 border-green-200'
+                      : existingPayment.paymentStatusName === 'failed'
+                        ? 'bg-red-100 text-red-800 border-red-200'
+                        : 'bg-yellow-100 text-yellow-800 border-yellow-200'
+                  }
+                >
+                  {existingPayment.paymentStatusName === 'completed'
+                    ? 'Approved'
+                    : existingPayment.paymentStatusName === 'failed'
+                      ? 'Rejected'
+                      : 'Pending Review'}
+                </Badge>
+              </div>
+              <p className="font-semibold text-lg">Rs. {existingPayment.amount}</p>
+              <p className="text-sm text-muted-foreground capitalize mt-0.5">
+                {existingPayment.paymentMethodName}
+              </p>
+              <Button asChild variant="outline" size="sm" className="mt-4 w-full">
+                <Link href={`/payments/${existingPayment.id}`}>
+                  <CreditCard className="h-4 w-4 mr-2" /> View Payment Details
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        ) : paymentNotFound ? (
+          <Card className="border-dashed">
+            <CardContent className="p-5">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                Payment
+              </p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Your booking is complete. Please submit your payment proof to proceed.
+              </p>
+              <Button asChild className="w-full">
+                <Link href={`/bookings/${bookingId}/payment`}>
+                  <CreditCard className="h-4 w-4 mr-2" /> Submit Payment
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        ) : null
       )}
     </div>
   )
