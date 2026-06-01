@@ -1,0 +1,82 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link "Sign In" [ref=e12] [cursor=pointer]:
+            - /url: /auth/sign-in
+          - link "Join Free" [ref=e13] [cursor=pointer]:
+            - /url: /auth/sign-up
+    - generic [ref=e14]:
+      - complementary [ref=e15]:
+        - paragraph [ref=e17]: Provider Mode
+        - navigation [ref=e21]:
+          - generic [ref=e22]:
+            - button "Main" [ref=e23]:
+              - text: Main
+              - img [ref=e24]
+            - generic [ref=e26]:
+              - link "Dashboard" [ref=e27] [cursor=pointer]:
+                - /url: /provider/dashboard
+                - img [ref=e28]
+                - generic [ref=e33]: Dashboard
+                - img [ref=e34]
+              - link "My Jobs" [ref=e36] [cursor=pointer]:
+                - /url: /provider/bookings
+                - img [ref=e37]
+                - generic [ref=e39]: My Jobs
+              - link "Messages" [ref=e40] [cursor=pointer]:
+                - /url: /provider/messages
+                - img [ref=e41]
+                - generic [ref=e43]: Messages
+              - link "Notifications" [ref=e44] [cursor=pointer]:
+                - /url: /provider/notifications
+                - img [ref=e45]
+                - generic [ref=e48]: Notifications
+          - button "Profile" [ref=e50]:
+            - text: Profile
+            - img [ref=e51]
+      - main [ref=e53]:
+        - generic [ref=e54]:
+          - generic [ref=e56]:
+            - heading "Provider Dashboard" [level=1] [ref=e57]
+            - paragraph [ref=e58]: Welcome back, there. Here's your activity today.
+          - generic [ref=e59]:
+            - generic [ref=e62]:
+              - img [ref=e64]
+              - generic [ref=e67]:
+                - paragraph [ref=e68]: —
+                - paragraph [ref=e69]: Today's Jobs
+            - generic [ref=e72]:
+              - img [ref=e74]
+              - generic [ref=e76]:
+                - paragraph [ref=e77]: —
+                - paragraph [ref=e78]: Total Jobs
+            - generic [ref=e81]:
+              - img [ref=e83]
+              - generic [ref=e85]:
+                - paragraph [ref=e86]: —
+                - paragraph [ref=e87]: Completed
+            - generic [ref=e90]:
+              - img [ref=e92]
+              - generic [ref=e95]:
+                - paragraph [ref=e96]: —
+                - paragraph [ref=e97]: Pending
+          - generic [ref=e99]:
+            - heading "Today's Jobs" [level=2] [ref=e100]
+            - link "View All" [ref=e101] [cursor=pointer]:
+              - /url: /provider/bookings
+              - text: View All
+              - img [ref=e102]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e112] [cursor=pointer]:
+    - img [ref=e113]

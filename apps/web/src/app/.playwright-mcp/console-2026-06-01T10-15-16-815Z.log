@@ -1,0 +1,36 @@
+[     118ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     204ms] [LOG] [Fast Refresh] done in 186ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     323ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     394ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     697ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[    1727ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[    3436ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    3437ms] [LOG] [Fast Refresh] done in 111ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[   87395ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me:0
+[   87398ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   87402ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me/addresses:0
+[   88420ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me:0
+[   88441ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   88441ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me/addresses:0
+[   91738ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   92757ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   92930ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me:0
+[   92934ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   92937ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me/addresses:0
+[   93947ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me:0
+[   93966ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   93972ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me/addresses:0
+[   98725ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   99743ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   99964ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me:0
+[   99968ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[   99971ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me/addresses:0
+[  100979ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me:0
+[  101003ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[  101010ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/customers/me/addresses:0
+[  118155ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[  119170ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://api.viteplusmono.test/v1/api/bookings:0
+[  122801ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  122813ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  124258ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[  124281ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431

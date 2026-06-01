@@ -1,0 +1,147 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link "Sign In" [ref=e12] [cursor=pointer]:
+            - /url: /auth/sign-in
+          - link "Join Free" [ref=e13] [cursor=pointer]:
+            - /url: /auth/sign-up
+    - generic [ref=e15]:
+      - heading "Book trusted services near you" [level=1] [ref=e16]
+      - paragraph [ref=e17]: From cleaning to plumbing, electricians to carpenters — find verified professionals in your city, available today.
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - img [ref=e20]
+          - textbox "What service do you need?" [ref=e23]
+        - link "Search" [ref=e24] [cursor=pointer]:
+          - /url: /services
+      - generic [ref=e25]:
+        - link "Browse All Services" [ref=e26] [cursor=pointer]:
+          - /url: /services
+        - link "Become a Provider" [ref=e27] [cursor=pointer]:
+          - /url: /auth/sign-up
+          - text: Become a Provider
+          - img [ref=e28]
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - paragraph [ref=e33]: 5,000+
+        - paragraph [ref=e34]: Verified Providers
+      - generic [ref=e35]:
+        - paragraph [ref=e36]: 50,000+
+        - paragraph [ref=e37]: Jobs Completed
+      - generic [ref=e38]:
+        - paragraph [ref=e39]: 4.8★
+        - paragraph [ref=e40]: Average Rating
+      - generic [ref=e41]:
+        - paragraph [ref=e42]: 98%
+        - paragraph [ref=e43]: Satisfaction Rate
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - heading "Popular Services" [level=2] [ref=e47]
+        - paragraph [ref=e48]: Browse our most booked service categories
+      - link "View All Services" [ref=e63] [cursor=pointer]:
+        - /url: /services
+        - text: View All Services
+        - img [ref=e64]
+    - generic [ref=e67]:
+      - generic [ref=e68]:
+        - heading "How It Works" [level=2] [ref=e69]
+        - paragraph [ref=e70]: Get any service done in 3 simple steps
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - img [ref=e74]
+          - generic [ref=e77]: STEP 01
+          - heading "Browse Services" [level=3] [ref=e78]
+          - paragraph [ref=e79]: Search from 50+ service categories. Find verified professionals near you.
+        - generic [ref=e80]:
+          - img [ref=e82]
+          - generic [ref=e85]: STEP 02
+          - heading "Book Instantly" [level=3] [ref=e86]
+          - paragraph [ref=e87]: Choose your provider, pick a time slot, and confirm your booking in minutes.
+        - generic [ref=e88]:
+          - img [ref=e90]
+          - generic [ref=e93]: STEP 03
+          - heading "Service Done" [level=3] [ref=e94]
+          - paragraph [ref=e95]: Your provider arrives on time. Pay securely after the job is complete.
+    - generic [ref=e97]:
+      - heading "Why Choose ServeEase?" [level=2] [ref=e98]
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - img [ref=e102]
+          - heading "Verified Providers" [level=3] [ref=e104]
+          - paragraph [ref=e105]: Every provider is CNIC-verified and background checked before joining.
+        - generic [ref=e106]:
+          - img [ref=e108]
+          - heading "Rated & Reviewed" [level=3] [ref=e110]
+          - paragraph [ref=e111]: Read real reviews from real customers before booking.
+        - generic [ref=e112]:
+          - img [ref=e114]
+          - heading "Secure Payments" [level=3] [ref=e117]
+          - paragraph [ref=e118]: Your payment is safe. Only released after you confirm job completion.
+    - generic [ref=e120]:
+      - heading "Ready to earn on your own terms?" [level=2] [ref=e121]
+      - paragraph [ref=e122]: Join thousands of verified service providers and start receiving jobs in your city today.
+      - link "Become a Provider — It's Free" [ref=e123] [cursor=pointer]:
+        - /url: /auth/sign-up
+    - contentinfo [ref=e124]:
+      - generic [ref=e125]:
+        - generic [ref=e126]:
+          - generic [ref=e127]:
+            - link "S ServeEase" [ref=e128] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e129]: S
+              - text: ServeEase
+            - paragraph [ref=e130]: Pakistan's trusted platform for on-demand home services. Verified providers, secure payments.
+          - generic [ref=e131]:
+            - heading "Services" [level=3] [ref=e132]
+            - list [ref=e133]:
+              - listitem [ref=e134]:
+                - link "Browse Services" [ref=e135] [cursor=pointer]:
+                  - /url: /services
+              - listitem [ref=e136]:
+                - link "Find Providers" [ref=e137] [cursor=pointer]:
+                  - /url: /providers
+              - listitem [ref=e138]:
+                - link "How It Works" [ref=e139] [cursor=pointer]:
+                  - /url: /#how-it-works
+          - generic [ref=e140]:
+            - heading "For Providers" [level=3] [ref=e141]
+            - list [ref=e142]:
+              - listitem [ref=e143]:
+                - link "Become a Provider" [ref=e144] [cursor=pointer]:
+                  - /url: /auth/sign-up
+              - listitem [ref=e145]:
+                - link "Provider Dashboard" [ref=e146] [cursor=pointer]:
+                  - /url: /provider/dashboard
+              - listitem [ref=e147]:
+                - link "Upload Portfolio" [ref=e148] [cursor=pointer]:
+                  - /url: /provider/portfolio
+          - generic [ref=e149]:
+            - heading "Support" [level=3] [ref=e150]
+            - list [ref=e151]:
+              - listitem [ref=e152]:
+                - link "Help Center" [ref=e153] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e154]:
+                - link "Contact Us" [ref=e155] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e156]:
+                - link "Privacy Policy" [ref=e157] [cursor=pointer]:
+                  - /url: "#"
+        - generic [ref=e158]:
+          - paragraph [ref=e159]: © 2026 ServeEase. All rights reserved.
+          - paragraph [ref=e160]: Made with ♥ in Pakistan
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e166] [cursor=pointer]:
+    - img [ref=e167]
+  - alert [ref=e170]

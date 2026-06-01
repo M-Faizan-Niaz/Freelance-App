@@ -1,0 +1,111 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "S ServeEase" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e7]: S
+          - text: ServeEase
+        - navigation [ref=e8]:
+          - link "Browse Services" [ref=e9] [cursor=pointer]:
+            - /url: /services
+          - link "Find Providers" [ref=e10] [cursor=pointer]:
+            - /url: /providers
+        - generic [ref=e11]:
+          - link "Switch to Customer" [ref=e116] [cursor=pointer]:
+            - /url: /dashboard
+          - link [ref=e117] [cursor=pointer]:
+            - /url: /notifications
+            - img [ref=e118]
+          - button "A Ahmed Khan" [ref=e121]:
+            - generic [ref=e123]: A
+            - generic [ref=e124]: Ahmed Khan
+            - img [ref=e125]
+    - generic [ref=e14]:
+      - complementary [ref=e15]:
+        - paragraph [ref=e17]: Provider Mode
+        - navigation [ref=e21]:
+          - generic [ref=e22]:
+            - button "Main" [ref=e23]:
+              - text: Main
+              - img [ref=e24]
+            - generic [ref=e26]:
+              - link "Dashboard" [ref=e27] [cursor=pointer]:
+                - /url: /provider/dashboard
+                - img [ref=e28]
+                - generic [ref=e33]: Dashboard
+                - img [ref=e34]
+              - link "My Jobs" [ref=e36] [cursor=pointer]:
+                - /url: /provider/bookings
+                - img [ref=e37]
+                - generic [ref=e39]: My Jobs
+              - link "Messages" [ref=e40] [cursor=pointer]:
+                - /url: /provider/messages
+                - img [ref=e41]
+                - generic [ref=e43]: Messages
+              - link "Notifications" [ref=e44] [cursor=pointer]:
+                - /url: /provider/notifications
+                - img [ref=e45]
+                - generic [ref=e48]: Notifications
+          - generic [ref=e49]:
+            - button "Profile" [active] [ref=e50]:
+              - text: Profile
+              - img [ref=e51]
+            - generic [ref=e134]:
+              - link "Profile Onboarding" [ref=e135] [cursor=pointer]:
+                - /url: /provider/onboarding
+                - img [ref=e136]
+                - generic [ref=e139]: Profile Onboarding
+              - link "My Profile" [ref=e140] [cursor=pointer]:
+                - /url: /provider/profile
+                - img [ref=e141]
+                - generic [ref=e144]: My Profile
+              - link "Verification" [ref=e145] [cursor=pointer]:
+                - /url: /provider/documents
+                - img [ref=e146]
+                - generic [ref=e149]: Verification
+              - link "Portfolio" [ref=e150] [cursor=pointer]:
+                - /url: /provider/portfolio
+                - img [ref=e151]
+                - generic [ref=e156]: Portfolio
+      - main [ref=e53]:
+        - generic [ref=e54]:
+          - generic [ref=e56]:
+            - heading "Provider Dashboard" [level=1] [ref=e57]
+            - paragraph [ref=e58]: Welcome back, Ahmed. Here's your activity today.
+          - generic [ref=e59]:
+            - generic [ref=e62]:
+              - img [ref=e64]
+              - generic [ref=e67]:
+                - paragraph [ref=e68]: "0"
+                - paragraph [ref=e69]: Today's Jobs
+            - generic [ref=e72]:
+              - img [ref=e74]
+              - generic [ref=e76]:
+                - paragraph [ref=e77]: "0"
+                - paragraph [ref=e78]: Total Jobs
+            - generic [ref=e81]:
+              - img [ref=e83]
+              - generic [ref=e85]:
+                - paragraph [ref=e86]: "0"
+                - paragraph [ref=e87]: Completed
+            - generic [ref=e90]:
+              - img [ref=e92]
+              - generic [ref=e95]:
+                - paragraph [ref=e96]: "0"
+                - paragraph [ref=e97]: Pending
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - heading "Today's Jobs" [level=2] [ref=e100]
+              - link "View All" [ref=e101] [cursor=pointer]:
+                - /url: /provider/bookings
+                - text: View All
+                - img [ref=e102]
+            - generic [ref=e127]:
+              - img [ref=e129]
+              - heading "No jobs today" [level=3] [ref=e131]
+              - paragraph [ref=e132]: You have no bookings scheduled for today.
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e112] [cursor=pointer]:
+    - img [ref=e113]
+  - alert [ref=e133]

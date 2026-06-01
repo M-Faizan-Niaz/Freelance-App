@@ -1,0 +1,7 @@
+[     302ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     337ms] [LOG] [HMR] connected @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[     444ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://web.viteplusmono.test/favicon.ico:0
+[     445ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[    1451ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://api.viteplusmono.test/v1/api/users/me:0
+[    3274ms] [LOG] [Fast Refresh] rebuilding @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
+[    3752ms] [LOG] [Fast Refresh] done in 528ms @ https://web.viteplusmono.test/_next/static/chunks/0c2-_next_dist_0otjl-h._.js:2431
