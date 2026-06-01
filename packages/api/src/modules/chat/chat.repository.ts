@@ -1,6 +1,6 @@
 import type { TX } from '@/lib/types';
 
-import { and, count, desc, eq, inArray, ne, or, sql } from 'drizzle-orm';
+import { and, count, desc, eq, inArray, ne, or, sql, asc } from 'drizzle-orm';
 
 import db from '@/db';
 import { bookings } from '@/db/models/bookings.model';
@@ -13,16 +13,16 @@ import { userProfiles } from '@/db/models/user-profiles.model';
 
 export class ChatRepository {
   async findManyForUser(userId: string, limit: number, offset: number) {
-    // Subquery for the last message content per conversation
+    // One row per conversation: the most recent non-deleted message
     const lastMessageSq = db
-      .select({
+      .selectDistinctOn([messages.conversationId], {
         conversationId: messages.conversationId,
         content: messages.content,
         sentAt: messages.createdAt,
       })
       .from(messages)
       .where(eq(messages.isDeleted, false))
-      .orderBy(desc(messages.createdAt))
+      .orderBy(asc(messages.conversationId), desc(messages.createdAt))
       .as('last_msg');
 
     const rows = await db

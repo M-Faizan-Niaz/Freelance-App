@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
   ArrowLeft,
@@ -15,6 +15,7 @@ import {
   CheckCircle2,
   Loader2,
   AlertTriangle,
+  MessageSquare,
 } from 'lucide-react'
 import {
   useGetBooking,
@@ -22,6 +23,7 @@ import {
   useListServiceCategories,
   useCancelBooking,
   useRescheduleBooking,
+  useCreateOrGetConversation,
 } from '@repo/api-client'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -37,6 +39,7 @@ const CANCELLABLE_STATUSES = ['pending', 'accepted', 'travelling']
 
 export default function BookingDetailPage() {
   const params = useParams()
+  const router = useRouter()
   const bookingId = Number(params.id)
 
   const [showCancel, setShowCancel] = useState(false)
@@ -64,6 +67,13 @@ export default function BookingDetailPage() {
         refetch()
       },
       onError: () => toast.error('Failed to cancel booking.'),
+    },
+  })
+
+  const { mutate: startChat, isPending: starting } = useCreateOrGetConversation({
+    mutation: {
+      onSuccess: (data) => router.push(`/messages?c=${data.data.id}`),
+      onError: () => toast.error('Could not start conversation.'),
     },
   })
 
@@ -243,6 +253,16 @@ export default function BookingDetailPage() {
                 </span>
               </div>
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-4 w-full"
+              disabled={starting}
+              onClick={() => startChat({ data: { providerId: booking.providerId, bookingId: booking.id } })}
+            >
+              <MessageSquare className="h-4 w-4 mr-2" />
+              {starting ? 'Opening…' : 'Message Provider'}
+            </Button>
           </CardContent>
         </Card>
       )}
