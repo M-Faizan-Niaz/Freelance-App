@@ -9025,6 +9025,9 @@
                         "statusName": {
                           "type": "string"
                         },
+                        "providerName": {
+                          "type": "string"
+                        },
                         "cancelledBy": {
                           "type": "string",
                           "nullable": true
@@ -9057,6 +9060,7 @@
                         "commissionAmount",
                         "statusId",
                         "statusName",
+                        "providerName",
                         "cancelledBy",
                         "cancellationReason",
                         "createdAt",
@@ -9486,6 +9490,9 @@
                           "statusName": {
                             "type": "string"
                           },
+                          "providerName": {
+                            "type": "string"
+                          },
                           "cancelledBy": {
                             "type": "string",
                             "nullable": true
@@ -9518,6 +9525,7 @@
                           "commissionAmount",
                           "statusId",
                           "statusName",
+                          "providerName",
                           "cancelledBy",
                           "cancellationReason",
                           "createdAt",
@@ -9812,6 +9820,9 @@
                         "statusName": {
                           "type": "string"
                         },
+                        "providerName": {
+                          "type": "string"
+                        },
                         "cancelledBy": {
                           "type": "string",
                           "nullable": true
@@ -9844,6 +9855,7 @@
                         "commissionAmount",
                         "statusId",
                         "statusName",
+                        "providerName",
                         "cancelledBy",
                         "cancellationReason",
                         "createdAt",
@@ -10209,6 +10221,9 @@
                         "statusName": {
                           "type": "string"
                         },
+                        "providerName": {
+                          "type": "string"
+                        },
                         "cancelledBy": {
                           "type": "string",
                           "nullable": true
@@ -10241,6 +10256,7 @@
                         "commissionAmount",
                         "statusId",
                         "statusName",
+                        "providerName",
                         "cancelledBy",
                         "cancellationReason",
                         "createdAt",
@@ -10691,6 +10707,9 @@
                         "statusName": {
                           "type": "string"
                         },
+                        "providerName": {
+                          "type": "string"
+                        },
                         "cancelledBy": {
                           "type": "string",
                           "nullable": true
@@ -10723,6 +10742,7 @@
                         "commissionAmount",
                         "statusId",
                         "statusName",
+                        "providerName",
                         "cancelledBy",
                         "cancellationReason",
                         "createdAt",
@@ -11173,6 +11193,9 @@
                         "statusName": {
                           "type": "string"
                         },
+                        "providerName": {
+                          "type": "string"
+                        },
                         "cancelledBy": {
                           "type": "string",
                           "nullable": true
@@ -11205,6 +11228,7 @@
                         "commissionAmount",
                         "statusId",
                         "statusName",
+                        "providerName",
                         "cancelledBy",
                         "cancellationReason",
                         "createdAt",

@@ -7,6 +7,7 @@ import { bookingStatuses } from '@/db/models/lookups.model';
 import { commissionSettings } from '@/db/models/admin.model';
 import { customers } from '@/db/models/customers.model';
 import { serviceProviders } from '@/db/models/service-providers.model';
+import { userProfiles } from '@/db/models/user-profiles.model';
 import { getPaginationValues } from '@/lib/searching-sorting';
 
 const bookingSelect = {
@@ -26,6 +27,7 @@ const bookingSelect = {
   commissionAmount: bookings.commissionAmount,
   statusId: bookings.statusId,
   statusName: bookingStatuses.name,
+  providerName: userProfiles.fullName,
   cancelledBy: bookings.cancelledBy,
   cancellationReason: bookings.cancellationReason,
   createdAt: bookings.createdAt,
@@ -78,6 +80,7 @@ export class BookingsRepository {
       .innerJoin(bookingStatuses, eq(bookingStatuses.id, bookings.statusId))
       .innerJoin(customers, eq(customers.id, bookings.customerId))
       .innerJoin(serviceProviders, eq(serviceProviders.id, bookings.providerId))
+      .innerJoin(userProfiles, eq(userProfiles.userId, serviceProviders.userId))
       .where(and(eq(bookings.id, id), eq(bookings.isDeleted, false)))
       .limit(1);
 
@@ -105,6 +108,8 @@ export class BookingsRepository {
       .select(bookingSelect)
       .from(bookings)
       .innerJoin(bookingStatuses, eq(bookingStatuses.id, bookings.statusId))
+      .innerJoin(serviceProviders, eq(serviceProviders.id, bookings.providerId))
+      .innerJoin(userProfiles, eq(userProfiles.userId, serviceProviders.userId))
       .where(and(eq(bookings.customerId, customerId), eq(bookings.isDeleted, false)))
       .orderBy(desc(bookings.createdAt))
       .limit(limitVal)
@@ -128,6 +133,8 @@ export class BookingsRepository {
       .select(bookingSelect)
       .from(bookings)
       .innerJoin(bookingStatuses, eq(bookingStatuses.id, bookings.statusId))
+      .innerJoin(serviceProviders, eq(serviceProviders.id, bookings.providerId))
+      .innerJoin(userProfiles, eq(userProfiles.userId, serviceProviders.userId))
       .where(and(eq(bookings.providerId, providerId), eq(bookings.isDeleted, false)))
       .orderBy(desc(bookings.createdAt))
       .limit(limitVal)

@@ -5,6 +5,8 @@ import db from '@/db';
 import * as HttpStatusCodes from '@/lib/http-status-codes';
 import { createPagination } from '@/lib/searching-sorting';
 import { CustomersRepository } from '@/modules/customers/customers.repository';
+import { NOTIFICATION_TYPE } from '@/modules/notifications/notifications.constants';
+import { NotificationsService } from '@/modules/notifications/notifications.service';
 import { ServiceProvidersRepository } from '@/modules/service-providers/service-providers.repository';
 
 import {
@@ -75,6 +77,15 @@ export class BookingsService {
 
     const full = await this.repo.findById(booking.id);
     if (!full) throw new AppError('Booking could not be fetched after creation');
+
+    NotificationsService.send(
+      full.providerUserId,
+      NOTIFICATION_TYPE.SYSTEM,
+      'New Booking Request',
+      'You have a new booking request from a customer.',
+      { bookingId: full.id },
+    ).catch(console.error);
+
     return full;
   }
 
@@ -136,6 +147,51 @@ export class BookingsService {
 
     const updated = await this.repo.findById(bookingId);
     if (!updated) throw new AppError('Booking could not be fetched after update');
+
+    const statusNotifications: Partial<Record<string, { type: typeof NOTIFICATION_TYPE[keyof typeof NOTIFICATION_TYPE]; title: string; body: string }>> = {
+      [BOOKING_STATUS.ACCEPTED]: {
+        type: NOTIFICATION_TYPE.BOOKING_CONFIRMED,
+        title: 'Booking Confirmed',
+        body: 'Your booking has been confirmed. The provider will be on their way soon.',
+      },
+      [BOOKING_STATUS.REJECTED]: {
+        type: NOTIFICATION_TYPE.SYSTEM,
+        title: 'Booking Declined',
+        body: 'Unfortunately, the provider was unable to accept your booking.',
+      },
+      [BOOKING_STATUS.TRAVELLING]: {
+        type: NOTIFICATION_TYPE.PROVIDER_ON_WAY,
+        title: 'Provider On The Way',
+        body: 'Your provider is heading to your location.',
+      },
+      [BOOKING_STATUS.ARRIVED]: {
+        type: NOTIFICATION_TYPE.SYSTEM,
+        title: 'Provider Arrived',
+        body: 'Your provider has arrived at your location.',
+      },
+      [BOOKING_STATUS.IN_PROGRESS]: {
+        type: NOTIFICATION_TYPE.SYSTEM,
+        title: 'Service In Progress',
+        body: 'Your service is now underway.',
+      },
+      [BOOKING_STATUS.COMPLETED]: {
+        type: NOTIFICATION_TYPE.REVIEW_REMINDER,
+        title: 'Service Completed',
+        body: "Your service is complete! Don't forget to leave a review.",
+      },
+    };
+
+    const notif = statusNotifications[newStatus];
+    if (notif) {
+      NotificationsService.send(
+        updated.customerUserId,
+        notif.type,
+        notif.title,
+        notif.body,
+        { bookingId: updated.id },
+      ).catch(console.error);
+    }
+
     return updated;
   }
 
@@ -164,6 +220,18 @@ export class BookingsService {
 
     const updated = await this.repo.findById(bookingId);
     if (!updated) throw new AppError('Booking could not be fetched after cancellation');
+
+    const cancelledByCustomer = userId === updated.customerUserId;
+    NotificationsService.send(
+      cancelledByCustomer ? updated.providerUserId : updated.customerUserId,
+      NOTIFICATION_TYPE.SYSTEM,
+      'Booking Cancelled',
+      cancelledByCustomer
+        ? 'A customer has cancelled their booking.'
+        : 'Your provider has cancelled the booking.',
+      { bookingId: updated.id },
+    ).catch(console.error);
+
     return updated;
   }
 
@@ -189,6 +257,15 @@ export class BookingsService {
 
     const updated = await this.repo.findById(bookingId);
     if (!updated) throw new AppError('Booking could not be fetched after reschedule');
+
+    NotificationsService.send(
+      updated.providerUserId,
+      NOTIFICATION_TYPE.SYSTEM,
+      'Booking Rescheduled',
+      'A customer has rescheduled their booking to a new time.',
+      { bookingId: updated.id },
+    ).catch(console.error);
+
     return updated;
   }
 

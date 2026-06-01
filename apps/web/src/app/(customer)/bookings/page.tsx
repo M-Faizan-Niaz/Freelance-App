@@ -76,6 +76,7 @@ function BookingsContent() {
               key={b.id}
               id={String(b.id)}
               categoryName={getCategoryName(b.categoryId)}
+              providerName={b.providerName}
               scheduledAt={b.scheduledAt}
               address={b.customerAddress}
               status={b.statusName ?? 'pending'}

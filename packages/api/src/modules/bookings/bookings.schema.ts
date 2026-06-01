@@ -81,6 +81,7 @@ export const bookingResponseSchema = z.object({
   commissionAmount: z.string().nullable(),
   statusId: z.number(),
   statusName: z.string(),
+  providerName: z.string(),
   cancelledBy: z.string().nullable(),
   cancellationReason: z.string().nullable(),
   createdAt: z.string(),

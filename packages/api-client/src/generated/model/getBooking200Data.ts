@@ -30,6 +30,7 @@ export type GetBooking200Data = {
   commissionAmount: string | null;
   statusId: number;
   statusName: string;
+  providerName: string;
   /** @nullable */
   cancelledBy: string | null;
   /** @nullable */
